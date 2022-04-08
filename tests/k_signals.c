@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   k_readline.c                                       :+:      :+:    :+:   */
+/*   k_signals.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 10:55:20 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/07 13:08:32 by kmilchev         ###   ########.fr       */
+/*   Created: 2022/04/07 12:21:16 by kmilchev          #+#    #+#             */
+/*   Updated: 2022/04/07 13:10:17 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,22 @@
 #include <limits.h>
 #include <stdlib.h>
 #include "../42_libft/libft.h"
+#include <signal.h>
 
-//To use the readline library specify -lreadline to your compiler.
+void handler(int sig)
+{
+	// printf("Semeczniki\n");
+	char *line;
+	line = readline("kis619_shell >\n");
+	//printf("\n");
+	free(line);
+}
+
 int main(int argc, char *argv[], char *envv[])
 {
 	char *line;
-	// char cwd[PATH_MAX];
-	
+	signal(SIGINT, handler);
+
 	while(1)
 	{
 		line = readline("kis619_shell >");
@@ -32,8 +41,6 @@ int main(int argc, char *argv[], char *envv[])
 			break ;
 		if (ft_strlen(line) > 0)
 			add_history(line);
-		printf("%s\n", line);
 		free(line);
 	}
 }
-
