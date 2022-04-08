@@ -1,0 +1,6 @@
+some words ||"
+words are here
+hmmm|"m
+words are still here
+line with single quote |'
+another one |'
