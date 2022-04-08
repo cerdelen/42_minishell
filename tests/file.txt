@@ -1,6 +1,0 @@
-line 1
-line 2
-another line
-line 3
-line 4
-another other line
