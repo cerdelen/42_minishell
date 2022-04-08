@@ -1,0 +1,4 @@
+int	echo(char *arg)
+{
+	
+}
