@@ -60,16 +60,25 @@ int	command_cd(char *pathname)
 		{
 			error_msg = strerror(errno);
 			printf("cd: %s: %s\n", error_msg, pathname);
+			if (ft_strncmp("/",pathname, 1) != 0)
+				free(path_after_mod);
 			return (1);
 		}
 	}
+	if (ft_strncmp("/",pathname, 1) != 0)
+				free(path_after_mod);
 	return (0);
 }
 
 int main(int argc, char **argv)
 {
-	printf("pwd before call = %s\n", ft_getcwd());
-	command_cd(argv[1]);
-	printf("pwd after call = %s\n", ft_getcwd());
+	char *XD;
 
+	XD = ft_getcwd();
+	printf("pwd before call = %s\n", XD);
+	free(XD);
+	command_cd(argv[1]);
+	XD = ft_getcwd();
+	printf("pwd after call = %s\n", XD);
+	free(XD);
 }
