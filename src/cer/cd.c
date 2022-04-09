@@ -1,9 +1,15 @@
 #include "minishell.h"
-#include <errno.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <limits.h>
-#include <stdlib.h>
+
+char	*ft_tripple_strjoin(char *s1, char *s2, char *s3)
+{
+	char	*temp;
+	char	*out;
+
+	temp = ft_strjoin(s1, s2);
+	out = ft_strjoin(temp, s3);
+	free(temp);
+	return (out);
+}
 
 char *ft_getcwd(void)
 {
@@ -24,43 +30,46 @@ char *ft_getcwd(void)
 	return (completepath);
 }
 
-char	*ft_erase_l_folder_of_path(char *cur_wd)
-{
-	char	*temp;
-	char	*out;
-
-	temp = ft_strrchr(cur_wd, '\\');
-	if (temp)
-		temp[1] = 0;
-	out = ft_strlcpy(cur_wd, ft_strlen(cur_wd));
-	return (out);
-}
-
 static char *man_path_for_cd(char *pathname)
 {
 	char	*cur_wd;
 	int		ret;
 	char	*out;
 
+	if (ft_strncmp("/",pathname, 1) == 0)
+		return (pathname);
 	cur_wd = ft_getcwd();
-	if (ft_strncmp("..", pathname, ft_strlen(pathname)) == 0)
-		return (ft_erase_l_folder_of_path(cur_wd));
-	else if (ft_strncmp(".", pathname, ft_strlen(pathname)) == 0)
-		return ();
-	else
-		out = ft_strjoin(cur_wd, pathname);
-		free(cur_wd);
-		return (ft_strjoin(cur_wd, pathname));
-
+	out = ft_tripple_strjoin(cur_wd, "/", pathname);
+	free(cur_wd);
+	return (out);
 }
+
 
 int	command_cd(char *pathname)
 {
-	
-	if (!chdir(pathname))
+	char	*path_after_mod;
+	int		check;
+	char	*error_msg;
+
+	path_after_mod = man_path_for_cd(pathname);
+	// printf("string for chdir = %s\n", path_after_mod);
+	if (path_after_mod)
 	{
-		perror(pathname);
-		return (1);
+		check = chdir(path_after_mod);
+		if (check != 0)
+		{
+			error_msg = strerror(errno);
+			printf("cd: %s: %s\n", error_msg, pathname);
+			return (1);
+		}
 	}
 	return (0);
+}
+
+int main(int argc, char **argv)
+{
+	printf("pwd before call = %s\n", ft_getcwd());
+	command_cd(argv[1]);
+	printf("pwd after call = %s\n", ft_getcwd());
+
 }
