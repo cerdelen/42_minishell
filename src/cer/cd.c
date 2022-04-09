@@ -6,7 +6,7 @@
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 14:23:49 by cerdelen          #+#    #+#             */
-/*   Updated: 2022/04/09 14:27:19 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/04/09 14:42:05 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ int	command_cd(char *pathname)
 	int		check;
 	char	*error_msg;
 
+	if (pathname == NULL)
+		return (0);
+	if (ft_strlen(pathname) == 0)
+		return (0);
 	path_after_mod = man_path_for_cd(pathname);
 	if (path_after_mod)
 	{
@@ -76,7 +80,12 @@ int	main(int argc, char **argv)
 	test = ft_getcwd();
 	printf("pwd before call = %s\n", test);
 	free(test);
-	command_cd(argv[1]);
+	if (argc == 1)
+		command_cd(NULL);
+	if (argc == 1)
+		command_cd("");
+	else
+		command_cd(argv[1]);
 	test = ft_getcwd();
 	printf("pwd after call = %s\n", test);
 	free(test);
