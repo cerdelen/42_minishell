@@ -5,4 +5,7 @@ Lib:
 all:
 
 cd: Lib
-	gcc cd.c ../../Libft/libft.a -o test
+	gcc cd.c ../../Libft/libft.a utils.c -o cd_test
+
+pwd:
+	gcc pwd.c -o pwd_test
