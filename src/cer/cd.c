@@ -66,7 +66,7 @@ int	command_cd(char *pathname)
 		}
 	}
 	if (ft_strncmp("/",pathname, 1) != 0)
-				free(path_after_mod);
+		free(path_after_mod);
 	return (0);
 }
 
