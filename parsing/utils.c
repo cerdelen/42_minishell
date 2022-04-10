@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 15:44:57 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/10 12:56:17 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/10 16:48:37 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,27 @@ void print_struct_array(t_full_pipe *arr, int n_elements)
 	i = 0;
 	while (i < n_elements)
 	{
+		printf("\nELEMENT %d ---------------------\n", i);
 		if (arr[i].reddir_in)
+		{
+			printf("Redirection in:\n");
 			print_2d_array(arr[i].reddir_in);
-		if (arr[i].reddir_out)	
+		}
+		if (arr[i].reddir_out)
+		{
+			printf("Redirection out:\n");
 			print_2d_array(arr[i].reddir_out);
-		if (arr[i].here_doc)	
+		}
+		if (arr[i].reddir_out_app)
+		{
+			printf("Double Redirection out:\n");
+			print_2d_array(arr[i].reddir_out_app);
+		}
+		if (arr[i].here_doc)
+		{
+			printf("Here_doc Redirection :\n");
 			print_2d_array(arr[i].here_doc);
+		}
 		i++;
 	}
 }
@@ -63,6 +78,7 @@ void free_struct_array(t_full_pipe *arr, int n_elements)
 		free_2d_array(arr[i].reddir_in);
 		free_2d_array(arr[i].reddir_out);
 		free_2d_array(arr[i].here_doc);
+		free_2d_array(arr[i].reddir_out_app);
 		i++;
 	}
 	free(arr);
@@ -99,15 +115,13 @@ int count_double_chars(char *str, char c)
 	while (str[idx + 2])
 	{
 		if (quotes_are_closed_no_loop(str[idx]) && str[idx] == c && str[idx + 1] == c)
-		{
-			if (str[idx + 2] == c)
-			{
-				printf("Triple redirection\n");
-				return (-1);
-			}
 			count++;
-		}
 		idx++;
 	}
+	while (str[idx])
+	{
+		quotes_are_closed_no_loop(str[idx++]);
+	}
+	
 	return (count);
 }

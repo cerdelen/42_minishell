@@ -6,21 +6,14 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 11:34:42 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/10 12:55:05 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/10 16:19:33 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-int main(void)
+int errors(char *string)
 {
-	t_r_s vars;
-	char *string;
-	char **complex_commands;
-	int n_cmds;
-	t_full_pipe *list_cmds;
-	
-	string = "cmd1 'flags' >output1 >    output2 | cmd2 < input> | cmd \"some random ass shit\" | peace >output";
 	if (!quotes_are_closed(string))
 	{
 		printf("quotes_error: Quotes are not closed\n");
@@ -31,20 +24,47 @@ int main(void)
 		printf("double_pipe_error: Only single pipes allowed\n");
 		return (2);
 	}
+	if (multiple_redirection(string, '<') || multiple_redirection(string, '>'))
+	{
+		printf("multiple angular brace: only >, <, >>, and << allowed\n");
+		return (3);
+	}
+	return (0);
+}
+
+int main(void)
+{
+	t_r_s vars;
+	char *string;
+	char **complex_commands;
+	int n_cmds;
+	t_full_pipe *list_cmds;
+	
+	string = "<<here_doc cmd1 'flags' >output1 >    output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough";
+	if (errors(string))
+		return (EXIT_FAILURE);
+	
 	complex_commands = modified_split(string, '|');
 	n_cmds = count_chars(string, '|') + 1;
-
 	list_cmds = malloc(sizeof(t_full_pipe) * n_cmds + 1);
+	
 	int i = 0;
 	while (complex_commands[i])
 	{
-		list_cmds[i].reddir_out = get_single_redirections(&complex_commands[i], '>', &vars);
+		list_cmds[i].reddir_out_app = get_double_redirections(&complex_commands[i], '>', &vars);
+		list_cmds[i].here_doc = get_double_redirections(&complex_commands[i], '<', &vars);
 		i++;
 	}
 	i = 0;
 	while (complex_commands[i])
 	{
+		list_cmds[i].reddir_out = get_single_redirections(&complex_commands[i], '>', &vars);
 		list_cmds[i].reddir_in = get_single_redirections(&complex_commands[i], '<', &vars);
+		i++;
+	}
+	i = 0;
+	while (complex_commands[i])
+	{
 		i++;
 	}
 	print_struct_array(list_cmds, n_cmds);
