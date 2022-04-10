@@ -21,24 +21,43 @@ void	execute_command(char *argv, char **possible_paths, char **envp)
 	exit(1);
 }
 
-void	spawn_process(char *argv[], char **possible_paths, char *envp[])
+int		spawn_process(t_ms_data *data, char **possible_paths, char *envp[])
 {
-	pid_t	pid;
 	int		fd[2];
+	int		check;
 
-	ft_validity_check(pipe(fd), "Piping error");
-	pid = fork();
-	ft_validity_check(pid, "Forking error");
-	if (pid == 0)
+	check = ft_validity_check(pipe(fd), "Piping error");
+	if (check == 0)
+		return (1);
+	data->p_id = fork();
+	check = ft_validity_check(data->p_id, "Forking error");
+	if (check == 0)
+		return (2);
+	if (data->p_id == 0)
 	{
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		execute_command(argv[0], possible_paths, envp);
 	}
 	dup2(fd[0], STDIN_FILENO);
-	waitpid(pid, NULL, 1);
+	waitpid(data->p_id, NULL, 1);
 	close(fd[1]);
+	return (0);
 }
+
+int	here_doc_func(t_ms_data *data, int fd_in)
+{
+	char	*buf;
+
+
+	buf = malloc(sizeof(char) * (ft_strlen(data->limiter) + 1));
+
+	while (1)
+	{
+		read(fd_in, buf, 1);
+	}	
+}
+
 
 int	command_prep_in(t_ms_data *data)
 {
@@ -78,10 +97,14 @@ int	command_exec(t_ms_data *data)
 	int		counter;
 	char	**possible_paths;
 
+	fd_input = STDIN_FILENO;
+	fd_out = STDOUT_FILENO;
 	if (data->in_file != NULL)
 		fd_input = command_prep_in(data);
 	if (fd_input < 0)
 		return (1);
+	if (data->here_doc == true)
+		here_doc_func(data, fd_input);
 	if (data->out_file != NULL)
 		fd_out = command_prep_out(data);
 	if (fd_input < 0)
@@ -90,7 +113,7 @@ int	command_exec(t_ms_data *data)
 	counter = 0;
 	while (counter < data->command_amt - 1)
 	{
-		spawn_process(argv + counter, possible_paths, data->env);
+		spawn_process(data->commands[counter], possible_paths, data->env);
 		counter++;
 	}
 	execute_command(argv[argc - 2], possible_paths, data->env);
