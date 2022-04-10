@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   modified_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:09:37 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/09 15:52:45 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/10 12:05:57 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include "../includes/minishell.h"
 #include <stdbool.h>
 #include <stdio.h>
-
-bool	quotes_are_closed_no_loop(char c);
+#include "../includes/parsing.h"
 
 int	word_amount(const char *string, char c)
 {
@@ -42,12 +41,10 @@ int	word_amount(const char *string, char c)
 
 char	*init_string(char const *s, char c)
 {
-	int		i;
 	int		len;
 	char	*str;
 	bool	status;
 
-	i = 0;
 	len = 0;
 	while (s[len])
 	{
@@ -63,36 +60,11 @@ char	*init_string(char const *s, char c)
 	return (str);
 }
 
-bool	quotes_are_closed_no_loop(char c)
-{
-	static bool	d_quotes_open = false;
-	static bool	s_quotes_open = false;
-
-	if (c == '\'' && !d_quotes_open)
-	{
-		if (s_quotes_open)
-			s_quotes_open = false;
-		else
-			s_quotes_open = true;
-	}
-	else if (c == '\"' && !s_quotes_open)
-	{
-		if (d_quotes_open)
-			d_quotes_open = false;
-		else
-			d_quotes_open = true;
-	}
-	if (!d_quotes_open && !s_quotes_open)
-		return (true);
-	return (false);
-}
-
 char	**modified_split(char const *s, char c)
 {
 	char	**ptr;
 	int		count;
 	int		i;
-	char	curr_char;
 
 	i = 0;
 	count = 0;
@@ -103,7 +75,6 @@ char	**modified_split(char const *s, char c)
 		return (NULL);
 	while (s[i] != 0)
 	{
-		curr_char = s[i];
 		if (quotes_are_closed_no_loop(s[i - 1]) == false)
 		{
 			i++;

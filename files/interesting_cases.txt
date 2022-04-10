@@ -1,3 +1,11 @@
 grep '|' input3.txt | awk '{print $1}' > output3.txt 
 >output3.txt grep '|' input3.txt | awk '{print $1}'
 '|"' input3.txt | awk '{print $1}' > output3.txt
+grep "file" input2.txt |||||||| grep "second"
+grep "file" input2.txt || grep "second" - BONUS
+grep "file" input2.txt ||| grep "second"
+
+
+
+breaks things:
+modified_split("cmd1 'flags' | cmd2 'flags and pipes|||'' | cmd3 \"quotes and shit \' \' \"", '|');

@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 11:34:42 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/09 16:40:47 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/10 12:55:05 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
-void print_2d_array_1(char **arr)
-{
-	int i = 0;
-	while (arr[i])
-	{
-		printf("%s\n", arr[i]);
-		i++;
-	}
-}
-
-void free_2d_array_1(char **arr)
-{
-	int i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
 
 int main(void)
 {
@@ -40,7 +20,7 @@ int main(void)
 	int n_cmds;
 	t_full_pipe *list_cmds;
 	
-	string = "cmd1 'flags' >output1 >    output2 | cmd2 < input | cmd \"some random ass shit\" | peace";
+	string = "cmd1 'flags' >output1 >    output2 | cmd2 < input> | cmd \"some random ass shit\" | peace >output";
 	if (!quotes_are_closed(string))
 	{
 		printf("quotes_error: Quotes are not closed\n");
@@ -53,19 +33,44 @@ int main(void)
 	}
 	complex_commands = modified_split(string, '|');
 	n_cmds = count_chars(string, '|') + 1;
-	printf("Number of commands: %d\n", n_cmds);
 
-	list_cmds = malloc(sizeof(t_full_pipe) * n_cmds);
-	// int i = 0;
-	// while (complex_commands[i])
-	// {
-	// 	list_cmds[i].reddir_in = get_single_redirection(complex_commands[i], '<');
-	// 	list_cmds[i].reddir_out = get_single_redirection(complex_commands[i], '>');
-	// }
-
-	// printf("\n\n%s\n\n\n", list_cmds[2].cmd);
-
-	
-	print_2d_array_1(complex_commands);
-	free_2d_array_1(complex_commands);
+	list_cmds = malloc(sizeof(t_full_pipe) * n_cmds + 1);
+	int i = 0;
+	while (complex_commands[i])
+	{
+		list_cmds[i].reddir_out = get_single_redirections(&complex_commands[i], '>', &vars);
+		i++;
+	}
+	i = 0;
+	while (complex_commands[i])
+	{
+		list_cmds[i].reddir_in = get_single_redirections(&complex_commands[i], '<', &vars);
+		i++;
+	}
+	print_struct_array(list_cmds, n_cmds);
+	free_struct_array(list_cmds, n_cmds);
+	free_2d_array(complex_commands);
 }
+
+// void change_str(char **string)
+// {
+// 	char *buf;
+// 	// buf = ft_strdup(*string);
+// 	free(*string);
+// 	buf = "asdfasdf";
+// 	*string = ft_strdup(buf);
+// 	printf("From function: %s\n", *string);
+// 	// free(buf);
+// }
+// int main (void)
+// {
+// 	char **arr;
+	
+// 	arr = ft_split("Some words here", ' ');
+// 	print_2d_array(arr);
+// 	change_str(&arr[0]);
+// 	printf("String: %s\n", arr[0]);	
+// 	printf("String: %s\n", arr[1]);	
+// 	printf("String: %s\n", arr[2]);	
+// 	free_2d_array(arr);
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/09 16:03:55 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/10 12:43:59 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,14 @@ char	*find_single_redirection(char *string, char symbol, t_r_s *vars);
 char	*trim_string(char *str, char*sub, t_r_s *vars);
 
 //utils
+void	print_struct_array(t_full_pipe *arr, int n_elements);
 void	print_2d_array(char **arr);
 void	free_2d_array(char **arr);
-int count_chars(char *str, char c);
+void	free_struct_array(t_full_pipe *arr, int n_elements);
+int		count_chars(char *str, char c);
+
+//redirection
+char	**get_single_redirections(char **string, char symbol, t_r_s *vars);
+char	*find_single_redirection(char *string, char symbol, t_r_s *vars);
+char	*trim_string(char *str, char*sub, t_r_s *vars);
 #endif

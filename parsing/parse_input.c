@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/09 16:39:42 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/10 12:08:09 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,33 @@ bool quotes_are_closed(char *str)
 
 
 
+
+//Gets called in a loop
+//returns false (0) if the quotes are not closed - else true(1)
+bool	quotes_are_closed_no_loop(char c)
+{
+	static bool	d_quotes_open = false;
+	static bool	s_quotes_open = false;
+
+	if (c == '\'' && !d_quotes_open)
+	{
+		if (s_quotes_open)
+			s_quotes_open = false;
+		else
+			s_quotes_open = true;
+	}
+	else if (c == '\"' && !s_quotes_open)
+	{
+		if (d_quotes_open)
+			d_quotes_open = false;
+		else
+			d_quotes_open = true;
+	}
+	if (!d_quotes_open && !s_quotes_open)
+		return (true);
+	return (false);
+}
+
 //Returns true(1) if there's double pipes outside of quotes, else false (0)
 bool double_pipe(char *string)
 {
@@ -72,18 +99,3 @@ bool double_pipe(char *string)
 	quotes_are_closed_no_loop(string[i]);
 	return (false);
 }
-
-
-// int main(void)
-// {
-// 	t_r_s vars;
-// 	char *redirection;
-// 	char *string = "grep '|< ' <      input3.txt whatever";
-
-// 	redirection = find_single_redirection(string, '<', &vars);
-// 	printf("%s\n", redirection);
-// 	printf("Start index: %d\nFinish index: %d\n", vars.start_index, vars.finish_index);
-// 	printf("New string: %s\n", trim_string(string, redirection, &vars));
-// 	return (0);
-// }
-
