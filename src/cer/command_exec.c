@@ -1,5 +1,8 @@
 #include "../../includes/minishell.h"
 
+//here_doc erstellen ... ./ms_heredoc file erstellen als input setzen dann command executen
+//nach execute ./ms_heredoc löschen (ich glaube unlink())
+
 void	execute_command(char *argv, char **possible_paths, char **envp)
 {
 	char	*cmd;
