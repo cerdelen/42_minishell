@@ -6,11 +6,11 @@
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 14:23:49 by cerdelen          #+#    #+#             */
-/*   Updated: 2022/04/10 11:03:20 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/04/10 11:33:49 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 char	*ft_getcwd(void)
 {
