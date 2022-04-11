@@ -16,13 +16,8 @@
 typedef struct s_ms_data
 {
 	char			**env;
-	// (your struct)	*commands;
-	int				command_amt;
-	char			*in_file;		      //Null if no < input
-	char			*out_file;
-	int				output_type;    //0 to std  1 >  2 >>
-	bool			here_doc;
-	char			*limiter;
+	t_ms_commands		*commands;
+	int			command_amt;
 	pid_t			p_id;
 }	t_ms_data;
 
