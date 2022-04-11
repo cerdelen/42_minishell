@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:20:41 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/10 15:28:00 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/11 09:51:06 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*find_single_redirection(char *string, char symbol, t_r_s *vars)
 	vars->i = 0;
 	vars->j = 0;
 	vars->len = 0;
-	sub_str = malloc(200);
+	sub_str = ft_strdup(string);
 	while (string[vars->i])
 	{
 		if (quotes_are_closed_no_loop(string[vars->i]) && string[vars->i] == symbol)
@@ -96,7 +96,7 @@ char	*find_double_redirection(char *string, char symbol, t_r_s *vars)
 	vars->i = 0;
 	vars->j = 0;
 	vars->len = 0;
-	sub_str = malloc(200);
+	sub_str = malloc(sizeof(char) * ft_strlen(string) + 1);
 	while (string[vars->i + 2])
 	{
 		if (quotes_are_closed_no_loop(string[vars->i]) && string[vars->i] == symbol && string[vars->i++ + 1] == symbol)

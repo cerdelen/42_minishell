@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:09:37 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/10 12:05:57 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/11 09:42:15 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**modified_split(char const *s, char c)
 	count = 0;
 	if (!s)
 		return (NULL);
-	ptr = malloc((word_amount(s, c) + 1) * sizeof(char *));
+	ptr = ft_calloc((word_amount(s, c) + 1), sizeof(char *));
 	if (ptr == NULL)
 		return (NULL);
 	while (s[i] != 0)

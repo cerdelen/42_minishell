@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/10 15:28:14 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/11 10:18:30 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 
 typedef struct s_complex_command
 {
-	char	**reddir_in;
-	char	**reddir_out;
-	char	**reddir_out_app;
-	char	**here_doc;
+	char	**reddir_in; //NULL
+	char	**reddir_out; //NULL
+	char	**reddir_out_app; //NULL
+	char	**here_doc; //NULL
 	char	*cmd;
-	char	*flags;
+	char	**flags; //NULL
 } t_full_pipe;
 
 typedef struct s_remove_substring
@@ -61,4 +61,7 @@ char	**get_double_redirections(char **string, char symbol, t_r_s *vars);
 char	*find_single_redirection(char *string, char symbol, t_r_s *vars);
 char	*find_double_redirection(char *string, char symbol, t_r_s *vars);
 char	*trim_string(char *str, char*sub, t_r_s *vars);
+
+//remove_spaces
+void	remove_blank_spaces(char **string);
 #endif

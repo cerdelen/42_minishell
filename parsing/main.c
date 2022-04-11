@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 11:34:42 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/10 16:19:33 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/11 09:44:48 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int main(void)
 	int n_cmds;
 	t_full_pipe *list_cmds;
 	
-	string = "<<here_doc cmd1 'flags' >output1 >    output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough";
+	string = "<<here_doc cmd1   'flags'   >output1 >    output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough";
+	// string = ft_strdup("<<here_doc cmd1   '                    flags'   >output1 >    output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough");
 	if (errors(string))
 		return (EXIT_FAILURE);
 	
@@ -63,13 +64,20 @@ int main(void)
 		i++;
 	}
 	i = 0;
-	while (complex_commands[i])
-	{
-		i++;
-	}
+	
+	// while (complex_commands[i])
+	// {
+		printf("BEFOR STRING:%sX\n", string);
+		// remove_blank_spaces(&string);
+		printf("AFTER ______:%sX\n", string);
+		// list_cmds[i].cmd = complex_commands[i];
+		// i++;
+
+	// }
 	print_struct_array(list_cmds, n_cmds);
 	free_struct_array(list_cmds, n_cmds);
 	free_2d_array(complex_commands);
+	// free(string);
 }
 
 // void change_str(char **string)

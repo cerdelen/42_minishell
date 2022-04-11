@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 15:44:57 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/10 16:48:37 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/10 18:35:01 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ void print_struct_array(t_full_pipe *arr, int n_elements)
 		{
 			printf("Here_doc Redirection :\n");
 			print_2d_array(arr[i].here_doc);
+		}
+		if (arr[i].cmd)
+		{
+			printf("COMMAND: %s\n", arr[i].cmd);
 		}
 		i++;
 	}
