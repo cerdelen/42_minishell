@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/11 10:18:30 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/11 23:15:56 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ typedef struct s_remove_substring
 	int finish_index;
 } t_r_s;
 
+typedef struct s_env
+{
+	char *var;
+	char *val;
+} t_env;
+
 //modified_split
 char	**modified_split(char const *s, char c);
 
@@ -64,4 +70,11 @@ char	*trim_string(char *str, char*sub, t_r_s *vars);
 
 //remove_spaces
 void	remove_blank_spaces(char **string);
+
+//error_management
+int		errors(char *string);
+
+
+//TEST
+char *remove_blank_spaces2(char *string);
 #endif
