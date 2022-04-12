@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/12 23:29:28 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/12 23:43:09 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,17 +103,15 @@ char *divide_string(char *string,  char *add_str, int len_s1)
 	arr = ft_calloc(3, sizeof(char *));
 	arr[0] = ft_calloc(len_s1, sizeof(char));
 	arr[1] = ft_calloc(len_s2 + 1, sizeof(char));
+	arr[2] = NULL;
 	ft_strlcpy(arr[0], string, len_s1);
 	ft_strlcpy(arr[1], string + len_s1 - 1, len_s2 + 1);
 	free(string);
-	free(arr[1]);
 	string = ft_calloc(len_big + 1, sizeof(char));
 	ft_strlcat(string, arr[0], len_s1); 
 	ft_strlcat(string, add_str, len_add_str + len_s1); 
 	ft_strlcat(string, arr[1], len_add_str + len_s1 + len_s2);
-	// free_2d_array(arr);
-	free(arr);
-	free(arr[0]);
+	free_2d_array(arr);
 	return (string);	
 }
 
