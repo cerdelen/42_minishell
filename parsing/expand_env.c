@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/12 23:45:23 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/12 23:45:57 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,4 +174,4 @@ int main (int argc, char *argv[], char *env[])
 // echo '$USERasdfasdfasdf'
 // echo "$USERasdfasdfasdf"
 // echo "${USER}asdfasdfasdf"
-// echo '${USER}asdfasdfasdf'
+// echo '${USER}asdfasdfasdf' ll
