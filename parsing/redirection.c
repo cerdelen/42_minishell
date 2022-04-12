@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:20:41 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/11 09:51:06 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/11 19:17:11 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,20 +99,23 @@ char	*find_double_redirection(char *string, char symbol, t_r_s *vars)
 	sub_str = malloc(sizeof(char) * ft_strlen(string) + 1);
 	while (string[vars->i + 2])
 	{
-		if (quotes_are_closed_no_loop(string[vars->i]) && string[vars->i] == symbol && string[vars->i++ + 1] == symbol)
-		{
-			vars->start_index = vars->i - 1;
-			sub_str[vars->j++] = string[++vars->i];
-			while (string[vars->i + 1] && string[vars->i] == ' ')
+		// if (vars->i == 1 || string[vars->i - 1] != ' ')
+		// {
+			if (quotes_are_closed_no_loop(string[vars->i]) && string[vars->i] == symbol && string[vars->i++ + 1] == symbol)
+			{
+				vars->start_index = vars->i - 1;
 				sub_str[vars->j++] = string[++vars->i];
-			while (string[vars->i + 1] && string[vars->i + 1] != ' '
-				&& string[vars->i + 1] != '\0'
-				&& string[vars->i + 2] != symbol)
-				sub_str[vars->j++] = string[++vars->i];
-			sub_str[vars->j] = '\0';
-			vars->finish_index = vars->i;
-			break ;
-		}
+				while (string[vars->i + 1] && string[vars->i] == ' ')
+					sub_str[vars->j++] = string[++vars->i];
+				while (string[vars->i + 1] && string[vars->i + 1] != ' '
+					&& string[vars->i + 1] != '\0'
+					&& string[vars->i + 2] != symbol)
+					sub_str[vars->j++] = string[++vars->i];
+				sub_str[vars->j] = '\0';
+				vars->finish_index = vars->i;
+				break ;
+			}
+		// }
 		vars->i++;
 	}
 	return (sub_str);

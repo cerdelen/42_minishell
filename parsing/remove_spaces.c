@@ -6,14 +6,13 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 16:58:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/11 09:23:57 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/11 22:43:15 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
-// #include "../includes/libft.h"
+#include "../includes/libft.h"
 #include "../includes/minishell.h"
-#include "../Libft/libft.h"
 
 void remove_blank_spaces(char **string)
 {
@@ -38,21 +37,38 @@ void remove_blank_spaces(char **string)
 	}
 	// printf("\nFUNCTION: %s\n", new);
 	new[j] = '\0';
-	// free(temp);
-	new = ft_strtrim(new, " ");
-	*string = ft_strdup(new);
+	free(temp);
+	temp = ft_strtrim(new, " ");
+	*string = ft_strdup(temp);
 	free(new);
 	free(temp);
 }
 
-// int main ()
-// {
-// 	char *word;
-	
-// 	word = ft_strdup("     K   h   e   l  o       ");
-// 	printf("\nBEFOR: %s\n", word);
-// 	remove_blank_spaces(&word);
-// 	printf("\nAFTER:%sXXXXXXXXXX", word);
-// 	free(word);
-// }
-
+char *remove_blank_spaces2(char *string)
+{
+	char *new;
+	char *temp;
+	int i;
+	int j;
+	i = 0;
+	j = 0;
+	new = ft_strdup(string);
+	while(string[i])
+	{
+		if (quotes_are_closed_no_loop(string[i]) && string[i] == ' ' && string[i + 1] == ' ')
+		{
+			i++;
+			continue ;
+		}
+		new[j++] = string[i];
+		i++;
+	}
+	new[j] = '\0';
+	temp = ft_strtrim(new, " ");
+	// printf("TEMP: %s\n", temp);
+	string = ft_strdup(temp);
+	// printf("STRING: %s\n", temp);
+	free(new);
+	free(temp);
+	return (string);
+}
