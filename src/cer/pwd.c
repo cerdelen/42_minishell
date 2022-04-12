@@ -20,8 +20,3 @@ int	command_pwd(void)
 	free(completepath);
 	return (0);
 }
-
-int main(int argc, char **argv)
-{
-	command_pwd();
-}
