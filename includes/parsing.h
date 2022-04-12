@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/11 23:15:56 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/12 18:37:24 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ typedef struct s_complex_command
 	char	**reddir_out; //NULL
 	char	**reddir_out_app; //NULL
 	char	**here_doc; //NULL
-	char	*cmd;
-	char	**flags; //NULL
+	char	**envv;
+	// char	*cmd;
+	// char	**flags; //NULL
+	char	**cmd_flags; //NULL
 } t_full_pipe;
 
 typedef struct s_remove_substring
@@ -58,6 +60,8 @@ void	print_struct_array(t_full_pipe *arr, int n_elements);
 void	print_2d_array(char **arr);
 void	free_2d_array(char **arr);
 void	free_struct_array(t_full_pipe *arr, int n_elements);
+void	print_env_struct(t_env *envv, int i);
+void	free_env_struct(t_env *envv, int i);
 int		count_chars(char *str, char c);
 int		count_double_chars(char *str, char c);
 
@@ -70,11 +74,12 @@ char	*trim_string(char *str, char*sub, t_r_s *vars);
 
 //remove_spaces
 void	remove_blank_spaces(char **string);
+//TEST
+char *remove_blank_spaces2(char *string);
 
 //error_management
 int		errors(char *string);
 
-
-//TEST
-char *remove_blank_spaces2(char *string);
+//expand_env
+void expand_env(char **string, char **env);
 #endif

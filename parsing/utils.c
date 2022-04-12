@@ -3,21 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 15:44:57 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/10 18:35:01 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/12 20:59:03 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
+
+void print_env_struct(t_env *envv, int i)
+{
+	int j;
+	j = 0;
+	while (j < i)
+	{
+		printf("Variable: %s == ", envv[j].var);
+		printf("Value: %s\n", envv[j].val);
+		j++;
+	}
+}
+
+void free_env_struct(t_env *envv, int i)
+{
+	int j;
+	j = 0;
+	while (j < i)
+	{
+		free(envv[j].var);
+		free(envv[j].val);
+		j++;
+	}
+	free(envv);
+}
 
 void print_2d_array(char **arr)
 {
 	int i = 0;
 	while (arr[i])
 	{
-		printf("%s\n", arr[i]);
+		printf("%sX\n", arr[i]);
 		i++;
 	}
 }
@@ -64,9 +89,10 @@ void print_struct_array(t_full_pipe *arr, int n_elements)
 			printf("Here_doc Redirection :\n");
 			print_2d_array(arr[i].here_doc);
 		}
-		if (arr[i].cmd)
+		if (arr[i].cmd_flags)
 		{
-			printf("COMMAND: %s\n", arr[i].cmd);
+			printf("COMMAND and FLAGS: \n");
+			print_2d_array(arr[i].cmd_flags);
 		}
 		i++;
 	}
@@ -119,7 +145,10 @@ int count_double_chars(char *str, char c)
 	while (str[idx + 2])
 	{
 		if (quotes_are_closed_no_loop(str[idx]) && str[idx] == c && str[idx + 1] == c)
+		{
 			count++;
+			idx++;
+		}
 		idx++;
 	}
 	while (str[idx])

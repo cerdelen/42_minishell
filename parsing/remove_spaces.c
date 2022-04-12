@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_spaces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 16:58:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/11 22:43:15 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/12 15:57:05 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,17 @@ char *remove_blank_spaces2(char *string)
 			i++;
 			continue ;
 		}
+		else if (quotes_are_closed_no_loop(string[i]) && string[i] != ' ' && string[i + 1] == ' ' && string[i + 2] == '|')
+		{
+			i++;
+			continue ;
+		}
 		new[j++] = string[i];
 		i++;
 	}
 	new[j] = '\0';
 	temp = ft_strtrim(new, " ");
-	// printf("TEMP: %s\n", temp);
 	string = ft_strdup(temp);
-	// printf("STRING: %s\n", temp);
 	free(new);
 	free(temp);
 	return (string);
