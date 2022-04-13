@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/13 20:38:53 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/13 21:18:11 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,36 @@ t_env *env_to_str(char **env, int j)
 }
 
 
-// bool single_quotes_open(char *string, char c)
-// {
-// 	static bool open = false;
-// 	if (open && c == '\'')
-// 	{
-// 		open = false;
-// 		return (false);
-// 	}
-// 	else if(!open && c == '\'')
-// 	{
-// 		open
-// 	}
-// }
-void get_indices(char *string, int *start_idx, int *end_idx)
+bool single_quotes_open(char c)
+{
+	static bool open = false;
+	if (open && c == '\'')
+	{
+		open = false;
+	}
+	else if(!open && c == '\'')
+	{
+		open = true;
+	}
+	if (open)
+		return (true);
+	return (false);
+}
+
+int main()
+{
+	char *string = "abab$abab '$$$$$' ";
+	int i = 0;
+	while (string[i])
+	{
+		if (single_quotes_open(string[i]) && string[i] != )
+			printf("%c\n", string[i]);
+		i++;
+	}
+}
+
+//
+int get_indices(char *string, int *start_idx, int *end_idx)
 {
 	int i = 0;
 	
@@ -63,24 +79,13 @@ void get_indices(char *string, int *start_idx, int *end_idx)
 		if (*end_idx)
 			break ;		
 	}
+	if (*start_idx != 0)
+	{
+		return (0);
+	}
+	return (1);
 }
 
-// char *expand_env_vars(char *string, t_env *envv, int count)
-// {
-// 	int i = 0;
-// 	int start_index = 0;
-// 	int end_index = 0;
-	
-// 	while(i < count)
-// 	{
-// 		if (string[i] == '$')
-// 		{
-// 			string = expand(string, envv, count);
-			
-// 		}
-// 		i++;
-// 	}
-// }
 
 char *reassamble_string(char *string,  char *add_str, int len_s1)
 {
@@ -163,14 +168,13 @@ char *expand(char *string, t_env *envv, int count)
 	char *variable;
 	char *value;
 	
-	get_indices(string, &start_idx, &end_idx);
+	if (get_indices(string, &start_idx, &end_idx))
+		return (string);
 	variable = ft_calloc(start_idx + end_idx, sizeof(char));
 	ft_strlcpy(variable, string + start_idx, end_idx - start_idx + 2);
 	value = find_match(variable, envv, start_idx + end_idx, count);
-	printf("%s\n", value);
 	string = trim_str(string, variable, start_idx - 1, end_idx);
 	string = reassamble_string(string, value, start_idx);
-	printf("%s\n", string);
 	free(variable);
 	free(value);
 	free_env_struct(envv, count);
@@ -190,9 +194,15 @@ char *expand(char *string, t_env *envv, int count)
 // 	free(string);
 // }
 
-// echo ${USER}asdfasdfasdf
+// echo ${USER}asdfasdfasdf   -- IGNORE curly braces
+// echo "${USER}asdfasdfasdf" -- IGNORE curly braces
+// echo '${USER}asdfasdfasdf' -- IGNORE curly braces
 // echo $USERasdfasdfasdf
 // echo '$USERasdfasdfasdf'
 // echo "$USERasdfasdfasdf"
-// echo "${USER}asdfasdfasdf"
-// echo '${USER}asdfasdfasdf'
+// echo "'${USER}'"
+
+// bool no_more_dollar(char *str)
+// {
+// 	if 
+// }

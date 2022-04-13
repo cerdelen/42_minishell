@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 11:34:42 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/13 20:38:03 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/13 21:09:52 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,12 @@ int main(int argc, char *argv[], char* env[])
 	int		count; 
 	char	*string;
 	
-	string = ft_strdup("something '$USER' something_else $LANG");
+	string = ft_strdup("something  something_else $LANG");
 	// if (errors(string))
 		// return (EXIT_FAILURE);
 	count = count_strings(env);
 	envv = env_to_str(env, count);
+	
 	string = expand(string, envv, count);
 	free(string);
 }
@@ -58,23 +59,3 @@ int main(int argc, char *argv[], char* env[])
 // 	else if "<"
 // 	else if ">"
 // 	else if 
-
-
-//OLD STUFF
-/*
-	int i = 0;
-	while (complex_commands[i])
-	{
-		list_cmds[i].reddir_out_app = get_double_redirections(&complex_commands[i], '>', &vars);
-		list_cmds[i].here_doc = get_double_redirections(&complex_commands[i], '<', &vars);
-		i++;
-	}
-	i = 0;
-	while (complex_commands[i])
-	{
-		list_cmds[i].reddir_in = get_single_redirections(&complex_commands[i], '<', &vars);
-		list_cmds[i].reddir_out = get_single_redirections(&complex_commands[i], '>', &vars);
-		i++;
-	}
-	i = 0;
-*/

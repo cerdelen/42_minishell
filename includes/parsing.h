@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/13 17:49:49 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/13 21:02:09 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		errors(char *string);
 
 //expand_env
 t_env	*env_to_str(char **env, int j);
-void	get_indices(char *string, int *start_idx, int *end_idx);
+int	get_indices(char *string, int *start_idx, int *end_idx);
 char	*expand_env_vars(char *string, t_env *envv, int count);
 char	*expand(char *string, t_env *envv, int count);
 char	*reassamble_string(char *string,  char *add_str, int len_s1);
