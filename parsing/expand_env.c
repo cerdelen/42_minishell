@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/12 23:45:57 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/13 20:38:53 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,41 +29,20 @@ t_env *env_to_str(char **env, int j)
 	return (envv);
 }
 
-int count_strings(char **env)
-{
-	int i;
-	
-	i = 0;
-	while (env[i])
-		i++;
-	return (i);
-}
 
-// void expand_env(char **string, char **env)
+// bool single_quotes_open(char *string, char c)
 // {
-// 	t_env *envv;
-// 	int count;
-	
-// 	count = count_strings(env);
-// 	envv = env_to_str(env, count);
-	
-// 	int i = 0;
-// 	char *str = *string;
-// 	char *new_str;
-// 	char *variable;
-// 	while(str[i])
+// 	static bool open = false;
+// 	if (open && c == '\'')
 // 	{
-// 		if (str[i] == '$')
-// 		{
-// 			variable = get_var();
-// 		}
-// 		i++;
+// 		open = false;
+// 		return (false);
 // 	}
-	
-// 	// print_env_struct(envv, count);
-// 	// free_env_struct(envv, count);
+// 	else if(!open && c == '\'')
+// 	{
+// 		open
+// 	}
 // }
-
 void get_indices(char *string, int *start_idx, int *end_idx)
 {
 	int i = 0;
@@ -71,12 +50,10 @@ void get_indices(char *string, int *start_idx, int *end_idx)
 	while(string[i])
 	{
 		if (string[i] == '$')
-		{
 			*start_idx = i + 1;
-		}
 		if (*start_idx)
 		{
-			while(string[i] != ' ')
+			while(string[i] != ' ' && string[i] != '\'' && string[i] != '\"')
 			{
 				i++;
 			}
@@ -88,7 +65,24 @@ void get_indices(char *string, int *start_idx, int *end_idx)
 	}
 }
 
-char *divide_string(char *string,  char *add_str, int len_s1)
+// char *expand_env_vars(char *string, t_env *envv, int count)
+// {
+// 	int i = 0;
+// 	int start_index = 0;
+// 	int end_index = 0;
+	
+// 	while(i < count)
+// 	{
+// 		if (string[i] == '$')
+// 		{
+// 			string = expand(string, envv, count);
+			
+// 		}
+// 		i++;
+// 	}
+// }
+
+char *reassamble_string(char *string,  char *add_str, int len_s1)
 {
 	char **arr;
 	int len_og;
@@ -138,16 +132,31 @@ char	*trim_str(char *str, char*sub, int start_index, int finish_index)
 	return (new_str);
 }
 
-int main (int argc, char *argv[], char *env[])
+/* First argument is a string, second is array of my struct.
+If the string is found in the array, it is returned. Else \0 is returned. */
+char *find_match(char *string, t_env *arr, int len, int arr_size)
 {
-	t_env *envv;
-	int count;
-	char *string;
+	int i;
 	
-	string = ft_strdup("something $USER else");
-	count = count_strings(env);
-	envv = env_to_str(env, count);
-	
+	i = 0;
+	while(ft_strncmp(string, arr[i].var, len))
+	{	
+		i++;
+		if (i == arr_size)
+		{
+			string = ft_strdup("\0");
+			break ;
+		}
+	}
+	if (string[0] != '\0')
+	{
+		string = ft_strdup(arr[i].val);
+	}
+	return (string);
+}
+
+char *expand(char *string, t_env *envv, int count)
+{
 	int i = 0;
 	int start_idx = 0;
 	int end_idx = 0;
@@ -157,21 +166,33 @@ int main (int argc, char *argv[], char *env[])
 	get_indices(string, &start_idx, &end_idx);
 	variable = ft_calloc(start_idx + end_idx, sizeof(char));
 	ft_strlcpy(variable, string + start_idx, end_idx - start_idx + 2);
-	while(ft_strncmp(variable, envv[i].var, start_idx + end_idx))
-		i++;
-	value = ft_strdup(envv[i].val);
+	value = find_match(variable, envv, start_idx + end_idx, count);
+	printf("%s\n", value);
 	string = trim_str(string, variable, start_idx - 1, end_idx);
-	string = divide_string(string, value, start_idx);
+	string = reassamble_string(string, value, start_idx);
 	printf("%s\n", string);
 	free(variable);
 	free(value);
 	free_env_struct(envv, count);
-	free(string);
+	return (string);
 }
+
+// int main (int argc, char *argv[], char *env[])
+// {
+// 	t_env *envv;
+// 	int count;
+// 	char *string;
+	
+// 	string = ft_strdup("something \"$LANG\" else");
+// 	count = count_strings(env);
+// 	envv = env_to_str(env, count);
+// 	string = expand(string, envv, count);
+// 	free(string);
+// }
 
 // echo ${USER}asdfasdfasdf
 // echo $USERasdfasdfasdf
 // echo '$USERasdfasdfasdf'
 // echo "$USERasdfasdfasdf"
 // echo "${USER}asdfasdfasdf"
-// echo '${USER}asdfasdfasdf' ll
+// echo '${USER}asdfasdfasdf'

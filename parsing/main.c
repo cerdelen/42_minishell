@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 11:34:42 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/12 21:05:57 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/13 20:38:03 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,36 +27,23 @@ char **rm_sp_spl_pipe(char *string)
 	return (complex_commands);	
 }
 
+// string = ft_strdup("<<here_doc cmd1  | 'flags         '   >output1 >  $USER   output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random        ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough");
+// string = ft_strdup("<<here_doc cmd1   '                    flags'   >output1 >    output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough");
+// string = " <<here_doc2  ' c  a  r '     cmd2 < input> <here_doc4 ";
+//string = ft_strdup(" <<here_doc2  ' c  a  r '     cmd2 < input> <here_doc4 ");
+
 int main(int argc, char *argv[], char* env[])
 {
-	// t_r_s vars;
-	char *string;
-	char **complex_commands;
-	int n_cmds;
-	t_full_pipe *list_cmds;
+	t_env	*envv;
+	int		count; 
+	char	*string;
 	
-	// string = ft_strdup("<<here_doc cmd1  | 'flags         '   >output1 >  $USER   output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random        ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough");
-	// string = ft_strdup("<<here_doc cmd1   '                    flags'   >output1 >    output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough");
-	string = ft_strdup(" <<here_doc2  ' c  a  r '     cmd2 < input> <here_doc4 ");
-	// string = " <<here_doc2  ' c  a  r '     cmd2 < input> <here_doc4 ";
-	string = ft_strdup("something $USER");
-	if (errors(string))
-		return (EXIT_FAILURE);
-	expand_env(&string, env);
-	complex_commands = rm_sp_spl_pipe(string);
-	n_cmds = count_chars(string, '|') + 1;
-	
-	list_cmds = malloc(sizeof(t_full_pipe) * n_cmds + 1);
-	// int i = 0;
-	// while (i < n_cmds)
-	// {
-	// 	list_cmds[i] = parse(complex_commands[i]);
-	// 	i++;
-	// }
-	// print_struct_array(list_cmds, n_cmds);
-	// free_struct_array(list_cmds, n_cmds);
-	print_2d_array(complex_commands);
-	free_2d_array(complex_commands);
+	string = ft_strdup("something '$USER' something_else $LANG");
+	// if (errors(string))
+		// return (EXIT_FAILURE);
+	count = count_strings(env);
+	envv = env_to_str(env, count);
+	string = expand(string, envv, count);
 	free(string);
 }
 

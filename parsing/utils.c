@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 15:44:57 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/12 20:59:03 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/13 16:57:51 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,4 +157,14 @@ int count_double_chars(char *str, char c)
 	}
 	
 	return (count);
+}
+
+int count_strings(char **arr)
+{
+	int i;
+	
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
 }

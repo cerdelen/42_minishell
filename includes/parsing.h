@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/12 18:37:24 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:49:49 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	print_env_struct(t_env *envv, int i);
 void	free_env_struct(t_env *envv, int i);
 int		count_chars(char *str, char c);
 int		count_double_chars(char *str, char c);
-
+int		count_strings(char **arr);
 //redirection
 char	**get_single_redirections(char **string, char symbol, t_r_s *vars);
 char	**get_double_redirections(char **string, char symbol, t_r_s *vars);
@@ -76,10 +76,17 @@ char	*trim_string(char *str, char*sub, t_r_s *vars);
 void	remove_blank_spaces(char **string);
 //TEST
 char *remove_blank_spaces2(char *string);
-
 //error_management
 int		errors(char *string);
 
 //expand_env
-void expand_env(char **string, char **env);
+t_env	*env_to_str(char **env, int j);
+void	get_indices(char *string, int *start_idx, int *end_idx);
+char	*expand_env_vars(char *string, t_env *envv, int count);
+char	*expand(char *string, t_env *envv, int count);
+char	*reassamble_string(char *string,  char *add_str, int len_s1);
+char	*trim_str(char *str, char*sub, int start_index, int finish_index);
+char	*find_match(char *string, t_env *arr, int len, int arr_size);
+
+
 #endif
