@@ -6,11 +6,11 @@
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 14:21:06 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/10 11:48:16 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/04/12 13:41:37 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../includes/minishell.h"
 
 void	close_descriptors(int n_fds, ...)
 {
