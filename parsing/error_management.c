@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:16:43 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/11 22:09:21 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:09:41 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int errors(char *string)
 {
-	if (!quotes_are_closed(string))
+	if (!all_quotes_are_closed(string))
 	{
 		// printf("quotes_error: Quotes are not closed\n");
 		return (printf("quotes_error: Quotes are not closed\n"), 1);

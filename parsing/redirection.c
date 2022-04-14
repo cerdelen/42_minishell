@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:20:41 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/11 19:17:11 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:21:51 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*find_single_redirection(char *string, char symbol, t_r_s *vars)
 	sub_str = ft_strdup(string);
 	while (string[vars->i])
 	{
-		if (quotes_are_closed_no_loop(string[vars->i]) && string[vars->i] == symbol)
+		if (quotes_are_closed(string[vars->i]) && string[vars->i] == symbol)
 		{
 			vars->start_index = vars->i;
 			sub_str[vars->j++] = string[++vars->i];
@@ -101,7 +101,7 @@ char	*find_double_redirection(char *string, char symbol, t_r_s *vars)
 	{
 		// if (vars->i == 1 || string[vars->i - 1] != ' ')
 		// {
-			if (quotes_are_closed_no_loop(string[vars->i]) && string[vars->i] == symbol && string[vars->i++ + 1] == symbol)
+			if (quotes_are_closed(string[vars->i]) && string[vars->i] == symbol && string[vars->i++ + 1] == symbol)
 			{
 				vars->start_index = vars->i - 1;
 				sub_str[vars->j++] = string[++vars->i];

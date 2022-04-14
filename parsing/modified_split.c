@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:09:37 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/11 22:35:26 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:21:51 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	word_amount(const char *string, char c)
 	while (string[idx])
 	{
 		character = string[idx];
-		if (quotes_are_closed_no_loop(character) == false)
+		if (quotes_are_closed(character) == false)
 		{
 			idx++;
 			continue ;
@@ -48,7 +48,7 @@ char	*init_string(char const *s, char c)
 	len = 0;
 	while (s[len])
 	{
-		status = quotes_are_closed_no_loop(s[len]);
+		status = quotes_are_closed(s[len]);
 		if (status && s[len] == c)
 			break ;
 		len++;
@@ -75,7 +75,7 @@ char	**modified_split(char const *s, char c)
 		return (NULL);
 	while (s[i] != 0)
 	{
-		if (quotes_are_closed_no_loop(s[i - 1]) == false)
+		if (quotes_are_closed(s[i - 1]) == false)
 		{
 			i++;
 			continue ;

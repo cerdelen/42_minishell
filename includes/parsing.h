@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/13 21:02:09 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:23:09 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,30 @@ typedef struct s_env
 char	**modified_split(char const *s, char c);
 
 //parse_input
-bool	quotes_are_closed(char *str);
-bool	quotes_are_closed_no_loop(char c);
 bool	double_pipe(char *string);
 bool	multiple_redirection(char *string, char c);
 char	*find_single_redirection(char *string, char symbol, t_r_s *vars);
 char	*trim_string(char *str, char*sub, t_r_s *vars);
 
 //utils
-void	print_struct_array(t_full_pipe *arr, int n_elements);
-void	print_2d_array(char **arr);
-void	free_2d_array(char **arr);
-void	free_struct_array(t_full_pipe *arr, int n_elements);
-void	print_env_struct(t_env *envv, int i);
-void	free_env_struct(t_env *envv, int i);
 int		count_chars(char *str, char c);
 int		count_double_chars(char *str, char c);
 int		count_strings(char **arr);
+
+//free_utils
+void	free_env_struct(t_env *envv, int i);
+void	free_2d_array(char **arr);
+void	free_struct_array(t_full_pipe *arr, int n_elements);
+
+//print_utils
+void	print_env_struct(t_env *envv, int i);
+void	print_2d_array(char **arr);
+void	print_struct_array(t_full_pipe *arr, int n_elements);
+
+//quotes_management
+bool	all_quotes_are_closed(char *str);
+bool	quotes_are_closed(char c);
+
 //redirection
 char	**get_single_redirections(char **string, char symbol, t_r_s *vars);
 char	**get_double_redirections(char **string, char symbol, t_r_s *vars);
@@ -85,7 +92,7 @@ int	get_indices(char *string, int *start_idx, int *end_idx);
 char	*expand_env_vars(char *string, t_env *envv, int count);
 char	*expand(char *string, t_env *envv, int count);
 char	*reassamble_string(char *string,  char *add_str, int len_s1);
-char	*trim_str(char *str, char*sub, int start_index, int finish_index);
+char	*remove_part_string(char *str, char*sub, int start_index, int finish_index);
 char	*find_match(char *string, t_env *arr, int len, int arr_size);
 
 

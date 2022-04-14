@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   modified_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:09:37 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/09 11:59:51 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:21:51 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-bool quotes_are_closed_no_loop(char c);
+bool quotes_are_closed(char c);
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -70,7 +70,7 @@ int word_amount(const char *string, char c)
 	while (string[idx])
 	{
 		character = string[idx];
-		if (quotes_are_closed_no_loop(character) == false)
+		if (quotes_are_closed(character) == false)
 		{
 			idx++;
 			continue;
@@ -93,7 +93,7 @@ char *init_string(char const *s, char c)
 	bool status;
 	while (s[len])
 	{
-		status = quotes_are_closed_no_loop(s[len]);
+		status = quotes_are_closed(s[len]);
 		if (status && s[len] == c)
 			break;
 		len++;
@@ -122,7 +122,7 @@ char	**modified_split(char const *s, char c)
 	while (s[i] != 0)
 	{
 		curr_char = s[i];
-		if (quotes_are_closed_no_loop(s[i - 1]) == false)
+		if (quotes_are_closed(s[i - 1]) == false)
 		{
 			i++;
 			continue;
@@ -159,7 +159,7 @@ void free_2d_array(char **arr)
 	free(arr);
 }
 
-bool quotes_are_closed_no_loop(char c)
+bool quotes_are_closed(char c)
 {
 	static bool d_quotes_open = false;
 	static bool s_quotes_open = false;

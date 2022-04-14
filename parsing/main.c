@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 11:34:42 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/13 21:09:52 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:19:48 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ int main(int argc, char *argv[], char* env[])
 	char	*string;
 	
 	string = ft_strdup("something  something_else $LANG");
-	// if (errors(string))
-		// return (EXIT_FAILURE);
+	printf("%s\n", string);
+	if (errors(string))
+		return (EXIT_FAILURE);
 	count = count_strings(env);
 	envv = env_to_str(env, count);
 	

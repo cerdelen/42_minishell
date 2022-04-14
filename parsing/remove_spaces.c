@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_spaces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 16:58:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/12 15:57:05 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:21:51 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void remove_blank_spaces(char **string)
 	temp = *string;
 	while((*string)[i])
 	{
-		if (quotes_are_closed_no_loop(temp[i]) && temp[i] == ' ' && temp[i + 1] == ' ')
+		if (quotes_are_closed(temp[i]) && temp[i] == ' ' && temp[i + 1] == ' ')
 		{
 			i++;
 			continue ;
@@ -55,12 +55,12 @@ char *remove_blank_spaces2(char *string)
 	new = ft_strdup(string);
 	while(string[i])
 	{
-		if (quotes_are_closed_no_loop(string[i]) && string[i] == ' ' && string[i + 1] == ' ')
+		if (quotes_are_closed(string[i]) && string[i] == ' ' && string[i + 1] == ' ')
 		{
 			i++;
 			continue ;
 		}
-		else if (quotes_are_closed_no_loop(string[i]) && string[i] != ' ' && string[i + 1] == ' ' && string[i + 2] == '|')
+		else if (quotes_are_closed(string[i]) && string[i] != ' ' && string[i + 1] == ' ' && string[i + 2] == '|')
 		{
 			i++;
 			continue ;

@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/13 21:18:11 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:11:57 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-t_env *env_to_str(char **env, int j)
+t_env	*env_to_str(char **env, int j)
 {
-	int i = 0;
-	char **var_val;
-	t_env *envv;
+	int		i;
+	char	**var_val;
+	t_env	*envv;
+
+	i = 0;
 	envv = malloc(sizeof(t_env) * j);
-	while(i < j)
+	while (i < j)
 	{
 		var_val = ft_split(env[i], '=');
 		envv[i].var = ft_strdup(var_val[0]);
@@ -29,15 +31,15 @@ t_env *env_to_str(char **env, int j)
 	return (envv);
 }
 
-
-bool single_quotes_open(char c)
+bool	single_quotes_open(char c)
 {
-	static bool open = false;
+	static bool	open = false;
+
 	if (open && c == '\'')
 	{
 		open = false;
 	}
-	else if(!open && c == '\'')
+	else if (!open && c == '\'')
 	{
 		open = true;
 	}
@@ -46,30 +48,31 @@ bool single_quotes_open(char c)
 	return (false);
 }
 
-int main()
-{
-	char *string = "abab$abab '$$$$$' ";
-	int i = 0;
-	while (string[i])
-	{
-		if (single_quotes_open(string[i]) && string[i] != )
-			printf("%c\n", string[i]);
-		i++;
-	}
-}
+// int main()
+// {
+// 	char *string = "abab$abab '$$$$$' ";
+// 	int i = 0;
+// 	while (string[i])
+// 	{
+// 		if (single_quotes_open(string[i]) && string[i] != )
+// 			printf("%c\n", string[i]);
+// 		i++;
+// 	}
+// }
 
 //
-int get_indices(char *string, int *start_idx, int *end_idx)
+int	get_indices(char *string, int *start_idx, int *end_idx)
 {
-	int i = 0;
-	
-	while(string[i])
+	int	i;
+
+	i = 0;
+	while (string[i])
 	{
 		if (string[i] == '$')
 			*start_idx = i + 1;
 		if (*start_idx)
 		{
-			while(string[i] != ' ' && string[i] != '\'' && string[i] != '\"')
+			while (string[i] != ' ' && string[i] != '\'' && string[i] != '\"')
 			{
 				i++;
 			}
@@ -77,7 +80,7 @@ int get_indices(char *string, int *start_idx, int *end_idx)
 		}
 		i++;
 		if (*end_idx)
-			break ;		
+			break ;
 	}
 	if (*start_idx != 0)
 	{
@@ -86,15 +89,14 @@ int get_indices(char *string, int *start_idx, int *end_idx)
 	return (1);
 }
 
-
-char *reassamble_string(char *string,  char *add_str, int len_s1)
+char	*reassamble_string(char *string, char *add_str, int len_s1)
 {
-	char **arr;
-	int len_og;
-	int len_big;
-	int len_s2;
-	int len_add_str;
-	
+	char	**arr;
+	int		len_og;
+	int		len_big;
+	int		len_s2;
+	int		len_add_str;
+
 	len_og = ft_strlen(string);
 	len_s2 = len_og - len_s1 + 1;
 	len_add_str = ft_strlen(add_str);
@@ -107,14 +109,14 @@ char *reassamble_string(char *string,  char *add_str, int len_s1)
 	ft_strlcpy(arr[1], string + len_s1 - 1, len_s2 + 1);
 	free(string);
 	string = ft_calloc(len_big + 1, sizeof(char));
-	ft_strlcat(string, arr[0], len_s1); 
-	ft_strlcat(string, add_str, len_add_str + len_s1); 
+	ft_strlcat(string, arr[0], len_s1);
+	ft_strlcat(string, add_str, len_add_str + len_s1);
 	ft_strlcat(string, arr[1], len_add_str + len_s1 + len_s2);
 	free_2d_array(arr);
-	return (string);	
+	return (string);
 }
 
-char	*trim_str(char *str, char*sub, int start_index, int finish_index)
+char	*remove_part_string(char *str, char*sub, int start_index, int finish_index)
 {
 	int		str_len;
 	int		sub_len;
@@ -139,12 +141,12 @@ char	*trim_str(char *str, char*sub, int start_index, int finish_index)
 
 /* First argument is a string, second is array of my struct.
 If the string is found in the array, it is returned. Else \0 is returned. */
-char *find_match(char *string, t_env *arr, int len, int arr_size)
+char	*find_match(char *string, t_env *arr, int len, int arr_size)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
-	while(ft_strncmp(string, arr[i].var, len))
+	while (ft_strncmp(string, arr[i].var, len))
 	{	
 		i++;
 		if (i == arr_size)
@@ -160,20 +162,23 @@ char *find_match(char *string, t_env *arr, int len, int arr_size)
 	return (string);
 }
 
-char *expand(char *string, t_env *envv, int count)
+char	*expand(char *string, t_env *envv, int count)
 {
-	int i = 0;
-	int start_idx = 0;
-	int end_idx = 0;
-	char *variable;
-	char *value;
-	
+	int		i;
+	int		start_idx;
+	int		end_idx;
+	char	*variable;
+	char	*value;
+
+	i = 0;
+	start_idx = 0;
+	end_idx = 0;
 	if (get_indices(string, &start_idx, &end_idx))
 		return (string);
 	variable = ft_calloc(start_idx + end_idx, sizeof(char));
 	ft_strlcpy(variable, string + start_idx, end_idx - start_idx + 2);
 	value = find_match(variable, envv, start_idx + end_idx, count);
-	string = trim_str(string, variable, start_idx - 1, end_idx);
+	string = remove_part_string(string, variable, start_idx - 1, end_idx);
 	string = reassamble_string(string, value, start_idx);
 	free(variable);
 	free(value);
@@ -181,16 +186,17 @@ char *expand(char *string, t_env *envv, int count)
 	return (string);
 }
 
-// int main (int argc, char *argv[], char *env[])
+// int	main(int argc, char *argv[], char *env[])
 // {
-// 	t_env *envv;
-// 	int count;
-// 	char *string;
-	
-// 	string = ft_strdup("something \"$LANG\" else");
+// 	t_env	*envv;
+// 	int		count;
+// 	char	*string;
+
+// 	string = ft_strdup("something $LANG else");
 // 	count = count_strings(env);
 // 	envv = env_to_str(env, count);
 // 	string = expand(string, envv, count);
+// 	printf("%s\n", string);
 // 	free(string);
 // }
 
