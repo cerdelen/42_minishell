@@ -6,11 +6,33 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:03:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/14 10:04:44 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/15 19:19:24 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
+
+void print_cmd_struct(t_full_pipe cmd)
+{
+	int i = 0;
+	
+	while(cmd.cmd_flags[i])
+		printf("CMD_FLAG: %s\n", cmd.cmd_flags[i++]);
+	i = 0;	
+	while(cmd.here_doc[i])
+		printf("HERE_DOC: %s\n", cmd.here_doc[i++]);
+	i = 0;	
+	while(cmd.reddir_in[i])
+		printf("REDIRECT_INPUT: %s\n", cmd.reddir_in[i++]);
+	i = 0;	
+	while(cmd.reddir_out[i])
+		printf("REDIRECT_OUTPUT: %s\n", cmd.reddir_out[i++]);
+	i = 0;	
+	while(cmd.reddir_out_app[i])
+		printf("REDIRECT_OUT_APP: %s\n", cmd.reddir_out_app[i++]);
+	
+
+}
 
 void print_env_struct(t_env *envv, int i)
 {

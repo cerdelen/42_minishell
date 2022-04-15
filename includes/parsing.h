@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/15 16:11:04 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/15 19:08:59 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,23 @@ typedef struct s_complex_command
 	char	**reddir_out; //NULL
 	char	**reddir_out_app; //NULL
 	char	**here_doc; //NULL
-	char	**envv;
+	// char	**envv;
 	char	**cmd_flags; //NULL
 } t_full_pipe;
 
+typedef struct s_element_amounts
+{
+	int n_red_in;
+	int n_red_out;
+	int n_red_out_app;
+	int n_here_doc;
+	int n_cmd_flags;
+	int idx_red_in;
+	int idx_red_out;
+	int idx_red_out_app;
+	int idx_here_doc;
+	int idx_cmd_flags;
+}t_n_el;
 typedef struct s_remove_substring
 {
 	int i;
@@ -61,7 +74,7 @@ char	**modified_split(char const *s, char c);
 //parse_input
 bool	double_pipe(char *string);
 bool	multiple_redirection(char *string, char c);
-
+t_full_pipe fill_cmd(char *arr);
 //utils
 int		count_chars(char *str, char c);
 int		count_double_chars(char *str, char c);
@@ -73,6 +86,7 @@ void	free_2d_array(char **arr);
 void	free_struct_array(t_full_pipe *arr, int n_elements);
 
 //print_utils
+void	print_cmd_struct(t_full_pipe cmd);
 void	print_env_struct(t_env *envv, int i);
 void	print_2d_array(char **arr);
 void	print_struct_array(t_full_pipe *arr, int n_elements);
