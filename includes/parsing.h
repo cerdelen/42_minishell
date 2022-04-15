@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/15 10:23:01 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/15 16:11:04 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ typedef struct s_complex_command
 	char	**reddir_out_app; //NULL
 	char	**here_doc; //NULL
 	char	**envv;
-	// char	*cmd;
-	// char	**flags; //NULL
 	char	**cmd_flags; //NULL
 } t_full_pipe;
 
@@ -63,8 +61,6 @@ char	**modified_split(char const *s, char c);
 //parse_input
 bool	double_pipe(char *string);
 bool	multiple_redirection(char *string, char c);
-char	*find_single_redirection(char *string, char symbol, t_r_s *vars);
-char	*trim_string(char *str, char*sub, t_r_s *vars);
 
 //utils
 int		count_chars(char *str, char c);
@@ -109,6 +105,6 @@ char	*expand(char *string, t_env *envv, int count);
 char	*reassamble_string(char *string,  char *add_str, int len_s1);
 char	*remove_part_string(char *str, char*sub, int start_index, int finish_index);
 char	*find_match(char *string, t_env *arr, int len, int arr_size);
-bool	char_is_present(char c, char *string, int i);
+bool	char_is_present(char c, char *string);
 
 #endif

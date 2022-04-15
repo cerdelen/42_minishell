@@ -6,13 +6,14 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 15:44:57 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/14 10:21:51 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/15 16:30:37 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
 //counts how many instances of a character are present in a string
+//if the char is qithin any quotes, it is not counted
 //returns -1 if either of the arguments is not present
 int count_chars(char *str, char c)
 {

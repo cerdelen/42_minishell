@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/14 10:23:19 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/15 16:23:22 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,22 @@ bool multiple_redirection(char *string, char c)
 	}
 	// quotes_are_closed(string[i]);
 	return (false);
+}
+
+t_full_pipe fill_command(char **arr)
+{
+	int i;
+
+	i = 0;
+	while ((arr[i]))
+	{
+		if (ft_strncmp(">>", arr[i], 2) == 0 )
+			{}
+		else if ("<<")
+			{}
+		else if ("<")
+			{}
+		else if (">")
+			{}
+	}
 }

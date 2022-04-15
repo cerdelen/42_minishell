@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/15 15:21:03 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/15 16:31:43 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,35 +25,45 @@ t_env	*env_to_str(char **env, int j)
 		var_val = ft_split(env[i], '=');
 		envv[i].var = ft_strdup(var_val[0]);
 		envv[i].val = ft_strdup(var_val[1]);
-		(i)++;
+		i++;
 		free_2d_array(var_val);
 	}
 	return (envv);
 }
 
-bool	char_is_present(char c, char *string, int i)
+bool	char_available(char *string, int i, int status)
 {
+	if (status == S_OPEN_ONLY || status == D_OPEN_SECOND)
+		return (false);
+	else if (status == NONE_OPEN
+		&& (string[i + 1] == '\0'
+			|| string[i + 1] == '\"'
+			|| string[i + 1] == '\''))
+		return (false);
+	else if (status == NONE_OPEN && string[i + 1] && string[i + 1] == ' ' )
+		return (false);
+	else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == '\"')
+		return (false);
+	else
+		return (true);
+}
+
+bool	char_is_present(char c, char *string)
+{
+	int	status;
+	int	i;
+
 	i = 0;
-	int status = 0;
-	int non_expand = 0;
+	status = 0;
 	while (string[i])
 	{
 		if (string[i] == '\'')
 			status = single_quotes_open(status);
 		else if (string[i] == '\"')
 			status = double_quotes_open(status);
-		
-		if (string[i] == c)
+		else if (string[i] == c)
 		{	
-			if (status == S_OPEN_ONLY || status == D_OPEN_SECOND)
-				non_expand++;
-			else if (status == NONE_OPEN && (string[i + 1] == '\0' || string[i + 1] == '\"' || string[i + 1] == '\''))
-				non_expand++;
-			else if (status == NONE_OPEN && string[i + 1] && string[i + 1] == ' ' )
-				non_expand++;
-			else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == '\"')
-				non_expand++; 
-			else
+			if (char_available(string, i, status))
 				return (true);
 		}
 		i++;
@@ -98,9 +108,7 @@ int	get_indices(char *string, int *start_idx, int *end_idx)
 			break ;
 	}
 	if (*start_idx != 0)
-	{
 		return (0);
-	}
 	return (1);
 }
 
