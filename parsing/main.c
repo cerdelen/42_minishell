@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 11:34:42 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/14 10:19:48 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/15 15:04:31 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char **rm_sp_spl_pipe(char *string)
 	return (complex_commands);	
 }
 
-// string = ft_strdup("<<here_doc cmd1  | 'flags         '   >output1 >  $USER   output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random        ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough");
 // string = ft_strdup("<<here_doc cmd1   '                    flags'   >output1 >    output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough");
 // string = " <<here_doc2  ' c  a  r '     cmd2 < input> <here_doc4 ";
 //string = ft_strdup(" <<here_doc2  ' c  a  r '     cmd2 < input> <here_doc4 ");
@@ -38,14 +37,25 @@ int main(int argc, char *argv[], char* env[])
 	int		count; 
 	char	*string;
 	
-	string = ft_strdup("something  something_else $LANG");
-	printf("%s\n", string);
+	// string = ft_strdup("something  something_else LANG"); '$USER' 
+	string = ft_strdup("<<here_doc cmd1>>>  $USER $?| 'flags   <<<      '   >output1 >  $USER   output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random        ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough");
+	// string = ft_strdup("\"'$USER'\" '$' '\"$USER\"''\"$USER\"' '$USER' '$USER' '$USER'  '$USER' $USER \"a $USER\" \"'$USER'\"");
+	// string = ft_strdup(" \"$\" '\"$USER\"'  '$USER' $USER \"a $USER\" \"'$USER'\"");
+	// string = ft_strdup(" $ '\"$USER\"'  '$USER' $USER \"a $USER\" \"'$USER'\"");
+	// string = ft_strdup("$ '$USER$' '$' '\"$USER$\"''\"$USER\"' '$USER' '$USER' '$USER'  '$USER' $USER \"a $USER\" \"'$USER'\"");
+	// string = ft_strdup("$\"$USER\"$");
 	if (errors(string))
 		return (EXIT_FAILURE);
 	count = count_strings(env);
 	envv = env_to_str(env, count);
-	
-	string = expand(string, envv, count);
+	while(char_is_present('$', string, 0))
+	{
+		string = expand(string, envv, count);
+	}
+	// printf("%s\n", string);
+	char ** arr= modified_split(string, ' ');
+	// printf("\n%s\n", arr[0]);
+	print_2d_array(arr);
 	free(string);
 }
 

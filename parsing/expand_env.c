@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/14 10:11:57 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/15 15:21:03 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,51 +31,66 @@ t_env	*env_to_str(char **env, int j)
 	return (envv);
 }
 
-bool	single_quotes_open(char c)
+bool	char_is_present(char c, char *string, int i)
 {
-	static bool	open = false;
-
-	if (open && c == '\'')
+	i = 0;
+	int status = 0;
+	int non_expand = 0;
+	while (string[i])
 	{
-		open = false;
+		if (string[i] == '\'')
+			status = single_quotes_open(status);
+		else if (string[i] == '\"')
+			status = double_quotes_open(status);
+		
+		if (string[i] == c)
+		{	
+			if (status == S_OPEN_ONLY || status == D_OPEN_SECOND)
+				non_expand++;
+			else if (status == NONE_OPEN && (string[i + 1] == '\0' || string[i + 1] == '\"' || string[i + 1] == '\''))
+				non_expand++;
+			else if (status == NONE_OPEN && string[i + 1] && string[i + 1] == ' ' )
+				non_expand++;
+			else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == '\"')
+				non_expand++; 
+			else
+				return (true);
+		}
+		i++;
 	}
-	else if (!open && c == '\'')
-	{
-		open = true;
-	}
-	if (open)
-		return (true);
 	return (false);
 }
 
-// int main()
-// {
-// 	char *string = "abab$abab '$$$$$' ";
-// 	int i = 0;
-// 	while (string[i])
-// 	{
-// 		if (single_quotes_open(string[i]) && string[i] != )
-// 			printf("%c\n", string[i]);
-// 		i++;
-// 	}
-// }
-
-//
 int	get_indices(char *string, int *start_idx, int *end_idx)
 {
 	int	i;
-
+	int status;
+	
+	status = 0;
 	i = 0;
 	while (string[i])
 	{
-		if (string[i] == '$')
-			*start_idx = i + 1;
+		if (string[i] == '\'')
+			status = single_quotes_open(status);
+		else if (string[i] == '\"')
+			status = double_quotes_open(status);
+
+		if (string[i] == '$') ///SPECIAL CASE FOR $? NEEDED
+		{
+			// if (status == S_OPEN_ONLY || status == D_OPEN_SECOND)
+			// 	{}//MAYBE I DON"T NEED THIS CONDITION ANY MORE
+			if (string[i + 1] && string[i + 1] == ' ')
+				{}
+			else if (status == NONE_OPEN || status == D_OPEN_ONLY || status == S_OPEN_SECOND)
+			{
+				if (string[i + 1] && string[i + 1] != '\"') //"$"
+					*start_idx = i + 1;
+			}
+		}
 		if (*start_idx)
 		{
-			while (string[i] != ' ' && string[i] != '\'' && string[i] != '\"')
-			{
+			while (string[i] && string[i] != ' ' && string[i] != '\'' && string[i] != '\"')
 				i++;
-			}
 			*end_idx = i - 1;
 		}
 		i++;
@@ -161,7 +176,7 @@ char	*find_match(char *string, t_env *arr, int len, int arr_size)
 	}
 	return (string);
 }
-
+//Find $, retrieve the value for the env variable, replace it in the string
 char	*expand(char *string, t_env *envv, int count)
 {
 	int		i;
@@ -169,36 +184,21 @@ char	*expand(char *string, t_env *envv, int count)
 	int		end_idx;
 	char	*variable;
 	char	*value;
-
+	
 	i = 0;
 	start_idx = 0;
 	end_idx = 0;
 	if (get_indices(string, &start_idx, &end_idx))
 		return (string);
-	variable = ft_calloc(start_idx + end_idx, sizeof(char));
+	variable = ft_calloc(end_idx - start_idx + 2, sizeof(char));
 	ft_strlcpy(variable, string + start_idx, end_idx - start_idx + 2);
 	value = find_match(variable, envv, start_idx + end_idx, count);
 	string = remove_part_string(string, variable, start_idx - 1, end_idx);
 	string = reassamble_string(string, value, start_idx);
 	free(variable);
 	free(value);
-	free_env_struct(envv, count);
 	return (string);
 }
-
-// int	main(int argc, char *argv[], char *env[])
-// {
-// 	t_env	*envv;
-// 	int		count;
-// 	char	*string;
-
-// 	string = ft_strdup("something $LANG else");
-// 	count = count_strings(env);
-// 	envv = env_to_str(env, count);
-// 	string = expand(string, envv, count);
-// 	printf("%s\n", string);
-// 	free(string);
-// }
 
 // echo ${USER}asdfasdfasdf   -- IGNORE curly braces
 // echo "${USER}asdfasdfasdf" -- IGNORE curly braces
@@ -207,8 +207,3 @@ char	*expand(char *string, t_env *envv, int count)
 // echo '$USERasdfasdfasdf'
 // echo "$USERasdfasdfasdf"
 // echo "'${USER}'"
-
-// bool no_more_dollar(char *str)
-// {
-// 	if 
-// }

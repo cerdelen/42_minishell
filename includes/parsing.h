@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/14 10:23:09 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/15 10:23:01 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,19 @@ typedef struct s_env
 	char *val;
 } t_env;
 
+enum {
+	NONE_OPEN = 0,
+	S_OPEN_FIRST = 100,
+	S_OPEN_SECOND = 101,
+	// S_CLOSED = 102,
+	S_OPEN_ONLY = 103,
+	D_OPEN_FIRST = 200,
+	D_OPEN_SECOND = 201,
+	// D_CLOSED = 202,
+	D_OPEN_ONLY = 203,
+	
+};
+
 //modified_split
 char	**modified_split(char const *s, char c);
 
@@ -71,6 +84,8 @@ void	print_struct_array(t_full_pipe *arr, int n_elements);
 //quotes_management
 bool	all_quotes_are_closed(char *str);
 bool	quotes_are_closed(char c);
+int		double_quotes_open(int status);
+int		single_quotes_open(int status);
 
 //redirection
 char	**get_single_redirections(char **string, char symbol, t_r_s *vars);
@@ -83,17 +98,17 @@ char	*trim_string(char *str, char*sub, t_r_s *vars);
 void	remove_blank_spaces(char **string);
 //TEST
 char *remove_blank_spaces2(char *string);
+
 //error_management
 int		errors(char *string);
 
 //expand_env
 t_env	*env_to_str(char **env, int j);
-int	get_indices(char *string, int *start_idx, int *end_idx);
-char	*expand_env_vars(char *string, t_env *envv, int count);
+int		get_indices(char *string, int *start_idx, int *end_idx);
 char	*expand(char *string, t_env *envv, int count);
 char	*reassamble_string(char *string,  char *add_str, int len_s1);
 char	*remove_part_string(char *str, char*sub, int start_index, int finish_index);
 char	*find_match(char *string, t_env *arr, int len, int arr_size);
-
+bool	char_is_present(char c, char *string, int i);
 
 #endif

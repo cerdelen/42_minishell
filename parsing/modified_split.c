@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:09:37 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/14 10:21:51 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:45:07 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	**modified_split(char const *s, char c)
 	char	**ptr;
 	int		count;
 	int		i;
-
+	char	*str;
 	i = 0;
 	count = 0;
 	if (!s)
@@ -83,7 +83,10 @@ char	**modified_split(char const *s, char c)
 		if (s[i] == 0)
 			break ;
 		if (count == 0 || s[i - 1] == c)
-			ptr[count++] = init_string(s + i, c);
+		{
+			if (init_string(s + i, c))
+				ptr[count++] = init_string(s + i, c);
+		}
 		i++;
 	}
 	ptr[count] = NULL;
