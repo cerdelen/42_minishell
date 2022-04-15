@@ -6,7 +6,7 @@
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 14:23:49 by cerdelen          #+#    #+#             */
-/*   Updated: 2022/04/10 11:33:49 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/04/15 12:06:21 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,6 @@ char	*man_path_for_cd(char *pathname)
 	return (out);
 }
 
-void	cd_error_message(char *pathname)
-{
-	char	*error_msg;
-	
-	error_msg = strerror(errno);
-	write(STDERR_FILENO, "cd: ", 4);
-	write(STDERR_FILENO, error_msg, ft_strlen(error_msg));
-	write(STDERR_FILENO, ": ", 2);
-	write(STDERR_FILENO, pathname, ft_strlen(pathname));
-	write(STDERR_FILENO, "\n", 1);
-}
-
 int	command_cd(char *pathname)
 {
 	char	*path_after_mod;
@@ -72,7 +60,7 @@ int	command_cd(char *pathname)
 		check = chdir(path_after_mod);
 		if (check != 0)
 		{
-			cd_error_message(pathname);
+			print_error_message(pathname, "cd");
 			if (ft_strncmp("/", pathname, 1) != 0)
 				free(path_after_mod);
 			return (1);
