@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 11:34:42 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/15 19:18:33 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/16 20:57:58 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,29 @@ char **rm_sp_spl_pipe(char *string)
 // string = ft_strdup("\"'$USER'\" '$' '\"$USER\"''\"$USER\"' '$USER' '$USER' '$USER'  '$USER' $USER \"a $USER\" \"'$USER'\"");
 // string = ft_strdup(" \"$\" '\"$USER\"'  '$USER' $USER \"a $USER\" \"'$USER'\"");
 // string = ft_strdup(" $ '\"$USER\"'  '$USER' $USER \"a $USER\" \"'$USER'\"");
-// string = ft_strdup("$ '$USER$' '$' '\"$USER$\"''\"$USER\"' '$USER' '$USER' '$USER'  '$USER' $USER \"a $USER\" \"'$USER'\"");
 // string = ft_strdup("$?");
+// string = ft_strdup("<<here_doc <<here_doc1 <input >output >>output2 cmd flags");
+// string = ft_strdup("a<<here_doc cmd1>>  '$USER' | 'flags   <<<      '   >output1 >  $USER   output2 <inside >>hopala | <<here_doc2 cmd2 <input> <here_doc4 | cmd \"some random        ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough");
 
+
+//$? needs NOT be expanded 
 int main(int argc, char *argv[], char* env[])
 {
 	t_env		*envv;
 	int			count; 
 	char		*string;
 	char		**arr;
-	int			command_amt;
 	t_full_pipe	*compl_cmds;
 	
-	// string = ft_strdup("<<here_doc cmd1>>  $USER | 'flags   <<<      '   >output1 >  $USER   output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random        ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough");
-	string = ft_strdup("<<here_doc <<here_doc1 <input >output >>output2 cmd flags");
+	string = ft_strdup("$sdfsdf");
+	// string = ft_strdup("$ '$USER$' '$' '\"$USER$\"''\"$USER\"' '$USER' $USER \"a $USER\" \"'$USER'\"");
+	// printf("%s\n", string);
+	remove_blank_spaces(&string);
+	// printf("%s\n", string);
+	connect_double_angular_braces(&string);
+	// printf("%s\n", string);
+	connect_singular_angular_braces(&string);
+	// printf("%s\n", string);
 	if (errors(string))
 		return (EXIT_FAILURE);
 	count = count_strings(env);
@@ -57,19 +66,21 @@ int main(int argc, char *argv[], char* env[])
 	printf("%s\n", string);
 	arr = modified_split(string, '|');
 	
+	int			command_amt;
+	int i = 0;
 	command_amt = count_chars(string, '|') + 1;
 	compl_cmds = malloc(sizeof(t_full_pipe) * command_amt);
-	int i = 0;
 	while(i < command_amt)
 	{
 		compl_cmds[i] = fill_cmd(arr[i]);
-		print_cmd_struct(compl_cmds[i]);
-		printf("______________\n");
 		i++;
 	}
-	// printf("\n%s\n", arr[0]);
+	// print_cmd_struct_arr(compl_cmds, command_amt);
 	// print_2d_array(arr);
-	free(string);
+	// free_cmd_struct_arr(compl_cmds, command_amt);
+	// free_env_struct(envv, count);
+	// free_2d_array(arr);
+	// free(string);
 }
 
 

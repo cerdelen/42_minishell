@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:03:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/15 19:19:24 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/16 13:20:09 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,44 @@
 
 void print_cmd_struct(t_full_pipe cmd)
 {
-	int i = 0;
+	// int i = 0;
 	
-	while(cmd.cmd_flags[i])
-		printf("CMD_FLAG: %s\n", cmd.cmd_flags[i++]);
-	i = 0;	
-	while(cmd.here_doc[i])
-		printf("HERE_DOC: %s\n", cmd.here_doc[i++]);
-	i = 0;	
-	while(cmd.reddir_in[i])
-		printf("REDIRECT_INPUT: %s\n", cmd.reddir_in[i++]);
-	i = 0;	
-	while(cmd.reddir_out[i])
-		printf("REDIRECT_OUTPUT: %s\n", cmd.reddir_out[i++]);
-	i = 0;	
-	while(cmd.reddir_out_app[i])
-		printf("REDIRECT_OUT_APP: %s\n", cmd.reddir_out_app[i++]);
-	
-
+	printf("-----------\nCMD_FLAGS:\n");
+	print_2d_array(cmd.cmd_flags);
+	printf("-----------\nHERE_DOC:\n");
+	print_2d_array(cmd.here_doc);
+	printf("-----------\nRED_IN:\n");
+	print_2d_array(cmd.reddir_in);
+	printf("-----------\nRED_OUT:\n");
+	print_2d_array(cmd.reddir_out);
+	printf("-----------\nRED_OUT_APP:\n");
+	print_2d_array(cmd.reddir_out_app);
+	// while(cmd.cmd_flags[i])
+	// 	printf("CMD_FLAG: %s\n", cmd.cmd_flags[i++]);
+	// i = 0;	
+	// while(cmd.here_doc[i])
+	// 	printf("HERE_DOC: %s\n", cmd.here_doc[i++]);
+	// i = 0;	
+	// while(cmd.reddir_in[i])
+	// 	printf("REDIRECT_INPUT: %s\n", cmd.reddir_in[i++]);
+	// i = 0;	
+	// while(cmd.reddir_out[i])
+	// 	printf("REDIRECT_OUTPUT: %s\n", cmd.reddir_out[i++]);
+	// i = 0;	
+	// while(cmd.reddir_out_app[i])
+	// 	printf("REDIRECT_OUT_APP: %s\n", cmd.reddir_out_app[i++]);
 }
 
+void print_cmd_struct_arr(t_full_pipe *arr, int command_amt)
+{
+	int i = 0;
+	while(i < command_amt)
+	{
+		print_cmd_struct(arr[i]);
+		printf("**********************\n");
+		i++;
+	}
+}
 void print_env_struct(t_env *envv, int i)
 {
 	int j;
@@ -51,7 +69,7 @@ void print_2d_array(char **arr)
 	int i = 0;
 	while (arr[i])
 	{
-		printf("%sX\n", arr[i]);
+		printf("%s\n", arr[i]);
 		i++;
 	}
 }

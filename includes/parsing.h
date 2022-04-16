@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/15 19:08:59 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/16 14:21:58 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ char	**modified_split(char const *s, char c);
 bool	double_pipe(char *string);
 bool	multiple_redirection(char *string, char c);
 t_full_pipe fill_cmd(char *arr);
+
 //utils
 int		count_chars(char *str, char c);
 int		count_double_chars(char *str, char c);
@@ -84,12 +85,15 @@ int		count_strings(char **arr);
 void	free_env_struct(t_env *envv, int i);
 void	free_2d_array(char **arr);
 void	free_struct_array(t_full_pipe *arr, int n_elements);
+void	free_cmd_struct(t_full_pipe cmd);
+void	free_cmd_struct_arr(t_full_pipe *cmd, int command_amt);
 
 //print_utils
 void	print_cmd_struct(t_full_pipe cmd);
 void	print_env_struct(t_env *envv, int i);
 void	print_2d_array(char **arr);
 void	print_struct_array(t_full_pipe *arr, int n_elements);
+void	print_cmd_struct_arr(t_full_pipe *arr, int command_amt);
 
 //quotes_management
 bool	all_quotes_are_closed(char *str);
@@ -106,6 +110,9 @@ char	*trim_string(char *str, char*sub, t_r_s *vars);
 
 //remove_spaces
 void	remove_blank_spaces(char **string);
+void	connect_double_angular_braces(char **string);
+void	connect_singular_angular_braces(char **string);
+
 //TEST
 char *remove_blank_spaces2(char *string);
 

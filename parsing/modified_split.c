@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   modified_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:09:37 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/14 17:45:07 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/16 19:07:42 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	**modified_split(char const *s, char c)
 	int		count;
 	int		i;
 	char	*str;
+	char	*temp;
 	i = 0;
 	count = 0;
 	if (!s)
@@ -75,7 +76,7 @@ char	**modified_split(char const *s, char c)
 		return (NULL);
 	while (s[i] != 0)
 	{
-		if (quotes_are_closed(s[i - 1]) == false)
+		if (count && quotes_are_closed(s[i - 1]) == false)
 		{
 			i++;
 			continue ;
@@ -84,8 +85,13 @@ char	**modified_split(char const *s, char c)
 			break ;
 		if (count == 0 || s[i - 1] == c)
 		{
-			if (init_string(s + i, c))
-				ptr[count++] = init_string(s + i, c);
+			
+			temp = init_string(s + i, c);
+			if (temp)
+			{
+				ptr[count++] = temp;
+				// free(temp);
+			}
 		}
 		i++;
 	}

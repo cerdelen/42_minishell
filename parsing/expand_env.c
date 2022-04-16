@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/15 16:31:43 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/16 20:39:19 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ bool	char_available(char *string, int i, int status)
 			|| string[i + 1] == '\''))
 		return (false);
 	else if (status == NONE_OPEN && string[i + 1] && string[i + 1] == ' ' )
+		return (false);
+	else if ((status == NONE_OPEN) && string[i + 1] && string[i + 1] == '?')
+		return (false);
+	else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == '?')
+		return (false);
+	else if (status == S_OPEN_SECOND && string[i + 1] && string[i + 1] == '?')
 		return (false);
 	else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == '\"')
 		return (false);
@@ -89,7 +95,9 @@ int	get_indices(char *string, int *start_idx, int *end_idx)
 		{
 			// if (status == S_OPEN_ONLY || status == D_OPEN_SECOND)
 			// 	{}//MAYBE I DON"T NEED THIS CONDITION ANY MORE
-			if (string[i + 1] && string[i + 1] == ' ')
+			if (string[i + 1] && string[i + 1] == '?')
+				{}
+			else if (string[i + 1] && string[i + 1] == ' ')
 				{}
 			else if (status == NONE_OPEN || status == D_OPEN_ONLY || status == S_OPEN_SECOND)
 			{

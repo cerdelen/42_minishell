@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:08:07 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/15 16:30:16 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/15 22:08:45 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	single_quotes_open(int status)
 		open = true;
 		return(S_OPEN_SECOND);
 	}
-	else if (status == S_OPEN_ONLY)
+	else //if (status == S_OPEN_ONLY)
 	{
 		open = false;
 		return (NONE_OPEN);
@@ -133,7 +133,7 @@ int	double_quotes_open(int status)
 			open = true;
 		return (S_OPEN_FIRST);
 	}
-	else if (status == S_OPEN_ONLY)
+	else //if (status == S_OPEN_ONLY)
 	{
 		open = true;
 		return (D_OPEN_SECOND);
