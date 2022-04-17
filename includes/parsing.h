@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/17 17:46:02 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/17 20:55:01 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ char	*trim_string(char *str, char*sub, t_r_s *vars);
 void	remove_blank_spaces(char **string);
 void	connect_double_angular_braces(char **string);
 void	connect_singular_angular_braces(char **string);
+void	remove_single_quotes(char **string, char rm, char keep);
+void	remove_double_quotes(char **string, char rm, char keep);
 
 //TEST
 char *remove_blank_spaces2(char *string);
@@ -129,4 +131,11 @@ char	*remove_part_string(char *str, char*sub, int start_index, int finish_index)
 char	*find_match(char *string, t_env *arr, int len, int arr_size);
 bool	char_is_present(char c, char *string);
 
+
+
+
+
+
+
+int parse(int argc, char *argv[], char* env[]);
 #endif

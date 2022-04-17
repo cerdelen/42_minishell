@@ -4,7 +4,7 @@ grep '|' input3.txt | awk '{print $1}' > output3.txt
 grep "file" input2.txt |||||||| grep "second"
 grep "file" input2.txt || grep "second" - BONUS
 grep "file" input2.txt ||| grep "second"
-
+echo "$""US""ER"
 
 
 breaks things:

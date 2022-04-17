@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 11:34:42 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/17 18:01:24 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/17 21:01:44 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@
 // 	// printf("Status code: %d\n", wrong_angular_braces("< "));
 // }
 
+// int main()
+// {
+// 	char **arr;
+// 	char *word;
+// 	printf("'$USER'\n");
+// 	arr = ft_split("'oneword'", '\'');
+// 	word = ft_strtrim("'1''2''3'", "'");
+// 	print_2d_array(arr);
+// 	printf(word);
+// }
 // string = ft_strdup("<<here_doc cmd1   '                    flags'   >output1 >    output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough");
 // string = " <<here_doc2  ' c  a  r '     cmd2 < input> <here_doc4 ";
 // string = ft_strdup(" <<here_doc2  ' c  a  r '     cmd2 < input> <here_doc4 ");
@@ -56,21 +66,16 @@ int main(int argc, char *argv[], char* env[])
 	t_full_pipe	*compl_cmds;
 	
 	// string = ft_strdup(""); ////FIX ALL FUNCITONS TO BE ABLE TO WORK WITH ""
-	// string = ft_strdup("$ '$USER$' '$' '\"$USER$\"''\"$USER\"' '$USER' $USER \"a $USER\" \"'$USER'\"");
-	// printf("%s\n", string);
+	string = ft_strdup("$ '$USER$'  '$' '\"$USER$\"''\"$USER\"' '$USER' $USER \"a $USER\" \"'$USER'\"");
 	remove_blank_spaces(&string);
-	
 	if (errors(string))
 		return (EXIT_FAILURE);
 	connect_double_angular_braces(&string);
 	connect_singular_angular_braces(&string);
-
-	
 	count = count_strings(env);
 	envv = env_to_str(env, count);
 	while(char_is_present('$', string))
 		string = expand(string, envv, count);
-	// printf("hmm\n");
 	if (!string || string[0] == '\0') /// $asd == "" so everything segafaults	//NEED TO CHECK THIS WITH THE MAC
 	{
 		printf("hmm\n");
@@ -89,12 +94,12 @@ int main(int argc, char *argv[], char* env[])
 		compl_cmds[i] = fill_cmd(arr[i]);
 		i++;
 	}
-	// print_cmd_struct_arr(compl_cmds, command_amt);
-	// print_2d_array(arr);
-	// free_cmd_struct_arr(compl_cmds, command_amt);
-	// free_env_struct(envv, count);
-	// free_2d_array(arr);
-	// free(string);
+	print_cmd_struct_arr(compl_cmds, command_amt);
+	print_2d_array(arr);
+	free_cmd_struct_arr(compl_cmds, command_amt);
+	free_env_struct(envv, count);
+	free_2d_array(arr);
+	free(string);
 	return(0);
 }
 
