@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/16 21:02:42 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/16 21:15:15 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void init_el_am(char **elements, t_n_el *el_amount)
 	
 	ft_bzero(el_amount, sizeof(t_n_el));
 	i = 0;
+	// if (!elements)
+	// 	return ;
 	while ((elements[i]))
 	{
 		if (ft_strncmp(">>", elements[i], 2) == 0 )
@@ -95,16 +97,4 @@ t_full_pipe fill_cmd(char *string)
 // 	t_n_el el_amount;
 // 	char *string = "<<here_doc >>sth  $USER $?";
 // 	char **arr = modified_split(string, ' ');
-	
-// 	init_el_am(arr, &el_amount);
-// 	printf("%d\n", el_amount.n_cmd_flags);
-// 	printf("%d\n", el_amount.n_here_doc);
-// 	printf("%d\n", el_amount.n_red_in);
-// 	printf("%d\n", el_amount.n_red_out);
-// 	printf("%d\n", el_amount.n_red_out_app);
-// 	printf("%d\n", el_amount.idx_cmd_flags);
-// 	printf("%d\n", el_amount.idx_here_doc);
-// 	printf("%d\n", el_amount.idx_red_in);
-// 	printf("%d\n", el_amount.idx_red_out);
-// 	printf("%d\n", el_amount.idx_red_out_app);
-// }
+
