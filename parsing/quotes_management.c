@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:08:07 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/15 22:08:45 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/17 23:03:25 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,76 +73,35 @@ bool	quotes_are_closed(char c)
 
 int	single_quotes_open(int status)
 {
-	static bool	open = false;
 	
 	if (status == NONE_OPEN)
-	{
-		open = true;
 		return (S_OPEN_ONLY);
-	}
 	else if (status == D_OPEN_ONLY)
-	{
-		open = true;
 		return (S_OPEN_SECOND);
-	}
 	else if (status == S_OPEN_FIRST || status == D_OPEN_SECOND)
-	{
-		open = false;
 		return (NONE_OPEN);
-	}
 	else if (status == S_OPEN_SECOND || status == D_OPEN_FIRST)
-	{
-		if (open)
-		{
-			open = false;
-			return (D_OPEN_ONLY);
-		}
-		open = true;
-		return(S_OPEN_SECOND);
-	}
-	else //if (status == S_OPEN_ONLY)
-	{
-		open = false;
+		return (D_OPEN_ONLY);
+	else 
 		return (NONE_OPEN);
-	}
 }
 
 int	double_quotes_open(int status)
 {
-	static bool	open = false;
 	if (status == NONE_OPEN)
-	{
-		open = true;
 		return (D_OPEN_ONLY);
-	}
-	if (status == D_OPEN_ONLY)
-	{
-		open = false;
+	else if (status == D_OPEN_ONLY || status == D_OPEN_FIRST
+		|| status == S_OPEN_SECOND)
 		return (NONE_OPEN);
-	}
-	else if (status == D_OPEN_FIRST || status == S_OPEN_SECOND)
-	{
-		open = false;
-		return (NONE_OPEN);
-	}
 	else if (status == D_OPEN_SECOND || status == S_OPEN_FIRST)
-	{
-		if (open == true)
-			open = false;
-		else
-			open = true;
 		return (S_OPEN_FIRST);
-	}
-	else //if (status == S_OPEN_ONLY)
-	{
-		open = true;
+	else 
 		return (D_OPEN_SECOND);
-	}
 }
 
 // int maint()
 // {
-// 	char *string = " '\"$USER\"' $USER \"$USER\" '$USER' \"'$USER'\" '\"$USER\"' $USER \"$USER\" '$USER' \"'$USER'\" ";
+// 	char *string = " '\"$USER\"' $USER \"$US";
 // 	int i = 0;
 // 	int status = 0;
 // 	while (string[i])
@@ -157,12 +116,12 @@ int	double_quotes_open(int status)
 // 			status = double_quotes_open(status);
 // 			// printf("Code: %d\n", status);
 // 		}
-		
+	
 // 		if (string[i] == '$')
 // 		{
 // 			if (status == NONE_OPEN || status == S_OPEN_ONLY)
 // 				printf("No quelse if (status == D_OPEN_ONLY)otes. Print: $\n");
-			
+		
 // 				printf("Double quotes. Expand: $\n");
 // 			else if (status == S_OPEN_SECOND)
 // 				printf("Double, single. Expand: $\n");
