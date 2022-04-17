@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/16 14:21:58 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/17 17:46:02 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ enum {
 char	**modified_split(char const *s, char c);
 
 //parse_input
-bool	double_pipe(char *string);
-bool	multiple_redirection(char *string, char c);
 t_full_pipe fill_cmd(char *arr);
 
 //utils
@@ -118,6 +116,9 @@ char *remove_blank_spaces2(char *string);
 
 //error_management
 int		errors(char *string);
+bool	double_pipe(char *string);
+bool	multiple_redirection(char *string, char c);
+bool	wrong_angular_braces(char *string);
 
 //expand_env
 t_env	*env_to_str(char **env, int j);

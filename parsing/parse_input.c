@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/16 21:15:15 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/17 17:56:53 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ t_full_pipe fill_cmd(char *string)
 	t_full_pipe cmd;
 	t_n_el el_amount;
 	
+	printf("Here?\n");
+	if (!string || string[0] == '\0') //NEED TO CHECK THIS WITH THE MAC
+	{
+		ft_bzero(&cmd, sizeof(t_full_pipe));
+		return(cmd);
+	}
 	elements = modified_split(string, ' ');
 	init_cmd_struct(&cmd, &el_amount, elements);
 	i = 0;
