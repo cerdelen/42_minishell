@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:08:07 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 09:26:15 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 13:56:04 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ bool	all_quotes_are_closed(char *str)
 	return (false);
 }
 
-void reset_quotes()
+void	reset_quotes(void)
 {
 	if (quotes_are_closed('\'') == false)
 		quotes_are_closed('\'');
 	if (quotes_are_closed('\"') == false)
 		quotes_are_closed('\"');
 }
+
 //Gets called in a loop
 //returns false (0) if the quotes are not closed - else true(1)
 bool	quotes_are_closed(char c)
@@ -84,8 +85,6 @@ int	single_quotes_open(int status)
 		return (S_OPEN_ONLY);
 	else if (status == D_OPEN_ONLY)
 		return (S_OPEN_SECOND);
-	// else if (status == S_OPEN_FIRST || status == D_OPEN_SECOND)
-	// 	return (NONE_OPEN);
 	else if (status == S_OPEN_SECOND || status == D_OPEN_FIRST)
 		return (D_OPEN_ONLY);
 	else
@@ -104,36 +103,3 @@ int	double_quotes_open(int status)
 	else
 		return (D_OPEN_SECOND);
 }
-
-// int maint()
-// {
-// 	char *string = " '\"$USER\"' $USER \"$US";
-// 	int i = 0;
-// 	int status = 0;
-// 	while (string[i])
-// 	{
-// 		if (string[i] == '\'')
-// 		{
-// 			status = single_quotes_open(status);
-// 			// printf("Code: %d\n", status);
-// 		}
-// 		else if (string[i] == '\"')
-// 		{
-// 			status = double_quotes_open(status);
-// 			// printf("Code: %d\n", status);
-// 		}
-
-// 		if (string[i] == '$')
-// 		{
-// 			if (status == NONE_OPEN || status == S_OPEN_ONLY)
-// 				printf("No quelse if (status == D_OPEN_ONLY)otes. Print: $\n");
-
-// 				printf("Double quotes. Expand: $\n");
-// 			else if (status == S_OPEN_SECOND)
-// 				printf("Double, single. Expand: $\n");
-// 			else if (status == D_OPEN_SECOND)
-// 				printf("Single, double. Expand: $\n");
-// 		}
-// 		i++;
-// 	}
-// }
