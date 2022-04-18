@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 09:35:58 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 13:34:14 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,97 +29,6 @@ t_env	*env_to_str(char **env, int j)
 		free_2d_array(var_val);
 	}
 	return (envv);
-}
-
-bool	char_available(char *string, int i, int status)
-{
-	if (status == S_OPEN_ONLY || status == D_OPEN_SECOND)
-		return (false);
-	else if (status == NONE_OPEN
-		&& (string[i + 1] == '\0'
-			|| string[i + 1] == '\"'
-			|| string[i + 1] == '\''))
-		return (false);
-	else if (status == NONE_OPEN && string[i + 1] && string[i + 1] == ' ' )
-		return (false);
-	else if ((status == NONE_OPEN) && string[i + 1] && string[i + 1] == '?')
-		return (false);
-	else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == '?')
-		return (false);
-	else if (status == S_OPEN_SECOND && string[i + 1] && string[i + 1] == '?')
-		return (false);
-	else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == '\"')
-		return (false);
-	else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == ' ')
-		return (false);
-	else
-		return (true);
-}
-
-bool	char_is_present(char c, char *string)
-{
-	int	status;
-	int	i;
-
-	i = 0;
-	status = 0;
-	while (string[i])
-	{
-		if (string[i] == '\'')
-			status = single_quotes_open(status);
-		else if (string[i] == '\"')
-			status = double_quotes_open(status);
-		else if (string[i] == c)
-		{	
-			if (char_available(string, i, status))
-				return (true);
-		}
-		i++;
-	}
-	return (false);
-}
-
-int	get_indices(char *string, int *start_idx, int *end_idx)
-{
-	int	i;
-	int status;
-	
-	status = 0;
-	i = 0;
-	while (string[i])
-	{
-		if (string[i] == '\'')
-			status = single_quotes_open(status);
-		else if (string[i] == '\"')
-			status = double_quotes_open(status);
-
-		if (string[i] == '$') ///SPECIAL CASE FOR $? NEEDED
-		{
-			// if (status == S_OPEN_ONLY || status == D_OPEN_SECOND)
-			// 	{}//MAYBE I DON"T NEED THIS CONDITION ANY MORE
-			if (string[i + 1] && string[i + 1] == '?')
-				{}
-			else if (string[i + 1] && string[i + 1] == ' ')
-				{}
-			else if (status == NONE_OPEN || status == D_OPEN_ONLY || status == S_OPEN_SECOND)
-			{
-				if (string[i + 1] && string[i + 1] != '\"') //"$"
-					*start_idx = i + 1;
-			}
-		}
-		if (*start_idx)
-		{
-			while (string[i] && string[i] != ' ' && string[i] != '\'' && string[i] != '\"')
-				i++;
-			*end_idx = i - 1;
-		}
-		i++;
-		if (*end_idx)
-			break ;
-	}
-	if (*start_idx != 0)
-		return (0);
-	return (1);
 }
 
 char	*reassamble_string(char *string, char *add_str, int len_s1)
@@ -149,7 +58,7 @@ char	*reassamble_string(char *string, char *add_str, int len_s1)
 	return (string);
 }
 
-char	*remove_part_string(char *str, char*sub, int start_index, int finish_index)
+char	*remove_part_string(char *str, char*sub, int start_idx, int finish_idx)
 {
 	int		str_len;
 	int		sub_len;
@@ -164,7 +73,7 @@ char	*remove_part_string(char *str, char*sub, int start_index, int finish_index)
 	j = 0;
 	while (str[i])
 	{
-		if (i < start_index || i > finish_index)
+		if (i < start_idx || i > finish_idx)
 			new_str[j++] = str[i];
 		i++;
 	}
@@ -194,6 +103,7 @@ char	*find_match(char *string, t_env *arr, int len, int arr_size)
 	}
 	return (string);
 }
+
 //Find $, retrieve the value for the env variable, replace it in the string
 char	*expand(char *string, t_env *envv, int count)
 {
@@ -202,7 +112,7 @@ char	*expand(char *string, t_env *envv, int count)
 	int		end_idx;
 	char	*variable;
 	char	*value;
-	
+
 	i = 0;
 	start_idx = 0;
 	end_idx = 0;
@@ -217,11 +127,3 @@ char	*expand(char *string, t_env *envv, int count)
 	free(value);
 	return (string);
 }
-
-// echo ${USER}asdfasdfasdf   -- IGNORE curly braces
-// echo "${USER}asdfasdfasdf" -- IGNORE curly braces
-// echo '${USER}asdfasdfasdf' -- IGNORE curly braces
-// echo $USERasdfasdfasdf
-// echo '$USERasdfasdfasdf'
-// echo "$USERasdfasdfasdf"
-// echo "'${USER}'"
