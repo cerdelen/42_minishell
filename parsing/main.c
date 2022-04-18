@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 11:34:42 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 19:23:36 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 20:20:05 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int	parse(char **string, char *env[], t_full_pipe **cmds, int *cmd_amt)
 
 	remove_blank_spaces(string);
 	if (errors(*string))
+	{
+		free(*string);
 		return (EXIT_FAILURE);
+	}
 	connect_singular_angular_braces(string);
 	disconnect_angular_braces(string);
 	count = count_strings(env);
@@ -58,11 +61,10 @@ int	main(int argc, char *argv[], char *env[])
 	t_full_pipe	*cmds;
 	int			cmd_amt;
 
-	// string = ft_strdup(" $USER?");
-	string = ft_strdup("\"a || $USER\"  $? '$?' \"$?\" '\"$?\"' \"'$?'\" \"'$USER'\" '$USER' '\"$USER\"' | '$USER' $USER \"a $USER\" \"\"");
+	string = ft_strdup(" > ");
+	// string = ft_strdup("\"a || $USER\"  $? '$?' \"$?\" '\"$?\"' \"'$?'\" \"'$USER'\" '$USER' '\"$USER\"' | '$USER' $USER \"a $USER\" \"\"");
 	if (parse(&string, env, &cmds, &cmd_amt))
 	{
-		printf("Error\n");
 		return (EXIT_FAILURE);
 	}
 	print_cmd_struct_arr(cmds, cmd_amt);
