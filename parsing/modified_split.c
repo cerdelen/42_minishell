@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   modified_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:09:37 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/16 19:07:42 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 09:32:35 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
-#include "../includes/minishell.h"
-#include <stdbool.h>
-#include <stdio.h>
+// #include "../includes/minishell.h"
+// #include <stdbool.h>
+// #include <stdio.h>
 #include "../includes/parsing.h"
 
 int	word_amount(const char *string, char c)
@@ -36,6 +36,7 @@ int	word_amount(const char *string, char c)
 			w_count++;
 		idx++;
 	}
+	reset_quotes();
 	return (w_count);
 }
 
@@ -57,6 +58,7 @@ char	*init_string(char const *s, char c)
 		return (NULL);
 	str = ft_calloc(len + 1, sizeof(char));
 	str = ft_memcpy(str, s, len);
+	reset_quotes();
 	return (str);
 }
 
@@ -90,11 +92,11 @@ char	**modified_split(char const *s, char c)
 			if (temp)
 			{
 				ptr[count++] = temp;
-				// free(temp);
 			}
 		}
 		i++;
 	}
+	reset_quotes();
 	ptr[count] = NULL;
 	return (ptr);
 }
@@ -107,7 +109,7 @@ char	**modified_split(char const *s, char c)
 // 	// words = modified_split("grep '|' input3.txt|awk '{print $1}' > output3.txt ", '|');
 // 	// words = modified_split("No pipes in this line", '|');
 // 	words = modified_split("''|''|''", '|');
-	// words = modified_split("cmd1 'fla|gs'|cmd2 'flags and pipes|||'|cmd3 \"quote|s and shit \' \' \"|more?", '|');
+// 	words = modified_split("cmd1 'fla|gs'|cmd2 'flags and pipes|||'|cmd3 \"quote|s and shit \' \' \"|more?", '|');
 // 	print_2d_array(words);
 // 	free_2d_array(words);
 // }
