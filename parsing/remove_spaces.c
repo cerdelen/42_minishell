@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_spaces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 16:58:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 00:54:17 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 12:23:28 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ void remove_quotes(char **string)
 	else if ((*string)[0] == '"')
 		remove_double_quotes(string, '"', '\'');
 }
+
 void remove_single_quotes(char **string, char rm, char keep)
 {
 	char *new;
@@ -201,13 +202,10 @@ void remove_double_quotes(char **string, char rm, char keep)
 		new[j++] = temp[i];
 		i++;
 	}
-	// printf("\nFUNCTION: %s\n", new);
 	new[j] = '\0';
 	free(temp);
-	// temp = ft_strtrim(new, " ");
 	*string = ft_strdup(new);
 	free(new);
-	// free(temp);
 }
 
 void	disconnect_angular_braces(char **string)
