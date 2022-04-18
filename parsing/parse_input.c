@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 01:27:19 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 12:20:23 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void init_el_am(char **elements, t_n_el *el_amount)
 void init_cmd_struct(t_full_pipe *cmd, t_n_el *el_amount, char **arr)
 {
 	init_el_am(arr, el_amount);
-	cmd->cmd_flags = malloc(sizeof(char *) * el_amount->n_cmd_flags + 1);
-	cmd->here_doc = malloc(sizeof(char *) * el_amount->n_here_doc + 1);
-	cmd->reddir_in = malloc(sizeof(char *) * el_amount->n_red_in + 1);
-	cmd->reddir_out = malloc(sizeof(char *) * el_amount->n_red_out + 1);
-	cmd->reddir_out_app = malloc(sizeof(char *) * el_amount->n_red_out_app + 1);
+	cmd->cmd_flags = ft_calloc(el_amount->n_cmd_flags + 1, sizeof(char *));
+	cmd->here_doc = ft_calloc(el_amount->n_here_doc + 1, sizeof(char *));
+	cmd->reddir_in = ft_calloc(el_amount->n_red_in + 1, sizeof(char *));
+	cmd->reddir_out = ft_calloc(el_amount->n_red_out + 1, sizeof(char *));
+	cmd->reddir_out_app = ft_calloc(el_amount->n_red_out_app + 1, sizeof(char *));
 	
 	cmd->cmd_flags[el_amount->n_cmd_flags] = NULL;
 	cmd->here_doc[el_amount->n_here_doc] = NULL;
@@ -98,7 +98,7 @@ t_full_pipe	*fill_cmds_struct(char *string, int *command_amt)
 	
 	arr = modified_split(string, '|');
 	*command_amt = count_chars(string, '|') + 1;
-	compl_cmds = malloc(sizeof(t_full_pipe) * (*command_amt));
+	compl_cmds = ft_calloc((*command_amt), sizeof(t_full_pipe));
 	while(i < *command_amt)
 	{
 		compl_cmds[i] = fill_cmd(arr[i]);
