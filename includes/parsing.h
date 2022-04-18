@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 14:52:40 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 18:20:59 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,9 +136,4 @@ bool	char_is_present(char c, char *string);
 int		get_indices(char *string, int *start_idx, int *end_idx);
 
 
-
-
-
-
-int parse(int argc, char *argv[], char* env[]);
 #endif
