@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:16:43 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 12:50:13 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 20:16:50 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,16 @@
 //Returns 0 if there are no errors
 int	errors(char *string)
 {
+	if (string[0] == '|' || string[ft_strlen(string) - 1] == '|')
+		return (printf("syntax_error: near unexpected token `|'"), 1);
 	if (!all_quotes_are_closed(string))
-	{
-		free(string);
-		return (printf("quotes_error: Quotes are not closed\n"), 1);
-	}
+		return (printf("quotes_error: Quotes are not closed\n"), 2);
 	if (double_pipe(string))
-	{
-		free(string);
-		printf("double_pipe_error: Only single pipes allowed\n");
-		return (2);
-	}
+		return (printf("double_pipe_error: Only single pipes allowed\n"), 3);
 	if (multiple_redirection(string, '<') || multiple_redirection(string, '>'))
-	{
-		free(string);
-		printf("multiple_angular_brace: only >, <, >>, and << allowed\n");
-		return (3);
-	}
+		return (printf("multiple_angular_brace: only >, <, >>, and << allowed\n"), 4);
 	if (wrong_angular_braces(string))
-	{
-		free(string);
-		return (printf("<_>error: inappropriate use of '>' or '<'\n"), 1);
-	}
+		return (printf("<_>error: inappropriate use of '>' or '<'\n"), 5);
 	return (0);
 }
 
