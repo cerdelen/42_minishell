@@ -6,23 +6,24 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:05:09 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 12:13:26 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 13:49:54 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
-void free_cmd_struct(t_full_pipe cmd)
+
+void	free_cmd_struct(t_full_pipe cmd)
 {
 	free_2d_array(cmd.cmd_flags);
 	free_2d_array(cmd.here_doc);
-	free_2d_array(cmd.reddir_in);
-	free_2d_array(cmd.reddir_out);
-	free_2d_array(cmd.reddir_out_app);
+	free_2d_array(cmd.input);
+	free_2d_array(cmd.output);
+	free_2d_array(cmd.out_append);
 }
 
-void free_cmd_struct_arr(t_full_pipe *cmd, int command_amt)
+void	free_cmd_struct_arr(t_full_pipe *cmd, int command_amt)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < command_amt)
@@ -34,9 +35,10 @@ void free_cmd_struct_arr(t_full_pipe *cmd, int command_amt)
 	cmd = NULL;
 }
 
-void free_env_struct(t_env *envv, int i)
+void	free_env_struct(t_env *envv, int i)
 {
-	int j;
+	int	j;
+
 	j = 0;
 	while (j < i)
 	{
@@ -50,7 +52,7 @@ void free_env_struct(t_env *envv, int i)
 	envv = NULL;
 }
 
-void free_2d_array(char **arr)
+void	free_2d_array(char **arr)
 {
 	int	i;
 
@@ -68,17 +70,17 @@ void free_2d_array(char **arr)
 	}
 }
 
-void free_struct_array(t_full_pipe *arr, int n_elements)
+void	free_struct_array(t_full_pipe *arr, int n_elements)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < n_elements)
 	{
-		free_2d_array(arr[i].reddir_in);
-		free_2d_array(arr[i].reddir_out);
+		free_2d_array(arr[i].input);
+		free_2d_array(arr[i].output);
 		free_2d_array(arr[i].here_doc);
-		free_2d_array(arr[i].reddir_out_app);
+		free_2d_array(arr[i].out_append);
 		i++;
 	}
 	free(arr);
