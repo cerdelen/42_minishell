@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 13:51:28 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 19:26:35 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ t_full_pipe	*fill_cmds_struct(char *string, int *command_amt)
 		compl_cmds[i] = fill_cmd(arr[i]);
 		i++;
 	}
-	print_2d_array(arr);
 	free_2d_array(arr);
 	free(string);
 	return (compl_cmds);
