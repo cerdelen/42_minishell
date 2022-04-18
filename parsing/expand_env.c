@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/16 20:39:19 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 09:35:58 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ bool	char_available(char *string, int i, int status)
 	else if (status == S_OPEN_SECOND && string[i + 1] && string[i + 1] == '?')
 		return (false);
 	else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == '\"')
+		return (false);
+	else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == ' ')
 		return (false);
 	else
 		return (true);

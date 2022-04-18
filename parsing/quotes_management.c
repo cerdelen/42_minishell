@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:08:07 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/17 23:03:25 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 09:26:15 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ bool	all_quotes_are_closed(char *str)
 	return (false);
 }
 
+void reset_quotes()
+{
+	if (quotes_are_closed('\'') == false)
+		quotes_are_closed('\'');
+	if (quotes_are_closed('\"') == false)
+		quotes_are_closed('\"');
+}
 //Gets called in a loop
 //returns false (0) if the quotes are not closed - else true(1)
 bool	quotes_are_closed(char c)
@@ -73,16 +80,15 @@ bool	quotes_are_closed(char c)
 
 int	single_quotes_open(int status)
 {
-	
 	if (status == NONE_OPEN)
 		return (S_OPEN_ONLY);
 	else if (status == D_OPEN_ONLY)
 		return (S_OPEN_SECOND);
-	else if (status == S_OPEN_FIRST || status == D_OPEN_SECOND)
-		return (NONE_OPEN);
+	// else if (status == S_OPEN_FIRST || status == D_OPEN_SECOND)
+	// 	return (NONE_OPEN);
 	else if (status == S_OPEN_SECOND || status == D_OPEN_FIRST)
 		return (D_OPEN_ONLY);
-	else 
+	else
 		return (NONE_OPEN);
 }
 
@@ -95,7 +101,7 @@ int	double_quotes_open(int status)
 		return (NONE_OPEN);
 	else if (status == D_OPEN_SECOND || status == S_OPEN_FIRST)
 		return (S_OPEN_FIRST);
-	else 
+	else
 		return (D_OPEN_SECOND);
 }
 
@@ -116,12 +122,12 @@ int	double_quotes_open(int status)
 // 			status = double_quotes_open(status);
 // 			// printf("Code: %d\n", status);
 // 		}
-	
+
 // 		if (string[i] == '$')
 // 		{
 // 			if (status == NONE_OPEN || status == S_OPEN_ONLY)
 // 				printf("No quelse if (status == D_OPEN_ONLY)otes. Print: $\n");
-		
+
 // 				printf("Double quotes. Expand: $\n");
 // 			else if (status == S_OPEN_SECOND)
 // 				printf("Double, single. Expand: $\n");

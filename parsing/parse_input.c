@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/17 20:29:42 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 01:27:19 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ t_full_pipe fill_cmd(char *string)
 	char **elements;
 	t_full_pipe cmd;
 	t_n_el el_amount;
-	
+	// char *temp;
+
 	if (!string || string[0] == '\0') //NEED TO CHECK THIS WITH THE MAC
 	{
 		ft_bzero(&cmd, sizeof(t_full_pipe));
@@ -78,28 +79,35 @@ t_full_pipe fill_cmd(char *string)
 		else if ('>' == elements[i][0])
 			cmd.reddir_out[el_amount.idx_red_out++] = ft_strdup(elements[i] + 1);
 		else 
+		{
+			remove_quotes(&elements[i]);
 			cmd.cmd_flags[el_amount.idx_cmd_flags++] = ft_strdup(elements[i]);
+		}
 		i++;
 	}
 	free_2d_array(elements);
 	return (cmd);
 }
 
-// t_full_pipe *fill_cmd_struct(char **arr, int cmd_amt)
-// {
-// 	t_full_pipe	*compl_cmds;
-// 	int i = 0;
-// 	compl_cmds = malloc(sizeof(t_full_pipe) * cmd_amt);
-// 	while(i < cmd_amt)
-// 	{
-// 		compl_cmds[i] = fill_cmd(arr[i]);
-// 		i++;
-// 	}
-// 	return (compl_cmds);
-// }
-// int main()
-// {
-// 	t_n_el el_amount;
-// 	char *string = "<<here_doc >>sth  $USER $?";
-// 	char **arr = modified_split(string, ' ');
-
+t_full_pipe	*fill_cmds_struct(char *string, int *command_amt)
+{
+	// int	command_amt;
+	int i = 0;
+	char **arr;
+	t_full_pipe	*compl_cmds;
+	
+	arr = modified_split(string, '|');
+	*command_amt = count_chars(string, '|') + 1;
+	compl_cmds = malloc(sizeof(t_full_pipe) * (*command_amt));
+	while(i < *command_amt)
+	{
+		compl_cmds[i] = fill_cmd(arr[i]);
+		i++;
+	}
+	// printf("REACHED HERE\n");
+	print_2d_array(arr);
+	free_2d_array(arr);
+	free(string);
+	
+	return (compl_cmds);
+}

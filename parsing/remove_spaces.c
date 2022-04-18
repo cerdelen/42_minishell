@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 16:58:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/17 20:51:11 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 00:54:17 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,13 @@ void connect_singular_angular_braces(char **string)
 	free(temp);
 }
 
-
+void remove_quotes(char **string)
+{
+	if ((*string)[0] == '\'')
+		remove_single_quotes(string, '\'', '"');
+	else if ((*string)[0] == '"')
+		remove_double_quotes(string, '"', '\'');
+}
 void remove_single_quotes(char **string, char rm, char keep)
 {
 	char *new;
@@ -164,6 +170,37 @@ void remove_single_quotes(char **string, char rm, char keep)
 		new[j++] = temp[i];
 		i++;
 	}
+	new[j] = '\0';
+	free(temp);
+	*string = ft_strdup(new);
+	free(new);
+}
+
+void remove_double_quotes(char **string, char rm, char keep)
+{
+	char *new;
+	int i;
+	int j;
+	char *temp;
+	int status;
+
+	status = 0;
+	i = 0;
+	j = 0;
+	new = ft_strdup(*string);
+	temp = *string;
+	while((*string)[i])
+	{
+		if (temp[i] == keep)	
+			status = single_quotes_open(status);
+		if (status != S_OPEN_ONLY && temp[i] == rm)
+		{
+			i++;
+			continue ;
+		}
+		new[j++] = temp[i];
+		i++;
+	}
 	// printf("\nFUNCTION: %s\n", new);
 	new[j] = '\0';
 	free(temp);
@@ -173,36 +210,29 @@ void remove_single_quotes(char **string, char rm, char keep)
 	// free(temp);
 }
 
-// void remove_double_quotes(char **string, char rm, char keep)
-// {
-// 	char *new;
-// 	int i;
-// 	int j;
-// 	char *temp;
-// 	int status;
+void	disconnect_angular_braces(char **string)
+{
+	char	*new;
+	char	*temp;
+	int		size;
+	int		i;
+	int		j;
 
-// 	status = 0;
-// 	i = 0;
-// 	j = 0;
-// 	new = ft_strdup(*string);
-// 	temp = *string;
-// 	while((*string)[i])
-// 	{
-// 		if (temp[i] == keep)	
-// 			status = single_quotes_open(status);
-// 		if (status != S_OPEN_ONLY && temp[i] == rm)
-// 		{
-// 			i++;
-// 			continue ;
-// 		}
-// 		new[j++] = temp[i];
-// 		i++;
-// 	}
-// 	// printf("\nFUNCTION: %s\n", new);
-// 	new[j] = '\0';
-// 	free(temp);
-// 	// temp = ft_strtrim(new, " ");
-// 	*string = ft_strdup(new);
-// 	free(new);
-// 	// free(temp);
-// }
+	temp = *string;
+	size = 2 * ft_strlen(temp);
+	new = malloc(sizeof(char) * size);
+	i = 0;
+	j = 0;
+	while (temp[i])
+	{
+		if ((temp[i] == '>' || temp[i] == '<') && i && ft_isalnum(temp[i - 1]))
+		{
+			new[j++] = ' ';
+		}
+		new[j++] = temp[i++];
+	}
+	new[j] = '\0';
+	*string = ft_strdup(new);
+	free(new);
+	free(temp);
+}
