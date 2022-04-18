@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:09:37 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 12:24:04 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 13:39:58 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	**modified_split(char const *s, char c)
 	int		i;
 	char	*str;
 	char	*temp;
+
 	i = 0;
 	count = 0;
 	if (!s)
@@ -83,7 +84,6 @@ char	**modified_split(char const *s, char c)
 			break ;
 		if (count == 0 || s[i - 1] == c)
 		{
-			
 			temp = init_string(s + i, c);
 			if (temp)
 			{
@@ -96,16 +96,3 @@ char	**modified_split(char const *s, char c)
 	ptr[count] = NULL;
 	return (ptr);
 }
-
-// int main()
-// {
-// 	char **words;
-// 	// words = modified_split("My|name|is|Kristiyana|Milcheva", '|');
-
-// 	// words = modified_split("grep '|' input3.txt|awk '{print $1}' > output3.txt ", '|');
-// 	// words = modified_split("No pipes in this line", '|');
-// 	words = modified_split("''|''|''", '|');
-// 	words = modified_split("cmd1 'fla|gs'|cmd2 'flags and pipes|||'|cmd3 \"quote|s and shit \' \' \"|more?", '|');
-// 	print_2d_array(words);
-// 	free_2d_array(words);
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 11:34:42 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 09:49:12 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 14:45:18 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,11 @@
 // string = ft_strdup(" <<here_doc2  ' c  a  r '     cmd2 < input> <here_doc4 ");
 // string = ft_strdup("something  something_else LANG"); '$USER' 
 // string = ft_strdup(" \"$\" '\"$USER\"'  '$USER' $USER \"a $USER\" \"'$USER'\"");
-	// string = ft_strdup("<<here_doc <<here_doc1 <input >output >>output2 cmd flags");
+// string = ft_strdup("<<here_doc <<here_doc1 <input >output >>output2 cmd flags");
 // string = ft_strdup("$?");
-	// string = ft_strdup(""); ////FIX ALL FUNCITONS TO BE ABLE TO WORK WITH ""
-	// string = ft_strdup("$ '$USER$'  '$' '\"$USER$\"''\"$USER\"' '$USER' $USER \"a $USER\" \"'$USER'\"");
+// string = ft_strdup(""); ////FIX ALL FUNCITONS TO BE ABLE TO WORK WITH ""
+// string = ft_strdup("$ '$USER$'  '$' '\"$USER$\"''\"$USER\"' '$USER' $USER \"a $USER\" \"'$USER'\"");
 
-
-//$? needs NOT be expanded 
 int main(int argc, char *argv[], char* env[])
 {
 	t_env		*envv;
@@ -51,14 +49,18 @@ int main(int argc, char *argv[], char* env[])
 	// string = ft_strdup("\"'$USER'\" '$' '\"$USER\"''\"$USER\"' '$USER' '$USER' '$USER'  '$USER' $USER \"a $USER\" \"'$USER'\"");
 	// string = ft_strdup("<  input69 a<<here_doc cmd1>>  '$USER' | 'flags   <<<      '   >output1 >  $USER   output2 <inside >>hopala | <<here_doc2 cmd2 <input <here_doc4 | cmd \"some random        ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough");
 	// string = ft_strdup("\"ec\"\"ho\" water");
-	string = ft_strdup(" \"a $USER\"  $? '$?' \"$?\" '\"$?\"' \"'$?'\" \"'$USER'\" '$USER' '\"$USER\"'  '$USER' $USER \"a $USER\" \"\"");
+	string = ft_strdup(" \"a || $USER\"  $? '$?' \"$?\" '\"$?\"' \"'$?'\" \"'$USER'\" '$USER' '\"$USER\"' | '$USER' $USER \"a $USER\" \"\"");
 	// string = ft_strdup("\"a $?  \"");
-	// string = ft_strdup("");
+	// string = ft_strdup("'$USER'");
+	// string = ft_strdup(" > input");
 	remove_blank_spaces(&string);
 	if (errors(string))
 		return (EXIT_FAILURE);
-	connect_double_angular_braces(&string);
+	// connect_double_angular_braces(&string);
 	connect_singular_angular_braces(&string);
+	// printf("%s\n", string);
+	// free(string);
+	// return (0);
 	disconnect_angular_braces(&string);
 	count = count_strings(env);
 	envv = env_to_str(env, count);

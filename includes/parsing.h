@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/17 20:55:01 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 14:52:40 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 
 typedef struct s_complex_command
 {
-	char	**reddir_in; //NULL
-	char	**reddir_out; //NULL
-	char	**reddir_out_app; //NULL
+	char	**input; //NULL
+	char	**output; //NULL
+	char	**out_append; //NULL
 	char	**here_doc; //NULL
 	// char	**envv;
 	char	**cmd_flags; //NULL
@@ -31,12 +31,12 @@ typedef struct s_element_amounts
 {
 	int n_red_in;
 	int n_red_out;
-	int n_red_out_app;
+	int n_app_out;
 	int n_here_doc;
 	int n_cmd_flags;
 	int idx_red_in;
 	int idx_red_out;
-	int idx_red_out_app;
+	int idx_app_out;
 	int idx_here_doc;
 	int idx_cmd_flags;
 }t_n_el;
@@ -72,7 +72,7 @@ enum {
 char	**modified_split(char const *s, char c);
 
 //parse_input
-t_full_pipe fill_cmd(char *arr);
+t_full_pipe	*fill_cmds_struct(char *string, int *command_amt);
 
 //utils
 int		count_chars(char *str, char c);
@@ -96,15 +96,18 @@ void	print_cmd_struct_arr(t_full_pipe *arr, int command_amt);
 //quotes_management
 bool	all_quotes_are_closed(char *str);
 bool	quotes_are_closed(char c);
+void	reset_quotes(void);
+
+//quotes_removal
 int		double_quotes_open(int status);
 int		single_quotes_open(int status);
 
-//redirection
-char	**get_single_redirections(char **string, char symbol, t_r_s *vars);
-char	**get_double_redirections(char **string, char symbol, t_r_s *vars);
-char	*find_single_redirection(char *string, char symbol, t_r_s *vars);
-char	*find_double_redirection(char *string, char symbol, t_r_s *vars);
-char	*trim_string(char *str, char*sub, t_r_s *vars);
+// //redirection
+// char	**get_single_redirections(char **string, char symbol, t_r_s *vars);
+// char	**get_double_redirections(char **string, char symbol, t_r_s *vars);
+// char	*find_single_redirection(char *string, char symbol, t_r_s *vars);
+// char	*find_double_redirection(char *string, char symbol, t_r_s *vars);
+// char	*trim_string(char *str, char*sub, t_r_s *vars);
 
 //remove_spaces
 void	remove_blank_spaces(char **string);
@@ -112,9 +115,8 @@ void	connect_double_angular_braces(char **string);
 void	connect_singular_angular_braces(char **string);
 void	remove_single_quotes(char **string, char rm, char keep);
 void	remove_double_quotes(char **string, char rm, char keep);
-
-//TEST
-char *remove_blank_spaces2(char *string);
+void	remove_quotes(char **string);
+void	disconnect_angular_braces(char **string);
 
 //error_management
 int		errors(char *string);
@@ -124,13 +126,14 @@ bool	wrong_angular_braces(char *string);
 
 //expand_env
 t_env	*env_to_str(char **env, int j);
-int		get_indices(char *string, int *start_idx, int *end_idx);
 char	*expand(char *string, t_env *envv, int count);
 char	*reassamble_string(char *string,  char *add_str, int len_s1);
 char	*remove_part_string(char *str, char*sub, int start_index, int finish_index);
 char	*find_match(char *string, t_env *arr, int len, int arr_size);
-bool	char_is_present(char c, char *string);
 
+//expand_env_utils
+bool	char_is_present(char c, char *string);
+int		get_indices(char *string, int *start_idx, int *end_idx);
 
 
 
