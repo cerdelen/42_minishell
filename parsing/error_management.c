@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   error_management.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:16:43 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/17 17:48:10 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 12:50:13 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
+//Returns 0 if there are no errors
 int	errors(char *string)
 {
 	if (!all_quotes_are_closed(string))
 	{
-		// printf("quotes_error: Quotes are not closed\n");
 		free(string);
 		return (printf("quotes_error: Quotes are not closed\n"), 1);
 	}
@@ -35,7 +35,7 @@ int	errors(char *string)
 	if (wrong_angular_braces(string))
 	{
 		free(string);
-		return (printf("angular_brace_error: inappropriate use of '>' or '<'\n"), 1);
+		return (printf("<_>error: inappropriate use of '>' or '<'\n"), 1);
 	}
 	return (0);
 }
@@ -61,7 +61,6 @@ bool	double_pipe(char *string)
 			return (true);
 		i++;
 	}
-	// quotes_are_closed(string[i]);
 	return (false);
 }
 
@@ -89,12 +88,11 @@ bool	multiple_redirection(char *string, char c)
 			return (true);
 		i++;
 	}
-	// quotes_are_closed(string[i]);
 	return (false);
 }
 
 //returns -1 for error
-int	check_braces(char *string)
+int	check_angular_braces(char *string)
 {
 	int	i;
 
@@ -133,7 +131,7 @@ bool	wrong_angular_braces(char *string)
 	i = 0;
 	while (arr[i])
 	{
-		status = check_braces(arr[i]);
+		status = check_angular_braces(arr[i]);
 		if (status)
 		{
 			free_2d_array(arr);
