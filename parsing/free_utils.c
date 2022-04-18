@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:05:09 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 09:51:07 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/18 12:13:26 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void free_cmd_struct_arr(t_full_pipe *cmd, int command_amt)
 		i++;
 	}
 	free(cmd);
+	cmd = NULL;
 }
 
 void free_env_struct(t_env *envv, int i)
@@ -40,23 +41,30 @@ void free_env_struct(t_env *envv, int i)
 	while (j < i)
 	{
 		free(envv[j].var);
+		envv[j].var = NULL;
 		free(envv[j].val);
+		envv[j].val = NULL;
 		j++;
 	}
 	free(envv);
+	envv = NULL;
 }
 
 void free_2d_array(char **arr)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	if (arr)
 	{
 		while (arr[i])
 		{
 			free(arr[i]);
+			arr[i] = NULL;
 			i++;
 		}
 		free(arr);
+		arr = NULL;
 	}
 }
 
@@ -74,4 +82,5 @@ void free_struct_array(t_full_pipe *arr, int n_elements)
 		i++;
 	}
 	free(arr);
+	arr = NULL;
 }
