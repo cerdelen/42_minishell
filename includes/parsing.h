@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/19 11:42:36 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/19 12:57:24 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,6 @@ typedef struct s_env
 	char	*val;
 }	t_env;
 
-enum {
-	NONE_OPEN = 0,
-	S_OPEN_FIRST = 100,
-	S_OPEN_SECOND = 101,
-	S_OPEN_ONLY = 102,
-	D_OPEN_FIRST = 200,
-	D_OPEN_SECOND = 201,
-	D_OPEN_ONLY = 202,
-};
-
 typedef struct s_norm
 {
 	char	**ptr;
@@ -67,6 +57,16 @@ typedef struct s_norm
 	bool	s_quotes_open;
 	int		idx;
 }	t_data;
+
+enum {
+	NONE_OPEN = 0,
+	S_OPEN_FIRST = 100,
+	S_OPEN_SECOND = 101,
+	S_OPEN_ONLY = 102,
+	D_OPEN_FIRST = 200,
+	D_OPEN_SECOND = 201,
+	D_OPEN_ONLY = 202,
+};
 
 // parse.c 
 int		parse(char **string, char *env[], t_cmd **cmds, int *cmd_amt);
