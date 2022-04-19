@@ -6,13 +6,13 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:03:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 13:49:54 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/19 11:41:01 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-void	print_cmd_struct(t_full_pipe cmd)
+void	print_cmd_struct(t_cmd cmd)
 {
 	printf("-----------\nCMD_FLAGS:\n");
 	print_2d_array(cmd.cmd_flags);
@@ -26,7 +26,7 @@ void	print_cmd_struct(t_full_pipe cmd)
 	print_2d_array(cmd.out_append);
 }
 
-void	print_cmd_struct_arr(t_full_pipe *arr, int command_amt)
+void	print_cmd_struct_arr(t_cmd *arr, int command_amt)
 {
 	int	i;
 

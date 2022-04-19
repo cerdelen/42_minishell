@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 19:26:35 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/19 11:45:08 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_el_am(char **elements, t_n_el *el_amount)
 	}
 }
 
-void	init_cmd_struct(t_full_pipe *cmd, t_n_el *el_amount, char **arr)
+void	init_cmd_struct(t_cmd *cmd, t_n_el *el_amount, char **arr)
 {
 	init_el_am(arr, el_amount);
 	cmd->cmd_flags = ft_calloc(el_amount->n_cmd_flags + 1, sizeof(char *));
@@ -49,7 +49,7 @@ void	init_cmd_struct(t_full_pipe *cmd, t_n_el *el_amount, char **arr)
 	cmd->out_append[el_amount->n_app_out] = NULL;
 }
 
-void	distribute_strings(char **elements, t_n_el n_el, t_full_pipe *cmd)
+void	distribute_strings(char **elements, t_n_el n_el, t_cmd *cmd)
 {
 	int	i;
 
@@ -73,15 +73,15 @@ void	distribute_strings(char **elements, t_n_el n_el, t_full_pipe *cmd)
 	}
 }
 
-t_full_pipe	fill_cmd(char *string)
+t_cmd	fill_cmd(char *string)
 {
-	char		**elements;
-	t_full_pipe	cmd;
-	t_n_el		el_amount;
+	char	**elements;
+	t_cmd	cmd;
+	t_n_el	el_amount;
 
 	if (!string || string[0] == '\0') //NEED TO CHECK THIS WITH THE MAC
 	{
-		ft_bzero(&cmd, sizeof(t_full_pipe));
+		ft_bzero(&cmd, sizeof(cmd));
 		return (cmd);
 	}
 	elements = modified_split(string, ' ');
@@ -91,15 +91,15 @@ t_full_pipe	fill_cmd(char *string)
 	return (cmd);
 }
 
-t_full_pipe	*fill_cmds_struct(char *string, int *command_amt)
+t_cmd	*fill_cmds_struct(char *string, int *command_amt)
 {
-	int			i;
-	char		**arr;
-	t_full_pipe	*compl_cmds;
+	int		i;
+	char	**arr;
+	t_cmd	*compl_cmds;
 
 	arr = modified_split(string, '|');
 	*command_amt = count_chars(string, '|') + 1;
-	compl_cmds = ft_calloc((*command_amt), sizeof(t_full_pipe));
+	compl_cmds = ft_calloc((*command_amt), sizeof(t_cmd));
 	i = 0;
 	while (i < *command_amt)
 	{
