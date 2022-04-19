@@ -2,6 +2,7 @@
 
 # define MINISHELL_H
 
+# include <stdbool.h>
 # include "libft.h"
 # include "get_next_line.h"
 # include "commands_and_exec.h"
@@ -29,6 +30,7 @@ typedef struct s_ms_data
 	t_full_pipe			*command;
 	int					command_amt;
 	pid_t				p_id;
+	int					*exit_codes;
 }	t_ms_data;
 
 #endif

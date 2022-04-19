@@ -15,5 +15,6 @@ char	**get_paths(char *env[]);
 // int		command_exec(t_ms_data *data);
 char	*ft_strjoin_with_free(char *s1, char *s2);
 void	print_error_message(char *pathname, char *command);
+int	open_and_check_access(char *path, int access_flag, bool append, bool create)
 
 #endif
