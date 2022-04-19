@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:09:37 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 13:39:58 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/19 11:24:28 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,39 +60,29 @@ char	*init_string(char const *s, char c)
 
 char	**modified_split(char const *s, char c)
 {
-	char	**ptr;
-	int		count;
-	int		i;
-	char	*str;
-	char	*temp;
+	t_data	d;
 
-	i = 0;
-	count = 0;
+	d.i = -1;
+	d.count = 0;
 	if (!s)
 		return (NULL);
-	ptr = ft_calloc((word_amount(s, c) + 1), sizeof(char *));
-	if (ptr == NULL)
+	d.ptr = ft_calloc((word_amount(s, c) + 1), sizeof(char *));
+	if (d.ptr == NULL)
 		return (NULL);
-	while (s[i] != 0)
+	while (s[++d.i] != 0)
 	{
-		if (count && quotes_are_closed(s[i - 1]) == false)
-		{
-			i++;
+		if (d.count && quotes_are_closed(s[d.i - 1]) == false)
 			continue ;
-		}
-		if (s[i] == 0)
+		if (s[d.i] == 0)
 			break ;
-		if (count == 0 || s[i - 1] == c)
+		if (d.count == 0 || s[d.i - 1] == c)
 		{
-			temp = init_string(s + i, c);
-			if (temp)
-			{
-				ptr[count++] = temp;
-			}
+			d.temp = init_string(s + d.i, c);
+			if (d.temp)
+				d.ptr[d.count++] = d.temp;
 		}
-		i++;
 	}
 	reset_quotes();
-	ptr[count] = NULL;
-	return (ptr);
+	d.ptr[d.count] = NULL;
+	return (d.ptr);
 }
