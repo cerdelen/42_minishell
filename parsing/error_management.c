@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:16:43 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 20:16:50 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/19 12:53:37 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	errors(char *string)
 {
 	if (string[0] == '|' || string[ft_strlen(string) - 1] == '|')
-		return (printf("syntax_error: near unexpected token `|'"), 1);
+		return (printf("syntax_error: near unexpected token `|'\n"), 1);
 	if (!all_quotes_are_closed(string))
 		return (printf("quotes_error: Quotes are not closed\n"), 2);
 	if (double_pipe(string))
