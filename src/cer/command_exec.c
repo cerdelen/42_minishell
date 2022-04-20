@@ -1,8 +1,5 @@
 #include "../../includes/minishell.h"
 
-//here_doc erstellen ... ./ms_heredoc file erstellen als input setzen dann command executen
-//nach execute ./ms_heredoc löschen (ich glaube unlink())
-
 void	execute_command(char *argv, char **possible_paths, char **envp)
 {
 	char	*cmd;
@@ -24,7 +21,7 @@ void	execute_command(char *argv, char **possible_paths, char **envp)
 	exit(1);
 }
 
-int		spawn_process(t_ms_data *data, char **possible_paths, char *envp[])
+int	spawn_process(t_ms_data *data, char **possible_paths, char *envp[])
 {
 	int		fd[2];
 	int		check;

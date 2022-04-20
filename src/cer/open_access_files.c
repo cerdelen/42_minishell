@@ -7,7 +7,7 @@ int	open_with_no_append_nocreate(char *path, int access_flag)
 	if (access_flag == READS_ONLY)
 		fd = open(path, O_RDONLY | O_TRUNC, 0777);
 	else if (access_flag == WRITES_ONLY)
-		fd = open(path, O_WRONLY| O_TRUNC, 0777);
+		fd = open(path, O_WRONLY | O_TRUNC, 0777);
 	else if (access_flag == READS_AND_WRITES)
 		fd = open(path, O_RDWR | O_TRUNC, 0777);
 	return (fd);
@@ -20,7 +20,7 @@ int	open_with_append_create(char *path, int access_flag)
 	if (access_flag == READS_ONLY)
 		fd = open(path, O_CREAT | O_RDONLY | O_APPEND, 0777);
 	else if (access_flag == WRITES_ONLY)
-		fd = open(path, O_CREAT | O_WRONLY| O_APPEND, 0777);
+		fd = open(path, O_CREAT | O_WRONLY | O_APPEND, 0777);
 	else if (access_flag == READS_AND_WRITES)
 		fd = open(path, O_CREAT | O_RDWR | O_APPEND, 0777);
 	return (fd);
@@ -33,11 +33,12 @@ int	open_with_no_append_create(char *path, int access_flag)
 	if (access_flag == READS_ONLY)
 		fd = open(path, O_CREAT | O_RDONLY | O_TRUNC, 0777);
 	else if (access_flag == WRITES_ONLY)
-		fd = open(path, O_CREAT | O_WRONLY| O_TRUNC, 0777);
+		fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	else if (access_flag == READS_AND_WRITES)
 		fd = open(path, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	return (fd);
 }
+
 int	open_with_append_nocreate(char *path, int access_flag)
 {
 	int	fd;
@@ -54,6 +55,7 @@ int	open_with_append_nocreate(char *path, int access_flag)
 int	open_and_check_access(char *path, int access_flag, bool append, bool create)
 {
 	int	fd;
+
 	if (access(path, F_OK))
 		return (-1);
 	if (access(path, access_flag))

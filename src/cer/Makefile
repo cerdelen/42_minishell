@@ -1,5 +1,5 @@
 Lib:
-	$(MAKE) bonus -C ../../Libft
+	$(MAKE) -C ../../Libft
 
 
 all:
