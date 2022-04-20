@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:34:24 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 13:34:46 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/20 19:05:21 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	get_start_idx(char *string, int i, int *start_idx, int status)
 		{
 			*start_idx = 0;
 		}
-		else if (string[i + 1] && string[i + 1] == ' ')
+		else if (string[i + 1] && !ft_isalnum(string[i + 1]))
 		{
 			*start_idx = 0;
 		}
@@ -97,7 +97,8 @@ int	get_indices(char *str, int *start_idx, int *end_idx)
 		get_start_idx(str, i, start_idx, status);
 		if (*start_idx)
 		{
-			while (str[i] && str[i] != ' ' && str[i] != '\'' && str[i] != '\"')
+			i += 1;
+			while (str[i] && ft_isalnum(str[i]))
 				i++;
 			*end_idx = i - 1;
 		}
