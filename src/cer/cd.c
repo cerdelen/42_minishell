@@ -6,7 +6,7 @@
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 14:23:49 by cerdelen          #+#    #+#             */
-/*   Updated: 2022/04/15 12:06:21 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/04/20 14:50:55 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	command_cd(char *pathname)
 		check = chdir(path_after_mod);
 		if (check != 0)
 		{
-			print_error_message(pathname, "cd");
+			print_error_message("cd", pathname);
 			if (ft_strncmp("/", pathname, 1) != 0)
 				free(path_after_mod);
 			return (1);
