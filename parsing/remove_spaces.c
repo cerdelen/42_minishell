@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 16:58:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 14:49:19 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/20 21:26:56 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,43 @@ void	remove_blank_spaces(char **string)
 		}
 		new[j++] = temp[i++];
 	}
+	reset_quotes();
+	new[j] = '\0';
+	free(temp);
+	temp = ft_strtrim(new, " ");
+	*string = ft_strdup(temp);
+	free(new);
+	free(temp);
+}
+
+int	ft_isspace(char c)
+{
+	return ((c == ' ' || c == '\f' || c == '\n'
+			|| c == '\r' || c == '\t' || c == '\v'));
+}
+
+void	replace_white_spaces(char **string)
+{
+	char	*new;
+	int		i;
+	int		j;
+	char	*temp;
+
+	i = 0;
+	j = 0;
+	new = ft_strdup(*string);
+	temp = *string;
+	while ((*string)[i])
+	{
+		if (quotes_are_closed(temp[i]) && ft_isspace(temp[i]))
+		{
+			new[j++] = ' ';
+			i++;
+			continue ;
+		}
+		new[j++] = temp[i++];
+	}
+	reset_quotes();
 	new[j] = '\0';
 	free(temp);
 	temp = ft_strtrim(new, " ");

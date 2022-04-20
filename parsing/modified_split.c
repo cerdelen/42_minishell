@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:09:37 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/19 11:24:28 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/20 21:04:37 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ char	*init_string(char const *s, char c)
 		len++;
 	}
 	if (len == 0)
+	{
+		reset_quotes();
 		return (NULL);
+	}
 	str = ft_calloc(len + 1, sizeof(char));
 	str = ft_memcpy(str, s, len);
 	reset_quotes();

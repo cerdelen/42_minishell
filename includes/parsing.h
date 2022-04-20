@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/20 19:59:15 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/20 21:59:12 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,11 @@ int		double_quotes_open(int status);
 void	remove_single_quotes(char **string, char rm, char keep);
 void	remove_double_quotes(char **string, char rm, char keep);
 void	remove_quotes(char **string);
+void	remove_quotes_pls(char **string);
 
 //remove_spaces
 void	remove_blank_spaces(char **string);
+void	replace_white_spaces(char **string);
 void	connect_singular_angular_braces(char **string);
 void	disconnect_angular_braces(char **string);
 
