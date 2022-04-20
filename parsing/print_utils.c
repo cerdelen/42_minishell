@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:03:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/19 11:41:01 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:21:06 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,10 @@ void	print_cmd_struct(t_cmd cmd)
 {
 	printf("-----------\nCMD_FLAGS:\n");
 	print_2d_array(cmd.cmd_flags);
-	printf("-----------\nHERE_DOC:\n");
-	print_2d_array(cmd.here_doc);
 	printf("-----------\nRED_IN:\n");
 	print_2d_array(cmd.input);
 	printf("-----------\nRED_OUT:\n");
 	print_2d_array(cmd.output);
-	printf("-----------\nRED_OUT_APP:\n");
-	print_2d_array(cmd.out_append);
 }
 
 void	print_cmd_struct_arr(t_cmd *arr, int command_amt)

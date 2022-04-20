@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/19 11:45:08 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:20:35 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,10 @@ void	init_el_am(char **elements, t_n_el *el_amount)
 	i = 0;
 	while ((elements[i]))
 	{
-		if (ft_strncmp(">>", elements[i], 2) == 0)
-			el_amount->n_app_out++;
-		else if (ft_strncmp("<<", elements[i], 2) == 0)
-			el_amount->n_here_doc++;
-		else if ('<' == elements[i][0])
-			el_amount->n_red_in++;
-		else if ('>' == elements[i][0])
+		if (ft_strncmp(">>", elements[i], 2) == 0 || '>' == elements[i][0])
 			el_amount->n_red_out++;
+		else if (ft_strncmp("<<", elements[i], 2) == 0 || '<' == elements[i][0])
+			el_amount->n_red_in++;
 		else
 			el_amount->n_cmd_flags++;
 		i++;
@@ -38,15 +34,11 @@ void	init_cmd_struct(t_cmd *cmd, t_n_el *el_amount, char **arr)
 {
 	init_el_am(arr, el_amount);
 	cmd->cmd_flags = ft_calloc(el_amount->n_cmd_flags + 1, sizeof(char *));
-	cmd->here_doc = ft_calloc(el_amount->n_here_doc + 1, sizeof(char *));
 	cmd->input = ft_calloc(el_amount->n_red_in + 1, sizeof(char *));
 	cmd->output = ft_calloc(el_amount->n_red_out + 1, sizeof(char *));
-	cmd->out_append = ft_calloc(el_amount->n_app_out + 1, sizeof(char *));
 	cmd->cmd_flags[el_amount->n_cmd_flags] = NULL;
-	cmd->here_doc[el_amount->n_here_doc] = NULL;
 	cmd->input[el_amount->n_red_in] = NULL;
 	cmd->output[el_amount->n_red_out] = NULL;
-	cmd->out_append[el_amount->n_app_out] = NULL;
 }
 
 void	distribute_strings(char **elements, t_n_el n_el, t_cmd *cmd)
@@ -57,13 +49,13 @@ void	distribute_strings(char **elements, t_n_el n_el, t_cmd *cmd)
 	while ((elements[i]))
 	{
 		if (ft_strncmp(">>", elements[i], 2) == 0)
-			cmd->out_append[n_el.idx_app_out++] = ft_strdup(elements[i] + 2);
+			cmd->output[n_el.idx_red_out++] = ft_strdup(elements[i]);
 		else if (ft_strncmp("<<", elements[i], 2) == 0)
-			cmd->here_doc[n_el.idx_here_doc++] = ft_strdup(elements[i] + 2);
+			cmd->input[n_el.idx_red_in++] = ft_strdup(elements[i]);
 		else if ('<' == elements[i][0])
-			cmd->input[n_el.idx_red_in++] = ft_strdup(elements[i] + 1);
+			cmd->input[n_el.idx_red_in++] = ft_strjoin("< ", elements[i] + 1);
 		else if ('>' == elements[i][0])
-			cmd->output[n_el.idx_red_out++] = ft_strdup(elements[i] + 1);
+			cmd->output[n_el.idx_red_out++] = ft_strjoin("> ", elements[i] + 1);
 		else
 		{
 			remove_quotes(&elements[i]);

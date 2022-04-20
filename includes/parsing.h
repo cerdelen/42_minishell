@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/19 12:57:24 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:07:17 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ typedef struct s_complex_command
 {
 	char	**input;
 	char	**output;
-	char	**out_append;
-	char	**here_doc;
+	// char	**out_append;
+	// char	**here_doc;
 	char	**cmd_flags;
 }	t_cmd;
 
@@ -30,13 +30,13 @@ typedef struct s_element_amounts
 {
 	int		n_red_in;
 	int		n_red_out;
-	int		n_app_out;
-	int		n_here_doc;
+	// int		n_app_out;
+	// int		n_here_doc;
 	int		n_cmd_flags;
 	int		idx_red_in;
 	int		idx_red_out;
-	int		idx_app_out;
-	int		idx_here_doc;
+	// int		idx_app_out;
+	// int		idx_here_doc;
 	int		idx_cmd_flags;
 }	t_n_el;
 
