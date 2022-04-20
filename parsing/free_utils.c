@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:05:09 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/19 11:41:01 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:20:49 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 void	free_cmd_struct(t_cmd cmd)
 {
 	free_2d_array(cmd.cmd_flags);
-	free_2d_array(cmd.here_doc);
 	free_2d_array(cmd.input);
 	free_2d_array(cmd.output);
-	free_2d_array(cmd.out_append);
 }
 
 void	free_cmd_struct_arr(t_cmd *cmd, int command_amt)
@@ -68,21 +66,4 @@ void	free_2d_array(char **arr)
 		free(arr);
 		arr = NULL;
 	}
-}
-
-void	free_struct_array(t_cmd *arr, int n_elements)
-{
-	int	i;
-
-	i = 0;
-	while (i < n_elements)
-	{
-		free_2d_array(arr[i].input);
-		free_2d_array(arr[i].output);
-		free_2d_array(arr[i].here_doc);
-		free_2d_array(arr[i].out_append);
-		i++;
-	}
-	free(arr);
-	arr = NULL;
 }
