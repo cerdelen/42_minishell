@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:16:43 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/20 22:40:46 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/21 13:52:56 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ bool empty_pipes(char *string)
 	{
 		if (quotes_are_closed(string[i]))
 		{
-			if (i > 1 && string[i] == '|' && string[i + 1] == ' ' && string[i + 2])
+			if (i > 1 && string[i] == '|' && string[i + 1] == ' ' && string[i + 2] == '|')
 				return (true);
 			i++;
 		}
