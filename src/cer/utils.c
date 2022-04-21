@@ -20,7 +20,7 @@ char	*ft_strjoin_with_free(char *s1, char *s2)
 	return (out);
 }
 
-void	print_error_message(char *error_arg1, char *error_arg2)
+int	print_error_message(char *error_arg1, char *error_arg2)
 {
 	char	*error_msg;
 
@@ -39,4 +39,5 @@ void	print_error_message(char *error_arg1, char *error_arg2)
 	}
 	write(STDERR_FILENO, error_msg, ft_strlen(error_msg));
 	write(STDERR_FILENO, "\n", 1);
+	return (-1);
 }

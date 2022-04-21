@@ -17,17 +17,15 @@
 
 typedef struct s_complex_command
 {
-	char	**reddir_in; //NULL
-	char	**reddir_out; //NULL
-	char	**reddir_out_app; //NULL
-	char	**here_doc; //NULL
-	char	**cmd_arr; //NULL
-} t_full_pipe;
+	char	**input;
+	char	**output;
+	char	**cmd_flags;
+}	t_cmd;
 
 typedef struct s_ms_data
 {
 	char				**env;
-	t_full_pipe			*command;
+	t_cmd				*command;
 	int					command_amt;
 	pid_t				p_id;
 	int					*exit_codes;
