@@ -6,18 +6,47 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:49:46 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/20 22:47:42 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/22 12:52:17 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-void	remove_quotes(char **string)
+// void	remove_quotes(char **string)
+// {
+// 	if ((*string)[0] == '\'')
+// 		remove_single_quotes(string + 1, '\'', '"');
+// 	else if ((*string)[0] == '"')
+// 		remove_double_quotes(string, '"', '\'');
+// }
+
+void remove_quotes(char **string)
 {
-	if ((*string)[0] == '\'')
-		remove_single_quotes(string, '\'', '"');
-	else if ((*string)[0] == '"')
-		remove_double_quotes(string, '"', '\'');
+	char	*new;
+	int		i;
+	int		j;
+	char	q;
+
+	i = 0;
+	j = 0;
+	new = ft_strdup(*string);
+	while((*string)[i])
+	{
+		q = (*string)[i];
+		if (q == '\'' || q == '"')
+		{	
+			i++;
+			while((*string)[i] && (*string)[i] != q)
+				new[j++] = (*string)[i++];
+			i++;
+		}
+		else
+			new[j++] = (*string)[i++];
+	}
+	new[j] = '\0';
+	free(*string);
+	*string = ft_strdup(new);
+	free(new);
 }
 
 void	remove_single_quotes(char **string, char rm, char keep)

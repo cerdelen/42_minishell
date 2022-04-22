@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/20 22:47:27 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/22 12:55:07 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	distribute_strings(char **elements, t_n_el n_el, t_cmd *cmd)
 	i = 0;
 	while ((elements[i]))
 	{
+		remove_quotes(&elements[i]);
 		if (ft_strncmp(">>", elements[i], 2) == 0)
 			cmd->output[n_el.idx_red_out++] = ft_strdup(elements[i]);
 		else if (ft_strncmp("<<", elements[i], 2) == 0)
@@ -58,7 +59,7 @@ void	distribute_strings(char **elements, t_n_el n_el, t_cmd *cmd)
 			cmd->output[n_el.idx_red_out++] = ft_strjoin("> ", elements[i] + 1);
 		else
 		{
-			remove_quotes(&elements[i]);
+			// remove_quotes(&elements[i]);
 			cmd->cmd_flags[n_el.idx_cmd_flags++] = ft_strdup(elements[i]);
 		}
 		i++;
