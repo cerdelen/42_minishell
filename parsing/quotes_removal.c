@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:49:46 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/22 12:52:17 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:32:17 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // 		remove_double_quotes(string, '"', '\'');
 // }
 
-void remove_quotes(char **string)
+void	remove_quotes(char **string)
 {
 	char	*new;
 	int		i;
@@ -30,13 +30,13 @@ void remove_quotes(char **string)
 	i = 0;
 	j = 0;
 	new = ft_strdup(*string);
-	while((*string)[i])
+	while ((*string)[i])
 	{
 		q = (*string)[i];
 		if (q == '\'' || q == '"')
 		{	
 			i++;
-			while((*string)[i] && (*string)[i] != q)
+			while ((*string)[i] && (*string)[i] != q)
 				new[j++] = (*string)[i++];
 			i++;
 		}

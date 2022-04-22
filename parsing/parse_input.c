@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/22 12:55:07 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:31:33 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ void	distribute_strings(char **elements, t_n_el n_el, t_cmd *cmd)
 		else if ('>' == elements[i][0])
 			cmd->output[n_el.idx_red_out++] = ft_strjoin("> ", elements[i] + 1);
 		else
-		{
-			// remove_quotes(&elements[i]);
 			cmd->cmd_flags[n_el.idx_cmd_flags++] = ft_strdup(elements[i]);
-		}
 		i++;
 	}
 }
@@ -72,7 +69,7 @@ t_cmd	fill_cmd(char *string)
 	t_cmd	cmd;
 	t_n_el	el_amount;
 
-	if (!string || string[0] == '\0') //NEED TO CHECK THIS WITH THE MAC
+	if (!string && string == NULL || string[0] == '\0')
 	{
 		ft_bzero(&cmd, sizeof(cmd));
 		return (cmd);

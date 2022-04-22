@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:34:24 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/20 19:05:21 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:25:14 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ int	get_indices(char *str, int *start_idx, int *end_idx)
 	int	status;
 
 	status = 0;
-	i = 0;
-	while (str[i])
+	i = -1;
+	while (str[++i])
 	{
 		if (str[i] == '\'')
 			status = single_quotes_open(status);
@@ -102,7 +102,6 @@ int	get_indices(char *str, int *start_idx, int *end_idx)
 				i++;
 			*end_idx = i - 1;
 		}
-		i++;
 		if (*end_idx)
 			break ;
 	}

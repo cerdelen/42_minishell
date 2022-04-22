@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/22 12:52:21 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:20:26 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,13 @@ void	disconnect_angular_braces(char **string);
 
 //error_management
 int		errors(char *string);
+
+//error_management2
 bool	double_pipe(char *string);
 bool	multiple_redirection(char *string, char c);
 bool	wrong_angular_braces(char *string);
+bool	empty_pipes(char *string);
+
 
 //expand_env
 t_env	*env_to_str(char **env, int j);
