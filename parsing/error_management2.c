@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:18:52 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/22 13:22:44 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/22 14:52:26 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	multiple_redirection(char *string, char c)
 	char	third_char;
 
 	i = 0;
-	while (string[i + 2])
+	while (string[i] && string[i + 1] && string[i + 2])
 	{
 		curr_char = string[i];
 		next_char = string[i + 1];
@@ -64,6 +64,7 @@ bool	multiple_redirection(char *string, char c)
 		{
 			return (true);
 		}
+
 		i++;
 	}
 	reset_quotes();
@@ -129,7 +130,7 @@ bool	empty_pipes(char *string)
 	int	i;
 
 	i = 0;
-	while (string[i + 2])
+	while (string[i] && string[i + 1] && string[i + 2])
 	{
 		if (quotes_are_closed(string[i]))
 		{
