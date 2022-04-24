@@ -94,20 +94,37 @@ int	command_exec_prep(t_ms_data *data, int i, int in_fd)
 	int		out_fd;
 	char	*execute_path;
 
+	printf("this is data->command[i].cmd_flags[0] == %s\n", data->command[i].cmd_flags[0]);
 	if (data->command[i].input[0])
 		in_fd = prep_input_fd(data, i);
+	printf("this is data->command[i].cmd_flags[0] after input == %s\n", data->command[i].cmd_flags[0]);
 	if (in_fd < 0)
 		return (cleanup_command(0, 0));
 	if (data->command[i].input[0] == NULL)
 		in_fd = -1;
+	printf("hello from after input_fd\n");
 	if (data->command[i].output[0])
 		out_fd = prep_output_fd(data, i);
+	printf("this is data->command[i].cmd_flags[0] after output == %s\n", data->command[i].cmd_flags[0]);
+	
 	if (out_fd < 0)
 		return (cleanup_command(1, in_fd));
 	if (data->command[i].output[0] == NULL)
 		in_fd = -1;
+	printf("hello from after output \n");
+	printf("%d\n", i);
+	printf("this is data->command[i].cmd_flags[0] feijwojfodeqdjowqio == %s\n", data->command[i].cmd_flags[0]);
+	sleep(2);
+	printf("this is data->command[i].cmd_flags[0] == %s", data->command[i].cmd_flags[0]);
+	printf("jifosd");
+	printf("jifosd");
+	printf("jifosd");
+	printf("jifosd");
+	printf("jifosd");
+	sleep(10);
 	execute_path = find_executable_path(data->command[i].cmd_flags[0],
 			data->env);
+	printf("this is execute_path == %s \n", execute_path);
 	if (execute_path == NULL)
 		return (cleanup_command(1, in_fd));
 	free(data->command->cmd_flags[0]);
@@ -123,9 +140,13 @@ int	command_exec_loop(t_ms_data *data)
 	int	pipe_fd;
 
 	pipe_fd = STDIN_FILENO;
+	data->i = 0;
+	printf("data->command_cmdflag == %s\n", data->command[0].cmd_flags[0]);
 	while (data->i < data->command_amt)
 	{
+		printf("hello from before command\n");
 		pipe_fd = command_exec_prep(data, data->i, pipe_fd);
+		printf("hello from loop after first comand\n");
 		if (pipe_fd < 0)
 			pipe_fd = STDIN_FILENO;
 		data->i++;

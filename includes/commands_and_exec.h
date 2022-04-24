@@ -21,5 +21,6 @@ char	*find_executable_path(char	*cmd, char **env);
 int		heredoc_prep(char *limiter, bool fake);
 int		prep_input_fd(t_ms_data *data, int i);
 int		prep_output_fd(t_ms_data *data, int i);
+int		command_exec_loop(t_ms_data *data);
 
 #endif

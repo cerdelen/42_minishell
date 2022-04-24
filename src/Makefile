@@ -21,7 +21,10 @@ SRC_PARSER =	parsing/parse_input.c parsing/parse.c\
 				parsing/quotes_management.c parsing/quotes_removal.c \
 				# parsing/main.c 
 
-SRC_EXECUTOR = 
+SRC_EXECUTOR =	cer/ms_command_exec.c \
+				cer/ms_command_opening_fds.c \
+				cer/ms_find_executable_path.c cer/open_access_files.c \
+				cer/utils.c
 
 MAIN_SRC = main.c
 
@@ -29,14 +32,14 @@ LIB = libft.a
 
 LIB_PATH = ../Libft
 
-FLAGS = -Wall -Werror -Wextra
+# FLAGS = -Wall -Werror -Wextra
 
 SPECIAL_FLAG =  -lreadline
 
 all: $(NAME)
 
 $(NAME): $(LIB_PATH)/$(LIB)
-	gcc $(FLAGS) $(SPECIAL_FLAG) $(MAIN_SRC) $(SRC_EXECUTOR) $(SRC_PARSER) $(LIB_PATH)/$(LIB) -o $(NAME)
+	gcc $(FLAGS) $(MAIN_SRC) $(SRC_EXECUTOR) $(SRC_PARSER) $(LIB_PATH)/$(LIB)  $(SPECIAL_FLAG) -o $(NAME)
 
 $(LIB_PATH)/$(LIB):
 	$(MAKE) -C $(LIB_PATH)
