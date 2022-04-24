@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 int	command_pwd(void)
 {
@@ -19,9 +19,4 @@ int	command_pwd(void)
 	printf("%s\n", completepath);
 	free(completepath);
 	return (0);
-}
-
-int main(int argc, char **argv)
-{
-	command_pwd();
 }

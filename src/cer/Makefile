@@ -1,5 +1,8 @@
+CFLAGS = -Werror -Wall -Wextra
+
+
 Lib:
-	$(MAKE) bonus -C ../../Libft
+	$(MAKE) -C ../../Libft
 
 
 all:
@@ -9,3 +12,6 @@ cd: Lib
 
 pwd:
 	gcc pwd.c -o pwd_test
+
+ms:
+	gcc ms_command_loops_test.c ms_command_exec.c ms_command_opening_fds.c ms_find_executable_path.c open_access_files.c utils.c libft.a -lreadline
