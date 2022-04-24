@@ -84,6 +84,7 @@ int	prep_output_fd(t_ms_data *data, int i)
 	int		counter;
 	char	*tmp;
 
+	counter = 0;
 	while (data->command[i].output[counter + 1])
 	{
 		tmp = ft_strtrim(data->command[i].input[counter], " >");
