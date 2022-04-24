@@ -6,13 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 16:58:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/22 14:39:58 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/24 09:29:46 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing.h"
-#include "../includes/libft.h"
-#include "../includes/minishell.h"
+#include "../../includes/parsing.h"
 
 void	remove_blank_spaces(char **string)
 {

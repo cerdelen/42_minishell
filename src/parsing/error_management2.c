@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:18:52 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/22 14:52:26 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/24 09:27:32 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing.h"
+#include "../../includes/parsing.h"
 
 // Returns true(1) if there's double pipes outside of quotes, else false (0)
 bool	double_pipe(char *string)

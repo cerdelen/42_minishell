@@ -6,7 +6,7 @@
 #    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 11:55:48 by kmilchev          #+#    #+#              #
-#    Updated: 2022/04/22 13:21:27 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/04/24 09:29:04 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC	=	main.c parse_input.c parse.c\
 		print_utils.c free_utils.c utils.c \
 		quotes_management.c quotes_removal.c 
 		
-LIB_PATH = ../Libft
+LIB_PATH = ../../Libft
 # FLAGS = -Wall -Werror -Wextra
 
 test:

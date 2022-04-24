@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:16:43 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/22 13:21:52 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/24 09:27:27 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing.h"
+#include "../../includes/parsing.h"
 
 //Returns 0 if there are no errors
 int	errors(char *string)

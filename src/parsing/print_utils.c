@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:03:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/22 13:42:03 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/24 09:28:00 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing.h"
+#include "../../includes/parsing.h"
 
 void	print_cmd_struct(t_cmd cmd)
 {

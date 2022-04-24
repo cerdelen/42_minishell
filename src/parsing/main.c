@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 11:34:42 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/22 15:59:39 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/24 09:27:46 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing.h"
+#include "../../includes/parsing.h"
 
 // string = ft_strdup("<<here_doc cmd1   '                    flags'   >output1 >    output2 <inside >>hopala | <<here_doc2 cmd2 < input> <here_doc4 | cmd \"some random ass shit\" | peace >output | something \"<<there\" '<<it' \"'<<nope'\" >>yes is enough");
 // string = " <<here_doc2  ' c  a  r '     cmd2 < input> <here_doc4 ";

@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:08:07 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/19 11:28:48 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/24 09:28:04 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing.h"
+#include "../../includes/parsing.h"
 
 //returns false (0) if the quotes are not closed - else true(1)
 bool	all_quotes_are_closed(char *str)
