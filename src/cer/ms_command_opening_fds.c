@@ -33,9 +33,8 @@ int	prep_input_fd_util(t_ms_data *data, int i, int counter)
 	return (in_fd);
 }
 
-int	prep_input_fd(t_ms_data *data, int i)
+int	prep_input_fd(t_ms_data *data, int i, int in_fd)
 {
-	int		in_fd;
 	int		counter;
 	char	*tmp;
 
@@ -78,9 +77,8 @@ int	prep_output_fd_util(t_ms_data *data, int i, int counter)
 	return (out_fd);
 }
 
-int	prep_output_fd(t_ms_data *data, int i)
+int	prep_output_fd(t_ms_data *data, int i, int out_fd)
 {
-	int		out_fd;
 	int		counter;
 	char	*tmp;
 
