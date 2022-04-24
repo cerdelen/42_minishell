@@ -23,7 +23,9 @@ int	prep_input_fd_util(t_ms_data *data, int i, int counter)
 	char	*tmp;
 	int		in_fd;
 
+	printf("%s\n", data->command[i].input[counter]);
 	tmp = ft_strtrim(data->command[i].input[counter], " <");
+	printf("this is the file im trying to open %s\n", data->command[i].input[counter]);
 	if (data->command[i].input[counter][1] == ' ')
 		in_fd = open_and_check_access(tmp, READS_ONLY, false, false);
 	else
