@@ -12,7 +12,7 @@
 
 CC = gcc
 
-CFLAGS = -Wextra -Wall -Werror -I../includes
+CFLAGS = -Wextra -Wall -Werror
 
 AR = ar rcs
 
