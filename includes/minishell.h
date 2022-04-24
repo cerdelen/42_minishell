@@ -4,6 +4,7 @@
 
 # include <stdbool.h>
 # include "libft.h"
+# include "parsing.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
@@ -14,6 +15,7 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
 
 typedef struct s_ms_data
 {
