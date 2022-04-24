@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/20 17:07:17 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:20:26 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ typedef struct s_complex_command
 {
 	char	**input;
 	char	**output;
-	// char	**out_append;
-	// char	**here_doc;
 	char	**cmd_flags;
 }	t_cmd;
 
@@ -30,13 +28,9 @@ typedef struct s_element_amounts
 {
 	int		n_red_in;
 	int		n_red_out;
-	// int		n_app_out;
-	// int		n_here_doc;
 	int		n_cmd_flags;
 	int		idx_red_in;
 	int		idx_red_out;
-	// int		idx_app_out;
-	// int		idx_here_doc;
 	int		idx_cmd_flags;
 }	t_n_el;
 
@@ -83,49 +77,51 @@ int		count_double_chars(char *str, char c);
 int		count_strings(char **arr);
 
 //free_utils
-void	free_env_struct(t_env *envv, int i);
-void	free_2d_array(char **arr);
-void	free_struct_array(t_cmd *arr, int n_elements);
 void	free_cmd_struct(t_cmd cmd);
 void	free_cmd_struct_arr(t_cmd *cmd, int command_amt);
+void	free_env_struct(t_env *envv, int i);
+void	free_2d_array(char **arr);
 
 //print_utils
 void	print_cmd_struct(t_cmd cmd);
+void	print_cmd_struct_arr(t_cmd *arr, int command_amt);
 void	print_env_struct(t_env *envv, int i);
 void	print_2d_array(char **arr);
-void	print_struct_array(t_cmd *arr, int n_elements);
-void	print_cmd_struct_arr(t_cmd *arr, int command_amt);
 
 //quotes_management
 bool	all_quotes_are_closed(char *str);
-bool	quotes_are_closed(char c);
 void	reset_quotes(void);
+bool	quotes_are_closed(char c);
+int		single_quotes_open(int status);
+int		double_quotes_open(int status);
 
 //quotes_removal
-int		double_quotes_open(int status);
-int		single_quotes_open(int status);
-
-//remove_spaces
-void	remove_blank_spaces(char **string);
-void	connect_double_angular_braces(char **string);
-void	connect_singular_angular_braces(char **string);
 void	remove_single_quotes(char **string, char rm, char keep);
 void	remove_double_quotes(char **string, char rm, char keep);
 void	remove_quotes(char **string);
+
+//remove_spaces
+void	remove_blank_spaces(char **string);
+void	replace_white_spaces(char **string);
+void	connect_singular_angular_braces(char **string);
 void	disconnect_angular_braces(char **string);
 
 //error_management
 int		errors(char *string);
+
+//error_management2
 bool	double_pipe(char *string);
 bool	multiple_redirection(char *string, char c);
 bool	wrong_angular_braces(char *string);
+bool	empty_pipes(char *string);
+
 
 //expand_env
 t_env	*env_to_str(char **env, int j);
-char	*expand(char *string, t_env *envv, int count);
 char	*reassamble_string(char *string, char *add_str, int len_s1);
 char	*remove_part_string(char *str, char*sub, int str_idx, int end_idx);
 char	*find_match(char *string, t_env *arr, int len, int arr_size);
+char	*expand(char *string, t_env *envv, int count);
 
 //expand_env_utils
 bool	char_is_present(char c, char *string);
