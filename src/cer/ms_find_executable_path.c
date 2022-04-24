@@ -6,7 +6,6 @@ char	*get_path_from_env(char **env)
 	char	*out;
 
 	i = 0;
-	printf("did i get here? \n");
 	while (env[i] != NULL)
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
@@ -16,7 +15,6 @@ char	*get_path_from_env(char **env)
 		}
 		i++;
 	}
-	printf("did i get here? end %d \n", i);
 	return (NULL);
 }
 

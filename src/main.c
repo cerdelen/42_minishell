@@ -6,7 +6,7 @@
 /*   By: Cerdelen < cerdelen@student.42wolfsburg.de +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 09:46:07 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/24 17:20:16 by Cerdelen         ###   ########.fr       */
+/*   Updated: 2022/04/24 18:28:55 by Cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,10 @@ int	main(int argc, char *argv[], char *env[])
 			printf("ERROR");
 			return (EXIT_FAILURE);
 		}
-		printf("this is the command in main functions %s\n", data.command[0].cmd_flags[0]);
 		data.env = env;
-		printf("data.exitcodes in main = %d\n", *data.exit_codes);
 		command_exec_loop(&data);
 		/* print_cmd_struct_arr(data.command, data.command_amt); */
 		free_cmd_struct_arr(data.command, data.command_amt);
-		printf("Everything worked! yeay\n");
 	}
 	return (0);
 }
