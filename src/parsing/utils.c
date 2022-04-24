@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 15:44:57 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 12:40:25 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/24 09:28:30 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing.h"
+#include "../../includes/parsing.h"
 
 //counts how many instances of a character are present in a string
 //if the char is within any quotes, it is not counted

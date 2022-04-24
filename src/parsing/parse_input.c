@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/22 13:31:33 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/24 10:53:06 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing.h"
+#include "../../includes/parsing.h"
 
 void	init_el_am(char **elements, t_n_el *el_amount)
 {
@@ -69,7 +69,7 @@ t_cmd	fill_cmd(char *string)
 	t_cmd	cmd;
 	t_n_el	el_amount;
 
-	if (!string && string == NULL || string[0] == '\0')
+	if (!string || string[0] == '\0')
 	{
 		ft_bzero(&cmd, sizeof(cmd));
 		return (cmd);
@@ -87,16 +87,23 @@ t_cmd	*fill_cmds_struct(char *string, int *command_amt)
 	char	**arr;
 	t_cmd	*compl_cmds;
 
-	arr = modified_split(string, '|');
-	*command_amt = count_chars(string, '|') + 1;
-	compl_cmds = ft_calloc((*command_amt), sizeof(t_cmd));
-	i = 0;
-	while (i < *command_amt)
+	if (string[0] == '\0')
 	{
-		compl_cmds[i] = fill_cmd(arr[i]);
-		i++;
+		ft_bzero(&compl_cmds, sizeof(t_cmd));
 	}
-	free_2d_array(arr);
+	else 
+	{
+		arr = modified_split(string, '|');
+		*command_amt = count_chars(string, '|') + 1;
+		compl_cmds = ft_calloc((*command_amt), sizeof(t_cmd));
+		i = 0;
+		while (i < *command_amt)
+		{
+			compl_cmds[i] = fill_cmd(arr[i]);
+			i++;
+		}
+		free_2d_array(arr);
+	}
 	free(string);
 	return (compl_cmds);
 }

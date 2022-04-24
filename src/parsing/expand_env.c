@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/18 13:34:14 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/24 09:27:39 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing.h"
+#include "../../includes/parsing.h"
 
 t_env	*env_to_str(char **env, int j)
 {

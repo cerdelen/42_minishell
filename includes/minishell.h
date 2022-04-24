@@ -4,7 +4,6 @@
 
 # include <stdbool.h>
 # include "libft.h"
-
 # include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
@@ -13,16 +12,8 @@
 # include <string.h>
 # include <fcntl.h>
 # include <stdbool.h>
-# include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
-typedef struct s_complex_command
-{
-	char	**input;
-	char	**output;
-	char	**cmd_flags;
-}	t_cmd;
 
 typedef struct s_ms_data
 {

@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:34:24 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/22 13:25:14 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/24 09:27:35 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing.h"
+#include "../../includes/parsing.h"
 
 bool	char_available(char *string, int i, int status)
 {
