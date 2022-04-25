@@ -23,19 +23,18 @@ int	prep_input_fd_util(t_ms_data *data, int i, int counter)
 	char	*tmp;
 	int		in_fd;
 
+	printf("%s\n", data->command[i].input[counter]);
 	tmp = ft_strtrim(data->command[i].input[counter], " <");
+	printf("this is the file im trying to open %s\n", data->command[i].input[counter]);
 	if (data->command[i].input[counter][1] == ' ')
 		in_fd = open_and_check_access(tmp, READS_ONLY, false, false);
 	else
 		in_fd = heredoc_prep(tmp, true);
-	if (in_fd < 0)
-		print_error_message("tmp", NULL);
 	return (in_fd);
 }
 
-int	prep_input_fd(t_ms_data *data, int i)
+int	prep_input_fd(t_ms_data *data, int i, int in_fd)
 {
-	int		in_fd;
 	int		counter;
 	char	*tmp;
 
@@ -78,9 +77,8 @@ int	prep_output_fd_util(t_ms_data *data, int i, int counter)
 	return (out_fd);
 }
 
-int	prep_output_fd(t_ms_data *data, int i)
+int	prep_output_fd(t_ms_data *data, int i, int out_fd)
 {
-	int		out_fd;
 	int		counter;
 	char	*tmp;
 
