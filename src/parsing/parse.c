@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:58:03 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/24 10:52:04 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/25 14:28:51 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	parse(char **string, char *env[], t_cmd **cmds, int *cmd_amt)
 	int		count;
 	t_env	*envv;
 
+	*cmd_amt = 0;
 	replace_white_spaces(string);
 	remove_blank_spaces(string);
 	if (errors(*string))
