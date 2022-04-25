@@ -30,8 +30,6 @@ int	prep_input_fd_util(t_ms_data *data, int i, int counter)
 		in_fd = open_and_check_access(tmp, READS_ONLY, false, false);
 	else
 		in_fd = heredoc_prep(tmp, true);
-	if (in_fd < 0)
-		print_error_message("tmp", NULL);
 	return (in_fd);
 }
 

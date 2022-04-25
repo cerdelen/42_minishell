@@ -62,7 +62,7 @@ void	child_process_prep(t_ms_data *data, int in_fd, int out_fd, int *pipe_fd)
 		exit(-1);
 	execve(data->command[data->i].cmd_flags[0],
 		data->command[data->i].cmd_flags, data->env);
-	print_error_message("execve", NULL);
+	print_error_message("execve", "XD");
 	close(in);
 	close(out);
 	exit(-1);
@@ -106,14 +106,12 @@ int	fork_and_execute(t_ms_data *data, int in_fd, int out_fd, int i)
 
 int	command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd)
 {
-	//int		out_fd;
 	char	*execute_path;
 
 	if (data->command[i].input[0])
 		in_fd = prep_input_fd(data, i, in_fd);
 	if (in_fd < 0)
 		return (cleanup_command(0, 0));
-	//in_fd = STDIN_FILENO;
 	if (data->command[i].input[0] == NULL && i < 1)				//major doubts about this line
 		in_fd = -1;
 	if (data->command[i].output[0])

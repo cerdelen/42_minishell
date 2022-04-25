@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
+#    By: Cerdelen < cerdelen@student.42wolfsburg.de +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 09:59:43 by kmilchev          #+#    #+#              #
-#    Updated: 2022/04/24 10:28:42 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/04/25 12:44:12 by Cerdelen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,12 +41,12 @@ all: $(NAME)
 $(NAME): $(LIB_PATH)/$(LIB)
 	gcc $(FLAGS) $(MAIN_SRC) $(SRC_EXECUTOR) $(SRC_PARSER) $(LIB_PATH)/$(LIB)  $(SPECIAL_FLAG) -o $(NAME)
 
-$(LIB_PATH)/$(LIB):
-	$(MAKE) -C $(LIB_PATH)
-	$(MAKE) clean -C $(LIB_PATH)
+#$(LIB_PATH)/$(LIB):
+#	$(MAKE) -C $(LIB_PATH)
+#	$(MAKE) clean -C $(LIB_PATH)
 
 fclean:
 	rm -f $(NAME)
-	rm -f $(LIB_PATH)/$(LIB)
+#	rm -f $(LIB_PATH)/$(LIB)
 
 re: fclean all
