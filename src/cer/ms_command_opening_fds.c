@@ -23,9 +23,7 @@ int	prep_input_fd_util(t_ms_data *data, int i, int counter)
 	char	*tmp;
 	int		in_fd;
 
-	printf("%s\n", data->command[i].input[counter]);
 	tmp = ft_strtrim(data->command[i].input[counter], " <");
-	printf("this is the file im trying to open %s\n", data->command[i].input[counter]);
 	if (data->command[i].input[counter][1] == ' ')
 		in_fd = open_and_check_access(tmp, READS_ONLY, false, false);
 	else
@@ -39,7 +37,8 @@ int	prep_input_fd(t_ms_data *data, int i, int in_fd)
 	char	*tmp;
 
 	counter = 0;
-	close(in_fd);
+	if (in_fd != STDIN_FILENO)
+		close(in_fd);
 	while (data->command[i].input[counter + 1])
 	{
 		tmp = ft_strtrim(data->command[i].input[counter], " <");
@@ -53,8 +52,6 @@ int	prep_input_fd(t_ms_data *data, int i, int in_fd)
 			free(tmp);
 			return (in_fd);
 		}
-		if (data->command[i].input[counter][1] == ' ')
-			close(in_fd);
 		free(tmp);
 		counter++;
 	}
