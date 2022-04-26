@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/24 09:27:39 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/24 12:19:29 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,11 @@ char	*find_match(char *string, t_env *arr, int len, int arr_size)
 //Find $, retrieve the value for the env variable, replace it in the string
 char	*expand(char *string, t_env *envv, int count)
 {
-	/* int		i; */
 	int		start_idx;
 	int		end_idx;
 	char	*variable;
 	char	*value;
 
-	/* i = 0; */
 	start_idx = 0;
 	end_idx = 0;
 	if (get_indices(string, &start_idx, &end_idx))
