@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:18:57 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/26 15:33:46 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/27 12:16:30 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	validate_name(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_isalnum_underscore(str[i]))
+		if ((i == 0 && ft_isdigit(str[0])) || !ft_isalnum_underscore(str[i]))
 		{
 			printf("unset: '%s': not a valid identifier\n", str);
 			return (1);
@@ -85,38 +85,38 @@ void	unset(char **cmd_flags, char *env[])
 	}
 }
 
-int main(int argc, char *argv[], char *env[])
-{
-	char **envv;
-	envv = env_copy(env);
-	char **cmd_flags;
+// int main(int argc, char *argv[], char *env[])
+// {
+// 	char **envv;
+// 	envv = env_copy(env);
+// 	char **cmd_flags;
 	
-	print_2d_array(envv);
-	cmd_flags = malloc(21 * sizeof(char *));
-	cmd_flags[0] = ft_strdup("TERM_PROGRAM");
-	cmd_flags[1] = ft_strdup("TERM");
-	cmd_flags[2] = ft_strdup("SHELL");
-	cmd_flags[3] = ft_strdup("TMPDIR");
-	cmd_flags[4] = ft_strdup("TERM_PROGRAM_VERSION");
-	cmd_flags[5] = ft_strdup("OLDPWD");
-	cmd_flags[6] = ft_strdup("ORIGINAL_XDG_CURRENT_DESKTOP");
-	cmd_flags[7] = ft_strdup("USER");
-	cmd_flags[8] = ft_strdup("COMMAND_MODE");
-	cmd_flags[9] = ft_strdup("SSH_AUTH_SOCK");
-	cmd_flags[10] = ft_strdup("__CF_USER_TEXT_ENCODING");
-	cmd_flags[11] = ft_strdup("PATH");
-	cmd_flags[12] = ft_strdup("LaunchInstanceID");
-	cmd_flags[13] = ft_strdup("PWD");
-	cmd_flags[14] = ft_strdup("LANG");
-	cmd_flags[15] = ft_strdup("XPC_FLAGS");
-	cmd_flags[16] = ft_strdup("XPC_SERVICE_NAME");
-	cmd_flags[17] = ft_strdup("SHLVL");
-	cmd_flags[18] = ft_strdup("HOME");
-	cmd_flags[19] = ft_strdup("VSCODE_GIT_ASKPASS_MAIN");
-	cmd_flags[20] = NULL;
+// 	print_2d_array(envv);
+// 	cmd_flags = malloc(21 * sizeof(char *));
+// 	cmd_flags[0] = ft_strdup("_");
+// 	cmd_flags[1] = ft_strdup("TERM");
+// 	cmd_flags[2] = ft_strdup("SHELL");
+// 	cmd_flags[3] = ft_strdup("TMPDIR");
+// 	cmd_flags[4] = ft_strdup("TERM_PROGRAM_VERSION");
+// 	cmd_flags[5] = ft_strdup("OLDPWD");
+// 	cmd_flags[6] = ft_strdup("ORIGINAL_XDG_CURRENT_DESKTOP");
+// 	cmd_flags[7] = ft_strdup("USER");
+// 	cmd_flags[8] = ft_strdup("COMMAND_MODE");
+// 	cmd_flags[9] = ft_strdup("SSH_AUTH_SOCK");
+// 	cmd_flags[10] = ft_strdup("__CF_USER_TEXT_ENCODING");
+// 	cmd_flags[11] = ft_strdup("PATH");
+// 	cmd_flags[12] = ft_strdup("LaunchInstanceID");
+// 	cmd_flags[13] = ft_strdup("PWD");
+// 	cmd_flags[14] = ft_strdup("LANG");
+// 	cmd_flags[15] = ft_strdup("XPC_FLAGS");
+// 	cmd_flags[16] = ft_strdup("XPC_SERVICE_NAME");
+// 	cmd_flags[17] = ft_strdup("SHLVL");
+// 	cmd_flags[18] = ft_strdup("HOME");
+// 	cmd_flags[19] = ft_strdup("VSCODE_GIT_ASKPASS_MAIN");
+// 	cmd_flags[20] = NULL;
 	
-	unset(cmd_flags, envv);
-	print_2d_array(envv);
-	free_2d_array(envv);
-	free_2d_array(cmd_flags);
-}
+// 	unset(cmd_flags, envv);
+// 	print_2d_array(envv);
+// 	free_2d_array(envv);
+// 	free_2d_array(cmd_flags);
+// }
