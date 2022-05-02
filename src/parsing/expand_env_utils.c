@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:34:24 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/25 20:11:12 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/27 12:27:32 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,11 @@ char	**env_copy(char **env)
 	i = 0;
 	while (env[i])
 		i++;
-	env_cp = ft_calloc(i + 1, sizeof(char *));
+	env_cp = ft_calloc(i + 3, sizeof(char *));
 	i = 0;
 	while (env[i])
 	{
 		env_cp[i] = ft_strdup(env[i]);
-		env_cp[i] = env[i];
 		i++;
 	}
 	env_cp[i] = NULL;

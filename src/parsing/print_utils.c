@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:03:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/24 09:28:00 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/27 16:05:13 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	print_2d_array(char **arr)
 	i = 0;
 	while (arr[i])
 	{
-		printf("%sX\n", arr[i]);
+		printf("%s\n", arr[i]);
 		i++;
 	}
 }

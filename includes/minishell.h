@@ -6,6 +6,7 @@
 # include "libft.h"
 # include "parsing.h"
 # include "signals.h"
+# include "builtins.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdlib.h>
