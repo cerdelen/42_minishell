@@ -1,23 +1,5 @@
 #include "../../includes/minishell.h"
 
-int	heredoc_prep(char *limiter, bool fake)
-{
-	char	*line;
-
-	while (1)
-	//fake heredocs einfach nur solange newline bis line == limiter
-	//real heredoc hiddenfile erstellen und nach command file löschenda höchstens
-	//1 input pro command
-	{
-		line = readline("kiscer>");
-		if (line == limiter)
-			break ;
-		printf("%s\n", line);
-		free(line);
-	}
-	return (0);
-}
-
 int	prep_input_fd_util(t_ms_data *data, int i, int counter)
 {
 	char	*tmp;

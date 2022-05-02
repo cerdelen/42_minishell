@@ -61,11 +61,11 @@ int	open_and_check_access(char *path, int access_flag, bool append, bool create)
 	if (create == false)
 		if (access(path, F_OK) != 0)
 			return (print_error_message(path, NULL));
-	if (access_flag != READS_ONLY)
+	if (access(path, F_OK) == 0 && access_flag != READS_ONLY)
 		check = access(path, W_OK);
 	if (check != 0)
 		return (print_error_message(path, NULL));
-	if (access_flag != WRITES_ONLY)
+	if (access(path, F_OK) == 0 && access_flag != WRITES_ONLY)
 		check = access(path, R_OK);
 	if (check != 0)
 		return (print_error_message(path, NULL));
