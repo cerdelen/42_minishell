@@ -1,5 +1,12 @@
 #include "../../includes/minishell.h"
 
+
+
+NEW APPROACH!!!!!!
+
+ich pipe und benutze die pipe fds als input fd und schreibe mit readline in den output fd und close sobald ich den delimiter gefunden habe
+
+
 // int	heredoc_prep(char *limiter, bool fake)
 // {
 // 	char	*line;
