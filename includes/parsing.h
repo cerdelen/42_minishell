@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/22 13:20:26 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/25 19:29:32 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,6 @@ char	*expand(char *string, t_env *envv, int count);
 //expand_env_utils
 bool	char_is_present(char c, char *string);
 int		get_indices(char *string, int *start_idx, int *end_idx);
+char	**env_copy(char **env);
 
 #endif

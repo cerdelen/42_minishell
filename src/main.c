@@ -3,40 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Cerdelen < cerdelen@student.42wolfsburg.de +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 09:46:07 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/25 14:00:52 by Cerdelen         ###   ########.fr       */
+/*   Updated: 2022/04/26 12:08:04 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+pid_t pid = 0;
 int	main(int argc, char *argv[], char *env[])
 {
-	t_ms_data	data;
-	char		*line;
-
+	t_ms_data			data;
+	char				*line;
+	// struct sigaction	sa;
+	
+	// sa.sa_handler = &handle_signals;
+	// sigaction(SIGINT, &sa, NULL);
+	// sigaction(SIGQUIT, &sa, NULL);
+	
+	data.env = env_copy(env);
 	if (argc != 1 && argv)
 		return (printf("KISCER_SHELL does not take arguments\n"), 0);
-	while (1)
+	while(1)
 	{
-		line = readline("KISCER_SHELL >");
+		line = readline(WHATEVS);
 		if (!line)
 		{
-			printf("EXITING\n");
+			printf(" EXITING\n");
 			break ;
 		}
 		if (ft_strlen(line) > 0)
 			add_history(line);
-		if (parse(&line, env, &data.command, &data.command_amt))
+		if(parse(&line, data.env, &data.command, &data.command_amt))
 		{
-			printf("ERROR");
-			return (EXIT_FAILURE);
+			printf("ERROR\n");
+			continue ;
+			
 		}
-		data.env = env;
-		command_exec_loop(&data);
-		/* print_cmd_struct_arr(data.command, data.command_amt); */
+		// command_exec_loop(&data);
+		print_cmd_struct_arr(data.command, data.command_amt);
 		free_cmd_struct_arr(data.command, data.command_amt);
 	}
 	return (0);
