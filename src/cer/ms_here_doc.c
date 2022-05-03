@@ -1,62 +1,49 @@
 #include "../../includes/minishell.h"
 
-
-
-NEW APPROACH!!!!!!
-
-ich pipe und benutze die pipe fds als input fd und schreibe mit readline in den output fd und close sobald ich den delimiter gefunden habe
-
-
-// int	heredoc_prep(char *limiter, bool fake)
-// {
-// 	char	*line;
-
-// 	while (1)
-// 	//fake heredocs einfach nur solange newline bis line == limiter
-// 	//real heredoc hiddenfile erstellen und nach command file löschenda höchstens
-// 	//1 input pro command
-// 	{
-// 		line = readline("kiscer>");
-// 		if (line == limiter)
-// 			break ;
-// 		printf("%s\n", line);
-// 		free(line);
-// 	}
-// 	return (0);
-// }
-
-
-
-// int	heredoc_hidden_storage()
-// {
-// 	open_and_check_access("./hidden_heredoc_file", READS_AND_WRITES, false, true);
-// }
-
-int	ms_true_heredoc(char *limiter)
+void	here_doc_child_proccess(char *limiter, int *fd)
 {
 	char	*line;
-	int		fd;
 
-	fd = open_and_check_access("hidden_heredoc_file", READS_AND_WRITES, false, true);
-	if (fd < 0)
-		return (-1);
-	while(1)
+	close(fd[0]);
+	if (fd[1] < 0)
+		exit(-1);
+	while (1)
 	{
 		line = readline(">");
 		if (!line)
 		{
 			printf("Readline Error\n");
-			break ;
+			exit(-1);
 		}
 		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
 		{
 			free(line);
-			break ;
+			exit(0);
 		}
-		write(fd, line, ft_strlen(line));
+		write(fd[1], line, ft_strlen(line));
 		free(line);
 	}
-	return (fd);
+}
+
+int	ms_true_heredoc(char *limiter)
+{
+	int	fd[2];
+	int	w_status;
+	int	id;
+
+	if (pipe(fd) == -1)
+		return (print_error_message("pipe", NULL));
+	id = fork();
+	if (id == -1)
+		return (print_error_message("fork", NULL));
+	if (id == 0)
+		here_doc_child_proccess(limiter, fd);
+	wait(&w_status);
+	if (w_status < 0)
+		return (print_error_message("here_doc_child",
+				"process return w_status"));
+	close(fd[1]);
+	return (fd[0]);
 }
 
 void	ms_fake_heredoc(char *limiter)
@@ -64,7 +51,7 @@ void	ms_fake_heredoc(char *limiter)
 	char	*line;
 
 	printf("this is start of fake_heredoc\n");
-	while(1)
+	while (1)
 	{
 		line = readline(">");
 		if (!line)
@@ -81,14 +68,8 @@ void	ms_fake_heredoc(char *limiter)
 	}
 }
 
-
-
 int	heredoc_prep(char *limiter, bool last)
 {
-	
-	//fake heredocs einfach nur solange newline bis line == limiter
-	//real heredoc hiddenfile erstellen und nach command file löschenda höchstens
-	//1 input pro command
 	int	fd;
 
 	if (last == true)
