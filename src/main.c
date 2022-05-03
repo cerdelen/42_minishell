@@ -12,6 +12,17 @@
 
 #include "../includes/minishell.h"
 
+char *place_holder()
+{
+	char *out = malloc(5 * sizeof(char));
+	out[0] = 'e';
+	out[1] = 'x';
+	out[2] = 'i';
+	out[3] = 't';
+	out[4] = '\0';
+	return (out);
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	t_ms_data	data;
@@ -21,14 +32,15 @@ int	main(int argc, char *argv[], char *env[])
 		return (printf("KISCER_SHELL does not take arguments\n"), 0);
 	while (1)
 	{
-		line = readline("KISCER_SHELL >");
+		line = place_holder();
+		printf("%s'\n", line);
 		if (!line)
 		{
 			printf("EXITING\n");
 			break ;
 		}
-		if (ft_strlen(line) > 0)
-			add_history(line);
+		// if (ft_strlen(line) > 0)
+		// 	add_history(line);
 		if (parse(&line, env, &data.command, &data.command_amt))
 		{
 			printf("ERROR");
