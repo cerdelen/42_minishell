@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Cerdelen < cerdelen@student.42wolfsburg.de +#+  +:+       +#+         #
+#    By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 09:59:43 by kmilchev          #+#    #+#              #
-#    Updated: 2022/04/25 12:44:12 by Cerdelen         ###   ########.fr        #
+#    Updated: 2022/05/02 15:14:39 by cerdelen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRC_PARSER =	parsing/parse_input.c parsing/parse.c\
 SRC_EXECUTOR =	cer/ms_command_exec.c \
 				cer/ms_command_opening_fds.c \
 				cer/ms_find_executable_path.c cer/open_access_files.c \
-				cer/utils.c
+				cer/utils.c \
+				cer/ms_here_doc.c
 
 MAIN_SRC = main.c
 
@@ -41,12 +42,12 @@ all: $(NAME)
 $(NAME): $(LIB_PATH)/$(LIB)
 	gcc $(FLAGS) $(MAIN_SRC) $(SRC_EXECUTOR) $(SRC_PARSER) $(LIB_PATH)/$(LIB)  $(SPECIAL_FLAG) -o $(NAME)
 
-#$(LIB_PATH)/$(LIB):
-#	$(MAKE) -C $(LIB_PATH)
-#	$(MAKE) clean -C $(LIB_PATH)
+$(LIB_PATH)/$(LIB):
+	$(MAKE) -C $(LIB_PATH)
+	$(MAKE) clean -C $(LIB_PATH)
 
 fclean:
 	rm -f $(NAME)
-#	rm -f $(LIB_PATH)/$(LIB)
+	rm -f $(LIB_PATH)/$(LIB)
 
 re: fclean all
