@@ -1,5 +1,34 @@
 #include "../../includes/minishell.h"
 
+int	ms_echo(t_ms_data *data)
+{
+
+}
+
+int	ms_cd(t_ms_data *data)
+{
+
+}
+
+int	ms_pwd(t_ms_data *data)
+{
+
+}
+
+int	ms_export(t_ms_data *data)
+{
+
+}
+
+int	ms_unset(t_ms_data *data)
+{
+
+}
+
+int	ms_env(t_ms_data *data)
+{
+
+}
 
 int	cleanup_command(int cleanup_case, int in_fd)
 {
@@ -161,7 +190,7 @@ int	command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd)
 	if (find_exeption_command(data->command[i].cmd_flags[0]) != NULL)
 		return (execute_exeption_command(data->command[i].cmd_flags[0], data));
 	execute_path = find_executable_path(data->command[i].cmd_flags[0],
-				data->env);
+			data->env);
 	if (execute_path == NULL)
 		return (cleanup_command(1, in_fd));
 	free(data->command[i].cmd_flags[0]);

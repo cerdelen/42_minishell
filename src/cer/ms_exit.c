@@ -22,8 +22,7 @@ void	free_command_struct(t_cmd *command_struct)
 
 void	ms_exit(t_ms_data *data)
 {
-	free_string_array(data->env);
 	free_command_struct(data->command);
-	free(data->exit_codes);
-	free(data->i);
+	// free(data->exit_codes);
+	exit(0);
 }
