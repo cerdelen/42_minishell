@@ -52,7 +52,7 @@ char	*check_if_exec_exists_and_x_rights(char **paths_w_cmd, char *cmd)
 			return (paths_w_cmd[i]);
 		i++;
 	}
-	print_error_message(cmd, NULL);
+	printf("kiscer_ms: %s: command not found\n", cmd);
 	return (NULL);
 }
 
