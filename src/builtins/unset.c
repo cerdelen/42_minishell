@@ -63,7 +63,7 @@ void	update_array(char *var, char *env[])
 	}
 }
 
-void	ms_unset(char **cmd_flags, char *env[])
+int	ms_unset(char **cmd_flags, char *env[])
 {
 	char	*var;
 	int		i;
@@ -83,6 +83,7 @@ void	ms_unset(char **cmd_flags, char *env[])
 		update_array(var, env);
 		i++;
 	}
+	return (0);
 }
 
 // int main(int argc, char *argv[], char *env[])

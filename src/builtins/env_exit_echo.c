@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   env_exit_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 16:00:30 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/27 22:42:20 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/04 16:23:21 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ms_env(char **cmd, char **env)
+int	ms_env(char **cmd, char **env)
 {
 	if (cmd[1])
+	{
 		printf("env: the command does not accept arguments\n");
+		return (1);
+	}
 	else
+	{
 		print_2d_array(env);
+		return (0);
+	}
 }
 
 bool	flag_is_present(char **cmd, int *i)
@@ -57,7 +63,7 @@ bool	every_char_is(char c, char *str)
 	return (true);
 }
 
-void	ms_echo(char **cmd)
+int	ms_echo(char **cmd)
 {
 	int		i;
 	int		j;
@@ -82,6 +88,7 @@ void	ms_echo(char **cmd)
 	}
 	if (new_line)
 		printf("\n");
+	return(0);
 }
 
 // int main(int a, char**b, char *env[])
