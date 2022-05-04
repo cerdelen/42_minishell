@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:34:24 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/24 09:27:35 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/27 12:27:32 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,23 @@ int	get_indices(char *str, int *start_idx, int *end_idx)
 	if (*start_idx != 0)
 		return (0);
 	return (1);
+}
+
+char	**env_copy(char **env)
+{
+	char	**env_cp;
+	int		i;
+
+	i = 0;
+	while (env[i])
+		i++;
+	env_cp = ft_calloc(i + 3, sizeof(char *));
+	i = 0;
+	while (env[i])
+	{
+		env_cp[i] = ft_strdup(env[i]);
+		i++;
+	}
+	env_cp[i] = NULL;
+	return (env_cp);
 }

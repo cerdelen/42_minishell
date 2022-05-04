@@ -6,13 +6,14 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:58:03 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/25 14:28:51 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/04/26 11:49:24 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-int	parse(char **string, char *env[], t_cmd **cmds, int *cmd_amt)
+int	
+parse(char **string, char *env[], t_cmd **cmds, int *cmd_amt)
 {
 	int		count;
 	t_env	*envv;

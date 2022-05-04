@@ -5,6 +5,10 @@
 # include <stdbool.h>
 # include "libft.h"
 # include "parsing.h"
+# include "signals.h"
+# include "builtins.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
@@ -12,11 +16,10 @@
 # include <limits.h>
 # include <string.h>
 # include <fcntl.h>
-# include <stdbool.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <sys/wait.h>
+# define WHATEVS "\e[0;35mKISCER_SHELL \e[31mv1.0\e[0m $ "
 
+pid_t pid;
 
 typedef struct s_ms_data
 {
