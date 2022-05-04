@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   ms_unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -33,7 +33,7 @@ int	validate_name(char *str)
 	{
 		if ((i == 0 && ft_isdigit(str[0])) || !ft_isalnum_underscore(str[i]))
 		{
-			printf("unset: '%s': not a valid identifier\n", str);
+			printf("ms_unset: '%s': not a valid identifier\n", str);
 			return (1);
 		}
 		i++;
@@ -63,7 +63,7 @@ void	update_array(char *var, char *env[])
 	}
 }
 
-void	unset(char **cmd_flags, char *env[])
+void	ms_unset(char **cmd_flags, char *env[])
 {
 	char	*var;
 	int		i;

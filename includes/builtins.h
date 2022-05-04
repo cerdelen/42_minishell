@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:58:17 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/27 17:24:02 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/04 15:50:19 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # include "minishell.h"
 
-//unset.c
-void	unset(char **cmd_flags, char *env[]);
+//ms_unset.c
+void	ms_unset(char **cmd_flags, char *env[]);
 int		ft_isalnum_underscore(int c);
-
+void	ms_echo(char **cmd);
+char	**ms_export(char **cmd_flags, char *env[]);
 #endif

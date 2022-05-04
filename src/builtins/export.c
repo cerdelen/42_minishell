@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:59:29 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/27 17:23:43 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/04 15:50:13 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	**export_util(char **cmd_flags, char *env[], int i, int j)
 	return (env);
 }
 
-char	**export(char **cmd_flags, char *env[])
+char	**ms_export(char **cmd_flags, char *env[])
 {
 	int		i;
 	int		j;
