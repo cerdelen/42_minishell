@@ -1,5 +1,34 @@
 #include "../../includes/minishell.h"
 
+int	ms_echo(t_ms_data *data)
+{
+
+}
+
+int	ms_cd(t_ms_data *data)
+{
+
+}
+
+int	ms_pwd(t_ms_data *data)
+{
+
+}
+
+int	ms_export(t_ms_data *data)
+{
+
+}
+
+int	ms_unset(t_ms_data *data)
+{
+
+}
+
+int	ms_env(t_ms_data *data)
+{
+
+}
 
 int	cleanup_command(int cleanup_case, int in_fd)
 {
@@ -104,6 +133,43 @@ int	fork_and_execute(t_ms_data *data, int in_fd, int out_fd, int i)
 	return (pipe_fd[0]);
 }
 
+int	execute_exeption_command(char *cmd, t_ms_data *data)
+{
+	if (ft_strncmp(cmd, "exit", 6) == 0)
+		ms_exit(data);
+	if (ft_strncmp(cmd, "echo", 6) == 0)
+		return (ms_echo(data));
+	if (ft_strncmp(cmd, "cd", 3) == 0)
+		return (ms_cd(data));
+	if (ft_strncmp(cmd, "pwd", 4) == 0)
+		return (ms_pwd(data));
+	if (ft_strncmp(cmd, "export", 8) == 0)
+		return (ms_export(data));
+	if (ft_strncmp(cmd, "unset", 7) == 0)
+		return (ms_unset(data));
+	if (ft_strncmp(cmd, "env", 4) == 0)
+		return (ms_env(data));
+}
+
+char	*find_exeption_command(char *cmd)
+{
+	if (ft_strncmp(cmd, "echo", 6) == 0)
+		return (cmd);
+	if (ft_strncmp(cmd, "cd", 3) == 0)
+		return (cmd);
+	if (ft_strncmp(cmd, "pwd", 4) == 0)
+		return (cmd);
+	if (ft_strncmp(cmd, "export", 8) == 0)
+		return (cmd);
+	if (ft_strncmp(cmd, "unset", 7) == 0)
+		return (cmd);
+	if (ft_strncmp(cmd, "env", 4) == 0)
+		return (cmd);
+	if (ft_strncmp(cmd, "exit", 6) == 0)
+		return (cmd);
+	return (NULL);
+}
+
 int	command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd)
 {
 	char	*execute_path;
@@ -121,6 +187,8 @@ int	command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd)
 	out_fd = STDOUT_FILENO;
 	if (data->command[i].output[0] == NULL && i < (data->command_amt - 1))
 		out_fd = -1;
+	if (find_exeption_command(data->command[i].cmd_flags[0]) != NULL)
+		return (execute_exeption_command(data->command[i].cmd_flags[0], data));
 	execute_path = find_executable_path(data->command[i].cmd_flags[0],
 			data->env);
 	if (execute_path == NULL)

@@ -25,7 +25,8 @@ SRC_EXECUTOR =	cer/ms_command_exec.c \
 				cer/ms_command_opening_fds.c \
 				cer/ms_find_executable_path.c cer/open_access_files.c \
 				cer/utils.c \
-				cer/ms_here_doc.c
+				cer/ms_here_doc.c \
+				cer/ms_exit.c
 
 MAIN_SRC = main.c
 

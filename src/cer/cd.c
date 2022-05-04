@@ -70,21 +70,3 @@ int	command_cd(char *pathname)
 		free(path_after_mod);
 	return (0);
 }
-
-int	main(int argc, char **argv)
-{
-	char	*test;
-
-	test = ft_getcwd();
-	printf("pwd before call = %s\n", test);
-	free(test);
-	if (argc == 1)
-		command_cd(NULL);
-	if (argc == 1)
-		command_cd("");
-	else
-		command_cd(argv[1]);
-	test = ft_getcwd();
-	printf("pwd after call = %s\n", test);
-	free(test);
-}
