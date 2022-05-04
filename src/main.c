@@ -18,11 +18,11 @@ int	main(int argc, char *argv[], char *env[])
 	t_ms_data			data;
 	char				*line;
 	// struct sigaction	sa;
-	
+
 	// sa.sa_handler = &handle_signals;
 	// sigaction(SIGINT, &sa, NULL);
 	// sigaction(SIGQUIT, &sa, NULL);
-	
+
 	data.env = env_copy(env);
 	if (argc != 1 && argv)
 		return (printf("KISCER_SHELL does not take arguments\n"), 0);
@@ -34,16 +34,18 @@ int	main(int argc, char *argv[], char *env[])
 			printf(" EXITING\n");
 			break ;
 		}
+		if (line[0] == 0)
+			continue;
+		// printf("env pointer == %p\n", data.env);
 		if (ft_strlen(line) > 0)
 			add_history(line);
-		if(parse(&line, data.env, &data.command, &data.command_amt))
+		if (parse(&line, data.env, &data.command, &data.command_amt))
 		{
 			printf("ERROR\n");
 			continue ;
-			
 		}
-		// command_exec_loop(&data);
-		print_cmd_struct_arr(data.command, data.command_amt);
+		// print_cmd_struct_arr(data.command, data.command_amt);
+		command_exec_loop(&data);
 		free_cmd_struct_arr(data.command, data.command_amt);
 	}
 	return (0);

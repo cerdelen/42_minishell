@@ -21,7 +21,7 @@ int	validate(char *str)
 	{
 		if ((i == 0 && ft_isdigit(str[0])) || !ft_isalnum_underscore(str[i]))
 		{
-			printf("export: '%s': not a valid identifier\n", str);
+			printf("export: `%s': not a valid identifier\n", str);
 			return (1);
 		}
 		i++;
@@ -37,9 +37,6 @@ void	no_arguments(char *env[])
 	while (env[i])
 	{
 		printf("declare -x %s\n", env[i]);
-		// write(1, "declare -x ", 12);
-		// write(1, env[i], ft_strlen(env[i]));
-		// write(1, "\n", 2);		
 		i++;
 	}
 }
@@ -65,51 +62,62 @@ char	**add_var(char *var, char *env[])
 	return (new_arr);
 }
 
-void	export_util(t_ms_data *data, int i, int j)
+bool	norm(t_ms_data *data, int i, char **var_val)
+{
+	int		j;
+	bool	added;
+
+	j = -1;
+	added = false;
+	while (data->env[++j])
+	{
+		if (ft_strncmp(var_val[0], data->env[j], ft_strlen(var_val[0])) == 0)
+		{
+			free(data->env[j]);
+			data->env[j] = ft_strdup(data->command[data->i].cmd_flags[i]);
+			added = true;
+			break ;
+		}
+	}
+	return (added);
+}
+
+void	export_util(t_ms_data *data, int i)
 {
 	char	**var_val;
 	bool	added;
 
 	while (data->command[data->i].cmd_flags[++i])
 	{
-		var_val = ft_split(data->command[data->i].cmd_flags[i], '=');
-		j = -1;
-		added = false;
-		if (validate(var_val[0]))
-		{
-			i++;
+		if (data->command[data->i].cmd_flags[i][0] == '=')
+			printf("export: `%s': not a valid identifier\n",
+				data->command[data->i].cmd_flags[i]);
+		if (data->command[data->i].cmd_flags[i][0] == '=')
 			continue ;
-		}
-		while (data->env[++j])
-		{
-			if (ft_strncmp(var_val[0], data->env[j], ft_strlen(var_val[0])) == 0)
-			{
-				free(data->env[j]);
-				data->env[j] = ft_strdup(data->command[data->i].cmd_flags[i]);
-				added = true;
-				break ;
-			}
-		}
+		if (ft_strchr(data->command[data->i].cmd_flags[i], '=') == NULL)
+			continue ;
+		var_val = ft_split(data->command[data->i].cmd_flags[i], '=');
+		if (var_val[0] == NULL)
+			continue ;
+		if (validate(var_val[0]))
+			free_2d_array(var_val);
+		if (validate(var_val[0]))
+			continue ;
+		added = norm(data, i, var_val);
 		if (!added)
-		{
 			data->env = add_var(data->command[data->i].cmd_flags[i], data->env);
-		}
 		free_2d_array(var_val);
 	}
 }
 
-int	ms_export(t_ms_data *data) //char **cmd_flags, char *env[]
+int	ms_export(t_ms_data *data)
 {
-	int		j;
-	char	**var_val;
-
-	// if (data->command[data->i]->cmd_flags[0] == NULL)
 	if (data->command[data->i].cmd_flags[1] == NULL)
 	{
 		no_arguments(data->env);
 		return (0);
 	}
-	export_util(data, -1, -1);
+	export_util(data, 0);
 	return (0);
 }
 
