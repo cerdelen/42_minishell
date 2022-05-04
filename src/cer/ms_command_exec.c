@@ -1,34 +1,14 @@
 #include "../../includes/minishell.h"
 
-int	ms_echo(t_ms_data *data)
-{
+// int	ms_cd(t_ms_data *data)
+// {
 
-}
+// }
 
-int	ms_cd(t_ms_data *data)
-{
+// int	ms_pwd(t_ms_data *data)
+// {
 
-}
-
-int	ms_pwd(t_ms_data *data)
-{
-
-}
-
-int	ms_export(t_ms_data *data)
-{
-
-}
-
-int	ms_unset(t_ms_data *data)
-{
-
-}
-
-int	ms_env(t_ms_data *data)
-{
-
-}
+// }
 
 int	cleanup_command(int cleanup_case, int in_fd)
 {
@@ -112,20 +92,6 @@ int	fork_and_execute(t_ms_data *data, int in_fd, int out_fd, int i)
 		child_process_prep(data, in_fd, out_fd, pipe_fd);
 	wait(&w_status);
 	//*(data->exit_codes) = w_status;    how do i write the int into here?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	close(pipe_fd[1]);
 	close(in_fd);
 	if (out_fd != STDOUT_FILENO)
@@ -133,42 +99,42 @@ int	fork_and_execute(t_ms_data *data, int in_fd, int out_fd, int i)
 	return (pipe_fd[0]);
 }
 
-int	execute_exeption_command(char *cmd, t_ms_data *data)
-{
-	if (ft_strncmp(cmd, "exit", 6) == 0)
-		ms_exit(data);
-	if (ft_strncmp(cmd, "echo", 6) == 0)
-		return (ms_echo(data));
-	if (ft_strncmp(cmd, "cd", 3) == 0)
-		return (ms_cd(data));
-	if (ft_strncmp(cmd, "pwd", 4) == 0)
-		return (ms_pwd(data));
-	if (ft_strncmp(cmd, "export", 8) == 0)
-		return (ms_export(data));
-	if (ft_strncmp(cmd, "unset", 7) == 0)
-		return (ms_unset(data));
-	if (ft_strncmp(cmd, "env", 4) == 0)
-		return (ms_env(data));
-}
+// int	execute_exeption_command(char *cmd, t_ms_data *data)
+// {
+// 	if (ft_strncmp(cmd, "exit", 6) == 0)
+// 		ms_exit(data);
+// 	if (ft_strncmp(cmd, "echo", 6) == 0)
+// 		return (ms_echo(data));
+// 	if (ft_strncmp(cmd, "cd", 3) == 0)
+// 		return (ms_cd(data));
+// 	if (ft_strncmp(cmd, "pwd", 4) == 0)
+// 		return (ms_pwd(data));
+// 	if (ft_strncmp(cmd, "export", 8) == 0)
+// 		return (ms_export(data));
+// 	if (ft_strncmp(cmd, "unset", 7) == 0)
+// 		return (ms_unset(data));
+// 	if (ft_strncmp(cmd, "env", 4) == 0)
+// 		return (ms_env(data));
+// }
 
-char	*find_exeption_command(char *cmd)
-{
-	if (ft_strncmp(cmd, "echo", 6) == 0)
-		return (cmd);
-	if (ft_strncmp(cmd, "cd", 3) == 0)
-		return (cmd);
-	if (ft_strncmp(cmd, "pwd", 4) == 0)
-		return (cmd);
-	if (ft_strncmp(cmd, "export", 8) == 0)
-		return (cmd);
-	if (ft_strncmp(cmd, "unset", 7) == 0)
-		return (cmd);
-	if (ft_strncmp(cmd, "env", 4) == 0)
-		return (cmd);
-	if (ft_strncmp(cmd, "exit", 6) == 0)
-		return (cmd);
-	return (NULL);
-}
+// char	*find_exeption_command(char *cmd)
+// {
+// 	if (ft_strncmp(cmd, "echo", 6) == 0)
+// 		return (cmd);
+// 	if (ft_strncmp(cmd, "cd", 3) == 0)
+// 		return (cmd);
+// 	if (ft_strncmp(cmd, "pwd", 4) == 0)
+// 		return (cmd);
+// 	if (ft_strncmp(cmd, "export", 8) == 0)
+// 		return (cmd);
+// 	if (ft_strncmp(cmd, "unset", 7) == 0)
+// 		return (cmd);
+// 	if (ft_strncmp(cmd, "env", 4) == 0)
+// 		return (cmd);
+// 	if (ft_strncmp(cmd, "exit", 6) == 0)
+// 		return (cmd);
+// 	return (NULL);
+// }
 
 int	command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd)
 {
@@ -178,13 +144,13 @@ int	command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd)
 		in_fd = prep_input_fd(data, i, in_fd);
 	if (in_fd < 0)
 		return (cleanup_command(0, 0));
-	if (data->command[i].input[0] == NULL && i < 1)				//major doubts about this line
+	if (data->command[i].input[0] == NULL && i < 1)
 		in_fd = -1;
 	if (data->command[i].output[0])
 		out_fd = prep_output_fd(data, i, STDOUT_FILENO);
 	if (out_fd < 0)
 		return (cleanup_command(1, in_fd));
-	out_fd = STDOUT_FILENO;
+	// out_fd = STDOUT_FILENO;
 	if (data->command[i].output[0] == NULL && i < (data->command_amt - 1))
 		out_fd = -1;
 	if (find_exeption_command(data->command[i].cmd_flags[0]) != NULL)
@@ -202,6 +168,7 @@ int	command_exec_loop(t_ms_data *data)
 {
 	int	pipe_fd;
 
+	printf("in redirect == %s\ncmd == %s\nredirect out == %s\n", data->command->input[0], data->command->cmd_flags[0], data->command->output[0]);
 	pipe_fd = STDIN_FILENO;
 	data->i = 0;
 	while (data->i < data->command_amt)
