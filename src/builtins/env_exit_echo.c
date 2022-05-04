@@ -12,20 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_env(char **cmd, char **env)
+void	ms_env(char **cmd, char **env)
 {
 	if (cmd[1])
 		printf("env: the command does not accept arguments\n");
 	else
 		print_2d_array(env);
-}
-
-void	ft_exit(char **cmd)
-{
-	if (cmd[1])
-		printf("exit: the command does not accept arguments\n");
-	printf("exit\n");
-	////////////////TBD
 }
 
 bool	flag_is_present(char **cmd, int *i)
@@ -65,7 +57,7 @@ bool	every_char_is(char c, char *str)
 	return (true);
 }
 
-void	ft_echo(char **cmd)
+void	ms_echo(char **cmd)
 {
 	int		i;
 	int		j;
