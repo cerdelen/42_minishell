@@ -6,7 +6,6 @@
 # include "libft.h"
 # include "parsing.h"
 # include "signals.h"
-# include "builtins.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdlib.h>
@@ -31,6 +30,7 @@ typedef struct s_ms_data
 	int					i;
 }	t_ms_data;
 
+# include "builtins.h"
 # include "get_next_line.h"
 # include "commands_and_exec.h"
 

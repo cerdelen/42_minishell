@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:59:29 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/04 15:50:13 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/04 17:03:08 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ char	**add_var(char *var, char *env[])
 	return (new_arr);
 }
 
-char	**export_util(char **cmd_flags, char *env[], int i, int j)
+void	export_util(t_ms_data *data, int i, int j)
 {
 	char	**var_val;
 	bool	added;
 
-	while (cmd_flags[++i])
+	while (data->command[data->i].cmd_flags[++i])
 	{
-		var_val = ft_split(cmd_flags[i], '=');
+		var_val = ft_split(data->command[data->i].cmd_flags[i], '=');
 		j = -1;
 		added = false;
 		if (validate(var_val[0]))
@@ -80,57 +80,56 @@ char	**export_util(char **cmd_flags, char *env[], int i, int j)
 			i++;
 			continue ;
 		}
-		while (env[++j])
+		while (data->env[++j])
 		{
-			if (ft_strncmp(var_val[0], env[j], ft_strlen(var_val[0])) == 0)
+			if (ft_strncmp(var_val[0], data->env[j], ft_strlen(var_val[0])) == 0)
 			{
-				free(env[j]);
-				env[j] = ft_strdup(cmd_flags[i]);
+				free(data->env[j]);
+				data->env[j] = ft_strdup(data->command[data->i].cmd_flags[i]);
 				added = true;
 				break ;
 			}
 		}
 		if (!added)
-			env = add_var(cmd_flags[i], env);
+		{
+			data->env = add_var(data->command[data->i].cmd_flags[i], data->env);
+		}
 		free_2d_array(var_val);
 	}
-	return (env);
 }
 
-char	**ms_export(char **cmd_flags, char *env[])
+int	ms_export(t_ms_data *data) //char **cmd_flags, char *env[]
 {
-	int		i;
 	int		j;
 	char	**var_val;
-	bool	added;
 
-	i = 0;
-	added = false;
-	if (cmd_flags[0] == NULL)
+	// if (data->command[data->i]->cmd_flags[0] == NULL)
+	if (data->command[data->i].cmd_flags[1] == NULL)
 	{
-		no_arguments(env);
-		return (env);
+		no_arguments(data->env);
+		return (0);
 	}
-	env = export_util(cmd_flags, env, -1, -1);
-	return (env);
+	export_util(data, -1, -1);
+	return (0);
 }
 
-int	main(int argc, char *argv[], char *env[])
-{
-	char	**envv;
-	char	**cmd_flags;
-
-	envv = env_copy(env);
-	cmd_flags = malloc(21 * sizeof(char *));
-	cmd_flags[0] = ft_strdup("635d=22");
-	cmd_flags[1] = ft_strdup("USER=grzegorzbrzeczyszczykiewicz");
-	cmd_flags[2] = ft_strdup("LOGNAME=wyrewolwerowanyrewolwerowiec");
-	cmd_flags[3] = ft_strdup("NEW_VARIABLE1=");
-	cmd_flags[4] = ft_strdup("City=chrzyszczyrzegorzycepowiatlekodoly");
-	cmd_flags[5] = NULL;
-	// print_2d_array(envv);
-	envv = export(cmd_flags, envv);
-	print_2d_array(envv);
-	free_2d_array(envv);
-	free_2d_array(cmd_flags);
-}
+// int	main(int argc, char *argv[], char *env[])
+// {
+// 	char	**envv;
+// 	char	**cmd_flags;
+// 	t_ms_data d;
+// 	d.env = env_copy(env);
+// 	cmd_flags = malloc(21 * sizeof(char *));
+// 	// cmd_flags[0] = ft_strdup("635d=22");
+// 	// cmd_flags[1] = ft_strdup("USER=grzegorzbrzeczyszczykiewicz");
+// 	// cmd_flags[2] = ft_strdup("LOGNAME=wyrewolwerowanyrewolwerowiec");
+// 	// cmd_flags[3] = ft_strdup("NEW_VARIABLE1=");
+// 	// cmd_flags[4] = ft_strdup("City=chrzyszczyrzegorzycepowiatlekodoly");
+// 	cmd_flags[0] = NULL;
+// 	d.cm
+// 	// print_2d_array(envv);
+// 	ms_export(d);
+// 	// print_2d_array(envv);
+// 	free_2d_array(envv);
+// 	free_2d_array(cmd_flags);
+// }

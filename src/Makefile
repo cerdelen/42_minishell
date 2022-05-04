@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+         #
+#    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 09:59:43 by kmilchev          #+#    #+#              #
-#    Updated: 2022/05/02 15:14:39 by cerdelen         ###   ########.fr        #
+#    Updated: 2022/05/04 17:09:14 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,9 @@ SRC_EXECUTOR =	cer/ms_command_exec.c \
 				cer/ms_here_doc.c \
 				cer/ms_exit.c
 
+SRC_BUILTINS =	builtins/export.c \
+				builtins/unset.c 
+
 MAIN_SRC = main.c
 
 LIB = libft.a
@@ -41,7 +44,7 @@ SPECIAL_FLAG =  -lreadline
 all: $(NAME)
 
 $(NAME): $(LIB_PATH)/$(LIB)
-	gcc $(FLAGS) $(MAIN_SRC) $(SRC_EXECUTOR) $(SRC_PARSER) $(LIB_PATH)/$(LIB)  $(SPECIAL_FLAG) -o $(NAME)
+	gcc $(FLAGS) $(MAIN_SRC) $(SRC_EXECUTOR) $(SRC_PARSER) $(SRC_BUILTINS) $(LIB_PATH)/$(LIB)  $(SPECIAL_FLAG) -o $(NAME)
 
 $(LIB_PATH)/$(LIB):
 	$(MAKE) -C $(LIB_PATH)
