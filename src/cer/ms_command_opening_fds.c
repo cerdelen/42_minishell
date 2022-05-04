@@ -45,13 +45,13 @@ int	prep_output_fd_util(t_ms_data *data, int i, int counter)
 	int		out_fd;
 	char	*tmp;
 
-	tmp = ft_strtrim(data->command[i].input[counter], " >");
+	tmp = ft_strtrim(data->command[i].output[counter], " >");
 	if (data->command[i].output[counter][1] == ' ')
 		out_fd = open_and_check_access(tmp, WRITES_ONLY, false, true);
 	else
 		out_fd = open_and_check_access(tmp, WRITES_ONLY, true, true);
 	if (out_fd < 0)
-		print_error_message("tmp", NULL);
+		print_error_message(tmp, NULL);
 	free(tmp);
 	return (out_fd);
 }
@@ -64,13 +64,13 @@ int	prep_output_fd(t_ms_data *data, int i, int out_fd)
 	counter = 0;
 	while (data->command[i].output[counter + 1])
 	{
-		tmp = ft_strtrim(data->command[i].input[counter], " >");
+		tmp = ft_strtrim(data->command[i].output[counter], " >");
 		if (data->command[i].output[counter][1] == ' ')
 			out_fd = open_and_check_access(tmp, WRITES_ONLY, false, true);
 		else
 			out_fd = open_and_check_access(tmp, WRITES_ONLY, true, true);
 		if (out_fd < 0)
-			print_error_message("tmp", NULL);
+			print_error_message(tmp, NULL);
 		free(tmp);
 		if (out_fd < 0)
 			return (out_fd);
