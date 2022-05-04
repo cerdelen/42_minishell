@@ -111,8 +111,8 @@ int	execute_exeption_command(char *cmd, t_ms_data *data)
 	// 	return (ms_pwd(data));
 	if (ft_strncmp(cmd, "export", 8) == 0)
 		return (ms_export(data));
-	// if (ft_strncmp(cmd, "unset", 7) == 0)
-	// 	return (ms_unset(data));
+	if (ft_strncmp(cmd, "unset", 7) == 0)
+		return (ms_unset(data));
 	// if (ft_strncmp(cmd, "env", 4) == 0)
 	// 	return (ms_env(data));
 }
@@ -127,8 +127,8 @@ char	*find_exeption_command(char *cmd)
 	// 	return (cmd);
 	if (ft_strncmp(cmd, "export", 8) == 0)
 		return (cmd);
-	// if (ft_strncmp(cmd, "unset", 7) == 0)
-	// 	return (cmd);
+	if (ft_strncmp(cmd, "unset", 7) == 0)
+		return (cmd);
 	// if (ft_strncmp(cmd, "env", 4) == 0)
 	// 	return (cmd);
 	if (ft_strncmp(cmd, "exit", 6) == 0)

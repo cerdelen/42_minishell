@@ -63,7 +63,7 @@ void	update_array(char *var, char *env[])
 	}
 }
 
-int	ms_unset(char **cmd_flags, char *env[])
+int	ms_unset(t_ms_data *data)
 {
 	char	*var;
 	int		i;
@@ -71,16 +71,16 @@ int	ms_unset(char **cmd_flags, char *env[])
 	int		err_res;
 
 	i = 0;
-	while (cmd_flags[i])
+	while (data->command[data->i].cmd_flags[i])
 	{
-		var = cmd_flags[i];
+		var = data->command[data->i].cmd_flags[i];
 		err_res = validate_name(var);
 		if (err_res)
 		{
 			i++;
 			continue ;
 		}
-		update_array(var, env);
+		update_array(var, data->env);
 		i++;
 	}
 	return (0);

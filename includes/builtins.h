@@ -16,7 +16,7 @@
 # include "minishell.h"
 
 //ms_unset.c
-int		ms_unset(char **cmd_flags, char *env[]);
+int		ms_unset(t_ms_data *data);
 int		ft_isalnum_underscore(int c);
 int		ms_echo(char **cmd);
 int		ms_export(t_ms_data *data);
