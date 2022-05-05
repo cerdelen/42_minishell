@@ -6,7 +6,7 @@
 #    By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 09:59:43 by kmilchev          #+#    #+#              #
-#    Updated: 2022/05/05 17:04:52 by cerdelen         ###   ########.fr        #
+#    Updated: 2022/05/05 18:34:46 by cerdelen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,14 @@ SRC_EXECUTOR =	cer/ms_command_exec.c \
 				cer/ms_find_executable_path.c cer/open_access_files.c \
 				cer/utils.c \
 				cer/ms_here_doc.c \
-				cer/ms_exit.c
 
 SRC_BUILTINS =	builtins/ms_export.c \
 				builtins/ms_unset.c \
 				builtins/ms_cd.c \
 				builtins/ms_env.c \
-				builtins/ms_echo.c
+				builtins/ms_echo.c \
+				builtins/ms_exit.c \
+				builtins/ms_pwd.c
 
 MAIN_SRC = main.c
 
