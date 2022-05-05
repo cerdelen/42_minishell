@@ -115,8 +115,8 @@ int	execute_exeption_command(char *cmd, t_ms_data *data)
 {
 	if (ft_strncmp(cmd, "exit", 6) == 0)
 		ms_exit(data);
-	// if (ft_strncmp(cmd, "echo", 6) == 0)
-	// 	return (ms_echo(data));
+	if (ft_strncmp(cmd, "echo", 6) == 0)
+		return (ms_echo(data->command[data->i].cmd_flags));
 	if (ft_strncmp(cmd, "cd", 3) == 0)
 		return (ms_cd(data->command[data->i].cmd_flags[1], ms_find_home(data->env)));
 	// if (ft_strncmp(cmd, "pwd", 4) == 0)
@@ -131,8 +131,8 @@ int	execute_exeption_command(char *cmd, t_ms_data *data)
 
 char	*find_exeption_command(char *cmd)
 {
-	// if (ft_strncmp(cmd, "echo", 6) == 0)
-	// 	return (cmd);
+	if (ft_strncmp(cmd, "echo", 6) == 0)
+		return (cmd);
 	if (ft_strncmp(cmd, "cd", 3) == 0)
 		return (cmd);
 	// if (ft_strncmp(cmd, "pwd", 4) == 0)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
+#    By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 09:59:43 by kmilchev          #+#    #+#              #
-#    Updated: 2022/05/04 17:09:14 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/05/05 17:04:52 by cerdelen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,11 @@ SRC_EXECUTOR =	cer/ms_command_exec.c \
 				cer/ms_here_doc.c \
 				cer/ms_exit.c
 
-SRC_BUILTINS =	builtins/export.c \
-				builtins/unset.c \
+SRC_BUILTINS =	builtins/ms_export.c \
+				builtins/ms_unset.c \
 				builtins/ms_cd.c \
-				builtins/ms_env.c
+				builtins/ms_env.c \
+				builtins/ms_echo.c
 
 MAIN_SRC = main.c
 

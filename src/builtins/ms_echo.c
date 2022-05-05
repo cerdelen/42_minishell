@@ -1,37 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_exit_echo.c                                    :+:      :+:    :+:   */
+/*   ms_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 16:00:30 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/04 16:23:21 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/05 17:33:12 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	flag_is_present(char **cmd, int *i)
+bool	flag_is_present(char **cmd, int i)
 {
 	int		j;
 	bool	new_line;
 
+	if (cmd[1] == NULL)
+		return (printf("\n"), 0);
 	j = 1;
 	new_line = false;
-	if (cmd[*i][0] == '-' && cmd[*i][1] == 'n')
+	if (cmd[i][0] == '-' && cmd[i][1] == 'n')
 	{
-		while (cmd[*i][j])
+		while (cmd[i][j])
 		{
-			if (cmd[*i][j] != 'n')
+			if (cmd[i][j] != 'n')
 			{
 				new_line = true;
 				break ;
 			}
 			j++;
 		}
-		(*i)++;
+		(i)++;
 	}
+	else
+		new_line = true;
 	return (new_line);
 }
 
@@ -49,36 +53,31 @@ bool	every_char_is(char c, char *str)
 	return (true);
 }
 
-int	ms_echo(char **cmd)
+int	ms_echo(char **cmd_flags)
 {
 	int		i;
 	int		j;
-	bool	put_out;
 	bool	new_line;
+	bool	no_skip;
 
 	i = 1;
-	put_out = true;
-	new_line = false;
-	new_line = flag_is_present(cmd, &i);
-	while (cmd[i])
+	new_line = flag_is_present(cmd_flags, i);
+	no_skip = true;
+	while (cmd_flags[i])
 	{
-		if (cmd[i][0] == '-' && every_char_is('n', cmd[i]))
+		if (cmd_flags[i][0] == '-'
+			&& every_char_is('n', cmd_flags[i]) && no_skip)
 		{
 			i++;
 			continue ;
 		}
-		printf("%s", cmd[i]);
-		if (cmd[i + 1] != NULL)
+		no_skip = false;
+		printf("%s", cmd_flags[i]);
+		if (cmd_flags[i + 1] != NULL)
 			printf(" ");
 		i++;
 	}
 	if (new_line)
 		printf("\n");
-	return(0);
+	return (0);
 }
-
-// int main(int a, char**b, char *env[])
-// {
-// 	char *arr[20] = {"echo", "-n", "-nnnnna", "more", NULL};
-// 	ft_echo(arr);
-// }
