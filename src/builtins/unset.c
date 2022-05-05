@@ -70,7 +70,7 @@ int	ms_unset(t_ms_data *data)
 	int		j;
 	int		err_res;
 
-	i = 0;
+	i = 1;
 	while (data->command[data->i].cmd_flags[i])
 	{
 		var = data->command[data->i].cmd_flags[i];
