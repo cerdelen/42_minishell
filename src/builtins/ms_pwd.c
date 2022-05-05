@@ -1,10 +1,11 @@
 #include "../../includes/minishell.h"
 
-int	command_pwd(void)
+int	ms_pwd(void)
 {
 	char	*completepath;
 	int		i;
 
+	printf("unseres pwd\n");
 	i = 10;
 	completepath = malloc(i * sizeof(char));
 	getcwd(completepath, i);
