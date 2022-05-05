@@ -99,14 +99,26 @@ int	fork_and_execute(t_ms_data *data, int in_fd, int out_fd, int i)
 	return (pipe_fd[0]);
 }
 
+char	*ms_find_home(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i] != NULL && ft_strncmp("HOME=", env[i], 5) != 0)
+		i++;
+	if (env[i] == NULL)
+		return (NULL);
+	return (env[i] + 5);
+}
+
 int	execute_exeption_command(char *cmd, t_ms_data *data)
 {
 	if (ft_strncmp(cmd, "exit", 6) == 0)
 		ms_exit(data);
 	// if (ft_strncmp(cmd, "echo", 6) == 0)
 	// 	return (ms_echo(data));
-	// if (ft_strncmp(cmd, "cd", 3) == 0)
-	// 	return (ms_cd(data));
+	if (ft_strncmp(cmd, "cd", 3) == 0)
+		return (ms_cd(data->command[data->i].cmd_flags[1], ms_find_home(data->env)));
 	// if (ft_strncmp(cmd, "pwd", 4) == 0)
 	// 	return (ms_pwd(data));
 	if (ft_strncmp(cmd, "export", 8) == 0)
@@ -121,8 +133,8 @@ char	*find_exeption_command(char *cmd)
 {
 	// if (ft_strncmp(cmd, "echo", 6) == 0)
 	// 	return (cmd);
-	// if (ft_strncmp(cmd, "cd", 3) == 0)
-	// 	return (cmd);
+	if (ft_strncmp(cmd, "cd", 3) == 0)
+		return (cmd);
 	// if (ft_strncmp(cmd, "pwd", 4) == 0)
 	// 	return (cmd);
 	if (ft_strncmp(cmd, "export", 8) == 0)
@@ -167,7 +179,6 @@ int	command_exec_loop(t_ms_data *data)
 {
 	int	pipe_fd;
 
-	printf("in redirect == %s\ncmd == %s\nredirect out == %s\n", data->command->input[0], data->command->cmd_flags[0], data->command->output[0]);
 	pipe_fd = STDIN_FILENO;
 	data->i = 0;
 	while (data->i < data->command_amt)

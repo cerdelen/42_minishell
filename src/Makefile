@@ -29,7 +29,8 @@ SRC_EXECUTOR =	cer/ms_command_exec.c \
 				cer/ms_exit.c
 
 SRC_BUILTINS =	builtins/export.c \
-				builtins/unset.c 
+				builtins/unset.c \
+				builtins/ms_cd.c
 
 MAIN_SRC = main.c
 

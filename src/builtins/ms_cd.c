@@ -45,13 +45,13 @@ char	*man_path_for_cd(char *pathname)
 	return (out);
 }
 
-int	command_cd(char *pathname)
+int	ms_cd(char *pathname, char *home)
 {
 	char	*path_after_mod;
 	int		check;
 
 	if (pathname == NULL)
-		return (0);
+		pathname = home;
 	if (ft_strlen(pathname) == 0)
 		return (0);
 	path_after_mod = man_path_for_cd(pathname);

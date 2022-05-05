@@ -21,4 +21,5 @@ int		ft_isalnum_underscore(int c);
 int		ms_echo(char **cmd);
 int		ms_export(t_ms_data *data);
 int		ms_env(char **cmd, char **env);
+int		ms_cd(char *pathname, char *home);
 #endif
