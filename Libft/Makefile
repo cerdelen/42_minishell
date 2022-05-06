@@ -64,7 +64,7 @@ SRCS = 	ft_split.c\
 
 OBJS = $(SRCS:.c=.o)
 
-$(NAME): $(OBJS_B) $(OBJS)
+$(NAME): $(OBJS)
 	@$(AR) $(NAME) $(OBJS_B) $(OBJS)
 	@echo "\033[92mLibft successfully compiled!\033[92m"
 
