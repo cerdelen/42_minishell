@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:58:03 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/26 11:49:24 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/06 12:11:53 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-int	
-parse(char **string, char *env[], t_cmd **cmds, int *cmd_amt)
+int	parse(char **string, char *env[], t_cmd **cmds, int *cmd_amt)
 {
 	int		count;
 	t_env	*envv;
