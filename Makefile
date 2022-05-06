@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
+#    By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 09:59:43 by kmilchev          #+#    #+#              #
-#    Updated: 2022/05/06 17:26:21 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/05/06 17:42:49 by cerdelen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,12 +56,15 @@ all: $(NAME)
 
 $(NAME): $(LIB_PATH)/$(LIB)
 	@gcc $(FLAGS) $(MAIN_SRC) $(SRC_EXECUTOR) $(SRC_PARSER) $(SRC_BUILTINS) $(LIB_PATH)/$(LIB)  $(SPECIAL_FLAG) -o $(NAME)
+	@echo "\033[92mminshell successfully compiled!\033[0m"
 
 $(LIB_PATH)/$(LIB):
 	@$(MAKE) -C $(LIB_PATH)
 	@$(MAKE) clean -C $(LIB_PATH)
 
 fclean:
+	@$(MAKE) fclean -C $(LIB_PATH)
 	@rm -f $(NAME) $(LIB_PATH)/$(LIB)
+	@echo "\033[91mminishell successfully cleaned!\033[91m"
 
 re: fclean all
