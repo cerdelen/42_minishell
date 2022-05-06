@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:59:29 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/04 17:03:08 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/06 17:05:58 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	validate(char *str)
 	{
 		if ((i == 0 && ft_isdigit(str[0])) || !ft_isalnum_underscore(str[i]))
 		{
-			printf("export: `%s': not a valid identifier\n", str);
+			print_error_message_builtin("export: `", str,
+				"': not a valid identifier");
 			return (1);
 		}
 		i++;
@@ -90,8 +91,9 @@ void	export_util(t_ms_data *data, int i)
 	while (data->command[data->i].cmd_flags[++i])
 	{
 		if (data->command[data->i].cmd_flags[i][0] == '=')
-			printf("export: `%s': not a valid identifier\n",
-				data->command[data->i].cmd_flags[i]);
+			print_error_message_builtin("export: `",
+				data->command[data->i].cmd_flags[i],
+				"': not a valid identifier");
 		if (data->command[data->i].cmd_flags[i][0] == '=')
 			continue ;
 		if (ft_strchr(data->command[data->i].cmd_flags[i], '=') == NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 09:46:07 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/26 12:08:04 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/06 12:15:15 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ int	main(int argc, char *argv[], char *env[])
 {
 	t_ms_data			data;
 	char				*line;
+	int					*exit_code;
 	// struct sigaction	sa;
 
 	// sa.sa_handler = &handle_signals;
 	// sigaction(SIGINT, &sa, NULL);
 	// sigaction(SIGQUIT, &sa, NULL);
 
+	data.exit_codes = 0;
 	data.env = env_copy(env);
 	if (argc != 1 && argv)
 		return (printf("KISCER_SHELL does not take arguments\n"), 0);
@@ -46,6 +48,7 @@ int	main(int argc, char *argv[], char *env[])
 		}
 		// print_cmd_struct_arr(data.command, data.command_amt);
 		command_exec_loop(&data);
+		// printf("this is status code == %d\n", *(data.exit_codes));
 		free_cmd_struct_arr(data.command, data.command_amt);
 	}
 	return (0);

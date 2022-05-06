@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 14:23:49 by cerdelen          #+#    #+#             */
-/*   Updated: 2022/04/20 14:50:55 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:36:33 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,13 @@ char	*man_path_for_cd(char *pathname)
 	return (out);
 }
 
-int	ms_cd(char *pathname, char *home)
+int	ms_cd(char *pathname, char *home, t_ms_data *data)
 {
 	char	*path_after_mod;
 	int		check;
 
+	if (data->command_amt > 1)
+		return (-1);
 	if (pathname == NULL)
 		pathname = home;
 	if (ft_strlen(pathname) == 0)

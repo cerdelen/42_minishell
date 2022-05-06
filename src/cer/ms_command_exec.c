@@ -59,7 +59,6 @@ int	child_proccess_managing_infds(int in_fd, int *pipe_fd)
 
 void	child_process_prep(t_ms_data *data, int in_fd, int out_fd, int *pipe_fd)
 {
-	int	check;
 	int	in;
 	int	out;
 
@@ -71,7 +70,7 @@ void	child_process_prep(t_ms_data *data, int in_fd, int out_fd, int *pipe_fd)
 		exit(-1);
 	execve(data->command[data->i].cmd_flags[0],
 		data->command[data->i].cmd_flags, data->env);
-	print_error_message("execve", "XD");
+	print_error_message("execve", data->command[data->i].cmd_flags[0]);
 	close(in);
 	close(out);
 	exit(-1);
@@ -91,7 +90,7 @@ int	fork_and_execute(t_ms_data *data, int in_fd, int out_fd, int i)
 	if (id == 0)
 		child_process_prep(data, in_fd, out_fd, pipe_fd);
 	wait(&w_status);
-	//*(data->exit_codes) = w_status;    how do i write the int into here?
+	data->exit_codes = &w_status;
 	close(pipe_fd[1]);
 	close(in_fd);
 	if (out_fd != STDOUT_FILENO)
@@ -111,23 +110,74 @@ char	*ms_find_home(char **env)
 	return (env[i] + 5);
 }
 
-int	execute_exeption_command(char *cmd, t_ms_data *data)
+int	execute_exeption_command(t_ms_data *data, int in_fd, int out_fd, int *pipe_fd )
 {
-	if (ft_strncmp(cmd, "exit", 6) == 0)
-		ms_exit(data);
+	char	*cmd;
+	int		in;
+	int		out;
+
+	in = child_proccess_managing_infds(in_fd, pipe_fd);
+	if (in < 0)
+		exit(-1);
+	out = child_proccess_managing_outfds(out_fd, pipe_fd);
+	if (out < 0)
+		exit(-1);
+	cmd = data->command[data->i].cmd_flags[0];
 	if (ft_strncmp(cmd, "echo", 6) == 0)
 		return (ms_echo(data->command[data->i].cmd_flags));
+	if (ft_strncmp(cmd, "pwd", 4) == 0)
+		return (ms_pwd());
+	return (ms_env(data->command[data->i].cmd_flags, data->env));
+}
+
+//env pwd echo 
+int	non_fork_exception(t_ms_data *data)
+{
+	char	*cmd;
+
+	cmd = data->command[data->i].cmd_flags[0];
+	if (ft_strncmp(cmd, "exit", 6) == 0)
+		ms_exit(data);
 	if (ft_strncmp(cmd, "cd", 3) == 0)
-		return (ms_cd(data->command[data->i].cmd_flags[1], ms_find_home(data->env)));
-	// if (ft_strncmp(cmd, "pwd", 4) == 0)
-	// 	return (ms_pwd(data));
+		return (ms_cd(data->command[data->i].cmd_flags[1],
+				ms_find_home(data->env), data));
 	if (ft_strncmp(cmd, "export", 8) == 0)
 		return (ms_export(data));
 	if (ft_strncmp(cmd, "unset", 7) == 0)
 		return (ms_unset(data));
-	if (ft_strncmp(cmd, "env", 4) == 0)
-		return (ms_env(data->command[data->i].cmd_flags, data->env));
+	return (-1);
 }
+
+int	fork_for_exeption_command(t_ms_data *data, int in_fd, int out_fd)
+{
+	int	pipe_fd[2];
+	int	id;
+	int	w_status;
+	int	check;
+
+	check = non_fork_exception(data);
+	if (check > -1)
+	{
+		data->exit_codes = &check;
+		return (0);
+	}
+	if (pipe(pipe_fd) == -1)
+		return (print_error_message("pipe", NULL));
+	id = fork();
+	if (id == -1)
+		return (print_error_message("fork", NULL));
+	if (id == 0)
+		exit(execute_exeption_command(data, in_fd, out_fd, pipe_fd));
+	wait(&w_status);
+	data->exit_codes = &w_status;
+	close(pipe_fd[1]);
+	close(in_fd);
+	if (out_fd != STDOUT_FILENO)
+		close(out_fd);
+	return (pipe_fd[0]);
+}
+
+//change returns into fds and exit codes directly into data.exit_codes
 
 char	*find_exeption_command(char *cmd)
 {
@@ -135,8 +185,8 @@ char	*find_exeption_command(char *cmd)
 		return (cmd);
 	if (ft_strncmp(cmd, "cd", 3) == 0)
 		return (cmd);
-	// if (ft_strncmp(cmd, "pwd", 4) == 0)
-	// 	return (cmd);
+	if (ft_strncmp(cmd, "pwd", 4) == 0)
+		return (cmd);
 	if (ft_strncmp(cmd, "export", 8) == 0)
 		return (cmd);
 	if (ft_strncmp(cmd, "unset", 7) == 0)
@@ -165,7 +215,7 @@ int	command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd)
 	if (data->command[i].output[0] == NULL && i < (data->command_amt - 1))
 		out_fd = -1;
 	if (find_exeption_command(data->command[i].cmd_flags[0]) != NULL)
-		return (execute_exeption_command(data->command[i].cmd_flags[0], data));
+		return (fork_for_exeption_command(data, in_fd, out_fd));
 	execute_path = find_executable_path(data->command[i].cmd_flags[0],
 			data->env);
 	if (execute_path == NULL)
