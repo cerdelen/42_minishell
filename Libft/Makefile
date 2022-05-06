@@ -51,9 +51,8 @@ SRCS = 	ft_split.c\
 		ft_strncmp.c\
 		ft_strnstr.c\
 		ft_tolower.c\
-		ft_toupper.c
-
-BONUS = ft_lstnew_bonus.c\
+		ft_toupper.c\
+		ft_lstnew_bonus.c\
 		ft_lstadd_front_bonus.c\
 	   	ft_lstsize_bonus.c\
 	   	ft_lstlast_bonus.c\
@@ -65,21 +64,13 @@ BONUS = ft_lstnew_bonus.c\
 
 OBJS = $(SRCS:.c=.o)
 
-OBJS_B = $(BONUS:.c=.o)
-
-$(NAME): $(OBJS)
-	@$(AR) $(NAME) $(OBJS)
+$(NAME): $(OBJS_B) $(OBJS)
+	@$(AR) $(NAME) $(OBJS_B) $(OBJS)
 
 $(OBJS): 
 	@$(CC) $(CFLAGS) -c $(SRCS)
 
-$(OBJS_B): 
-	$(CC) $(CFLAGS) -c $(BONUS)
-
 all: $(NAME)
-
-bonus: fclean $(OBJS_B) $(OBJS)
-	$(AR) $(NAME) $(OBJS_B) $(OBJS)
 
 clean:
 	@$(RM) $(OBJS) $(OBJS_B)
