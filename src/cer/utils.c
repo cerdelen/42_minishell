@@ -59,8 +59,25 @@ int	print_error_message_builtin(char *error_arg1, char *error_arg2, char *error_
 	if (error_arg3 != NULL)
 	{
 		write(STDERR_FILENO, ": ", 2);
-		write(STDERR_FILENO, error_arg3, ft_strlen(error_arg2));
+		write(STDERR_FILENO, error_arg3, ft_strlen(error_arg3));
 	}
+	write(STDERR_FILENO, "\n", 1);
+	return (-1);
+}
+
+int	print_error_message_export(char *error_arg1, char *error_arg2, char *error_arg3)
+{
+	char	*error_msg;
+
+	error_msg = strerror(errno);
+	write(STDERR_FILENO, "kiscer_ms", 9);
+	write(STDERR_FILENO, ": ", 2);
+	if (error_arg1 != NULL)
+		write(STDERR_FILENO, error_arg1, ft_strlen(error_arg1));
+	if (error_arg2 != NULL)
+		write(STDERR_FILENO, error_arg2, ft_strlen(error_arg2));
+	if (error_arg3 != NULL)
+		write(STDERR_FILENO, error_arg3, ft_strlen(error_arg3));
 	write(STDERR_FILENO, "\n", 1);
 	return (-1);
 }

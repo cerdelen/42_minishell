@@ -24,5 +24,7 @@ int		command_exec_loop(t_ms_data *data);
 void	ms_exit(t_ms_data *data);
 int		print_error_message_builtin(char *error_arg1, char *error_arg2,
 			char *error_arg3);
+int		print_error_message_export(char *error_arg1, char *error_arg2, char *error_arg3);
+
 
 #endif
