@@ -66,6 +66,7 @@ OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(OBJS_B) $(OBJS)
 	@$(AR) $(NAME) $(OBJS_B) $(OBJS)
+	@echo "\033[92mLibft successfully compiled!\033[92m"
 
 $(OBJS): 
 	@$(CC) $(CFLAGS) -c $(SRCS)
@@ -76,7 +77,8 @@ clean:
 	@$(RM) $(OBJS) $(OBJS_B)
 
 fclean: clean
-	@$(RM) $(NAME) 
+	@$(RM) $(NAME)
+	@echo "\033[91mLibft successfully cleaned!\033[91m"
 
 re: fclean all
 

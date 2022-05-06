@@ -6,7 +6,7 @@
 #    By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 09:59:43 by kmilchev          #+#    #+#              #
-#    Updated: 2022/05/06 17:37:05 by cerdelen         ###   ########.fr        #
+#    Updated: 2022/05/06 17:42:49 by cerdelen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,11 +61,9 @@ $(NAME): $(LIB_PATH)/$(LIB)
 $(LIB_PATH)/$(LIB):
 	@$(MAKE) -C $(LIB_PATH)
 	@$(MAKE) clean -C $(LIB_PATH)
-	@echo "\033[92mLibft successfully compiled!\033[92m"
 
 fclean:
 	@$(MAKE) fclean -C $(LIB_PATH)
-	@echo "\033[91mLibft successfully cleaned!\033[91m"
 	@rm -f $(NAME) $(LIB_PATH)/$(LIB)
 	@echo "\033[91mminishell successfully cleaned!\033[91m"
 
