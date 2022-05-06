@@ -85,7 +85,7 @@ clean:
 	@$(RM) $(OBJS) $(OBJS_B)
 
 fclean: clean
-	$(RM) $(NAME) 
+	@$(RM) $(NAME) 
 
 re: fclean all
 
