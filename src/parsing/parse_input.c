@@ -6,11 +6,12 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/25 14:40:54 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/07 15:40:38 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+// #include "../../includes/parsing.h"
+#include "../../includes/minishell.h"
 
 void	init_el_am(char **elements, t_n_el *el_amount)
 {
@@ -81,7 +82,7 @@ t_cmd	fill_cmd(char *string)
 	return (cmd);
 }
 
-t_cmd	*fill_cmds_struct(char *string, int *command_amt)
+t_cmd	*fill_cmds_struct(char *string, t_ms_data *data)
 {
 	int		i;
 	char	**arr;
@@ -94,10 +95,10 @@ t_cmd	*fill_cmds_struct(char *string, int *command_amt)
 	else 
 	{
 		arr = modified_split(string, '|');
-		*command_amt = count_chars(string, '|') + 1;
-		compl_cmds = ft_calloc((*command_amt), sizeof(t_cmd));
+		data->command_amt = count_chars(string, '|') + 1;
+		compl_cmds = ft_calloc((data->command_amt), sizeof(t_cmd));
 		i = 0;
-		while (i < *command_amt)
+		while (i < data->command_amt)
 		{
 			compl_cmds[i] = fill_cmd(arr[i]);
 			i++;

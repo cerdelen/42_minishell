@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/25 19:29:32 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/07 15:48:28 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include "libft.h"
 
+typedef struct s_ms_data t_ms_data;
 typedef struct s_complex_command
 {
 	char	**input;
@@ -63,13 +64,14 @@ enum {
 };
 
 // parse.c 
-int		parse(char **string, char *env[], t_cmd **cmds, int *cmd_amt);
+// int		parse(char **string, char *env[], t_cmd **cmds, int *cmd_amt);
+int		parse(char **string, t_ms_data	*data);
 
 //modified_split
 char	**modified_split(char const *s, char c);
 
 //parse_input
-t_cmd	*fill_cmds_struct(char *string, int *command_amt);
+t_cmd	*fill_cmds_struct(char *string, t_ms_data	*data);
 
 //utils
 int		count_chars(char *str, char c);
@@ -121,7 +123,7 @@ t_env	*env_to_str(char **env, int j);
 char	*reassamble_string(char *string, char *add_str, int len_s1);
 char	*remove_part_string(char *str, char*sub, int str_idx, int end_idx);
 char	*find_match(char *string, t_env *arr, int len, int arr_size);
-char	*expand(char *string, t_env *envv, int count);
+char	*expand(char *string, t_env *envv, int count, t_ms_data *data);
 
 //expand_env_utils
 bool	char_is_present(char c, char *string);

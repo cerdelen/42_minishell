@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/24 12:19:29 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:13:38 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../includes/minishell.h"
 
 t_env	*env_to_str(char **env, int j)
 {
@@ -108,23 +108,26 @@ char	*find_match(char *string, t_env *arr, int len, int arr_size)
 }
 
 //Find $, retrieve the value for the env variable, replace it in the string
-char	*expand(char *string, t_env *envv, int count)
+char	*expand(char *string, t_env *envv, int count, t_ms_data *data)
 {
 	int		start_idx;
 	int		end_idx;
 	char	*variable;
 	char	*value;
-
+	
 	start_idx = 0;
 	end_idx = 0;
 	if (get_indices(string, &start_idx, &end_idx))
 		return (string);
 	variable = ft_calloc(end_idx - start_idx + 2, sizeof(char));
 	ft_strlcpy(variable, string + start_idx, end_idx - start_idx + 2);
-	value = find_match(variable, envv, start_idx + end_idx, count);
+	if (ft_strncmp(variable, "?", 1) == 0)
+		value = ft_itoa(data->exit_codes);
+	else
+		value = find_match(variable, envv, start_idx + end_idx, count);
 	string = remove_part_string(string, variable, start_idx - 1, end_idx);
 	string = reassamble_string(string, value, start_idx);
-	free(variable);
 	free(value);
+	free(variable);
 	return (string);
 }
