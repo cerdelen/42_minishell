@@ -16,7 +16,7 @@ char	*ft_strjoin_with_free(char *s1, char *s2);
 int		print_error_message(char *error_arg1, char *error_arg2);
 int		open_and_check_access(char *path, int access_flag,
 			bool append, bool create);
-char	*find_executable_path(char	*cmd, char **env);
+char	*find_executable_path(char	*cmd, char **env, t_ms_data *data);
 int		heredoc_prep(char *limiter, bool fake);
 int		prep_input_fd(t_ms_data *data, int i, int in_fd);
 int		prep_output_fd(t_ms_data *data, int i, int out_fd);

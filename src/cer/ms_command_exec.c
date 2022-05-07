@@ -101,9 +101,13 @@ int	fork_and_execute(t_ms_data *data, int in_fd, int out_fd, int i)
 	wait(&w_status);
 	data->exit_codes = w_status;
 	close(pipe_fd[1]);
-	close(in_fd);
-	if (out_fd != STDOUT_FILENO)
+	if (in_fd > 2)
+		close(in_fd);
+	printf("%d %d close fds\n", pipe_fd[1], in_fd);
+	printf("%d\n", out_fd);
+	if (out_fd > 2)
 		close(out_fd);
+	printf("pipe_fd 0 in parent == %d \n", pipe_fd[0]);
 	return (pipe_fd[0]);
 }
 
@@ -228,7 +232,7 @@ int	command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd)
 	if (find_exeption_command(data->command[i].cmd_flags[0]) != NULL)
 		return (fork_for_exeption_command(data, in_fd, out_fd));
 	execute_path = find_executable_path(data->command[i].cmd_flags[0],
-			data->env);
+			data->env, data);
 	if (execute_path == NULL)
 		return (cleanup_command(2, in_fd, out_fd));
 	if (data->command[i].cmd_flags[0] != execute_path)
@@ -251,5 +255,6 @@ int	command_exec_loop(t_ms_data *data)
 		// 	pipe_fd = STDIN_FILENO;
 		data->i++;
 	}
+	close(pipe_fd);
 	return (0);
 }

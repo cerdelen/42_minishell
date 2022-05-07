@@ -76,7 +76,7 @@ char	*free__path_arrays(char *path, char **arr)
 	return (out);
 }
 
-char	*find_executable_path(char	*cmd, char **env)
+char	*find_executable_path(char	*cmd, char **env, t_ms_data *data)
 {
 	char	*path;
 	char	**paths_with_cmd;
@@ -84,32 +84,24 @@ char	*find_executable_path(char	*cmd, char **env)
 
 	if (cmd == NULL)
 		return (NULL);
-	printf("access == %d\n", access(cmd, X_OK));
-	// return NULL;
 	if (access(cmd, X_OK) == 0)
-	{
-		printf("HALLO\n");
 		return (cmd);
-	}
-		printf("HALLO1\n");
 	path = get_path_from_env(env);
-		printf("HALLO2\n");
 	paths_with_cmd = join_paths_with_cmd(path, cmd);
-		printf("HALLO3\n");
 	if (paths_with_cmd)
 	{
-
-	
 		path = check_if_exec_exists_and_x_rights(paths_with_cmd, cmd);
-			printf("HALLO4\n");
 		out = free__path_arrays(path, paths_with_cmd);
-			printf("HALLO5\n");
 		if (out == NULL)
+		{
 			printf("kiscer_ms: %s: command not found\n", cmd);
+			data->exit_codes = 127;
+		}
 	}
 	else
 	{
 		printf("kiscer_ms: %s: command not found\n", cmd);
+		data->exit_codes = 127;
 		return (NULL);
 	}
 	return (out);
