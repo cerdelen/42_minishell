@@ -68,15 +68,12 @@ void	child_process_prep(t_ms_data *data, int in_fd, int out_fd, int *pipe_fd)
 	int	in;
 	int	out;
 
-	printf("child in fd == %d out fd == %d pipe in == %d pipe out == %d\n"  ,in_fd,  out_fd,  pipe_fd[0], pipe_fd[1]);
 	in = child_proccess_managing_infds(in_fd, pipe_fd, data);
 	if (in < 0)
 		exit(-1);
 	out = child_proccess_managing_outfds(out_fd, pipe_fd);
 	if (out < 0)
 		exit(-1);
-	printf("this is the in fd for child == %d\nthis is the out fd for child == %d\n", in , out);
-	printf("this is the command \n\n%s\n\n", data->command[data->i].cmd_flags[0]);
 	execve(data->command[data->i].cmd_flags[0],
 		data->command[data->i].cmd_flags, data->env);
 	print_error_message("execve", data->command[data->i].cmd_flags[0]);
@@ -93,24 +90,22 @@ int	fork_and_execute(t_ms_data *data, int in_fd, int out_fd, int i)
 
 	if (pipe(pipe_fd) == -1)
 		return (print_error_message("pipe", NULL));
+	handle_child_signals();
 	data->p_id = fork();
 	if (data->p_id == -1)
 		return (print_error_message("fork", NULL));
 	if (data->p_id == 0)
 		child_process_prep(data, in_fd, out_fd, pipe_fd);
 	waitpid(data->p_id, &w_status, 0);
-	printf("w_status == %d\n", w_status);
+	handle_sigs_interactive();
 	data->exit_codes = w_status;
 	if (w_status > 255)
 		data->exit_codes = w_status / 256;
 	close(pipe_fd[1]);
 	if (in_fd > 2)
 		close(in_fd);
-	printf("%d %d close fds\n", pipe_fd[1], in_fd);
-	printf("%d\n", out_fd);
 	if (out_fd > 2)
 		close(out_fd);
-	printf("pipe_fd 0 in parent == %d \n", pipe_fd[0]);
 	return (pipe_fd[0]);
 }
 
@@ -244,7 +239,6 @@ int	command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd)
 	if (data->command[i].cmd_flags[0] != execute_path)
 		free(data->command[i].cmd_flags[0]);
 	data->command[i].cmd_flags[0] = execute_path;
-	printf("execute_path == %s\n", execute_path);
 	return (fork_and_execute(data, in_fd, out_fd, i));
 }
 

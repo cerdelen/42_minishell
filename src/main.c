@@ -6,15 +6,16 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 09:46:07 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/07 20:24:05 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/07 21:09:46 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void sigint_handler(int sig)
+
+static void	sigint_handler(int signal)
 {
-	if (sig == SIGINT)
+	if (signal)
 	{
 		rl_replace_line("", 0);
 		rl_on_new_line();
@@ -23,62 +24,55 @@ void sigint_handler(int sig)
 	}
 }
 
-void handle_parent_signals(t_ms_data *data)
+void	handle_sigs_interactive(void)
 {
-	data->sa_int.sa_handler = &sigint_handler;
-	sigaction(SIGINT, &(data->sa_int), NULL);
+	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void child_signal_handler(int sig)
+static void	child_signal_handler(int signal)
 {
-	if (sig == SIGQUIT)
+	if (signal == SIGQUIT)
 		ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
-	else if (sig == SIGINT)
+	else if (signal == SIGINT)
 		ft_putchar_fd('\n', STDERR_FILENO);
 }
 
 
-void handle_child_signals(t_ms_data *data)
+void	handle_child_signals(void)
 {
-	data->sa_int.sa_handler = &child_signal_handler;
-	sigaction(SIGINT, &(data->sa_int), NULL);
+	signal(SIGINT, child_signal_handler);
 	signal(SIGQUIT, child_signal_handler);
-	// data->sa_quit.sa_handler = SIG_DFL;
-	// data->sa_quit.sa_handler = &handle_signals_children;
-	// sigaction(SIGQUIT, &(data->sa_quit), NULL);
 }
 
-// static void	sigint_handler(int signal)
-// {
-// 	if (signal)
-// 	{
-// 		rl_replace_line("", 0);
-// 		rl_on_new_line();
-// 		ft_putchar_fd('\n', STDOUT_FILENO);
-// 		rl_redisplay();
-// 	}
-// }
 
-// Register SIGINT handler and ignore SIGQUIT for parent process
-// void	handle_parent_signals(void)
-// {
-// 	signal(SIGINT, sigint_handler);
-// 	signal(SIGQUIT, SIG_IGN);
-// }
+int	main(int argc, char *argv[], char *env[])
+{
+	t_ms_data			data;
+	char				*line;
+	
+	data.exit_codes = 0;
+	data.env = env_copy(env);
 
-// SIGINT and SIGQUIT handler for child process
-// static void	child_signal_handler(int signal)
-// {
-// 	if (signal == SIGQUIT)
-// 		ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
-// 	else if (signal == SIGINT)
-// 		ft_putchar_fd('\n', STDERR_FILENO);
-// }
-
-// Register SIGINT and SIGQUIT handler for child process
-// void	handle_child_signals(void)
-// {
-// 	signal(SIGINT, child_signal_handler);
-// 	signal(SIGQUIT, child_signal_handler);
-// }
+	handle_sigs_interactive();
+	if (argc != 1 && argv)
+		return (printf("KISCER_SHELL does not take arguments\n"), 0);
+	while(1)
+	{
+		line = readline(WHATEVS);
+		if (!line)
+		{
+			printf("exit\n");
+			break ;
+		}
+		if (line[0] == 0)
+			continue;
+		if (ft_strlen(line) > 0)
+			add_history(line);
+		if (parse(&line, &data))
+			continue ;
+		command_exec_loop(&data);
+		free_cmd_struct_arr(data.command, data.command_amt);
+	}
+	return (0);
+}
