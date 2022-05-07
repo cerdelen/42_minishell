@@ -6,7 +6,7 @@
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 09:46:07 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/07 14:55:30 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/07 18:41:26 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	main(int argc, char *argv[], char *env[])
 {
 	t_ms_data			data;
 	char				*line;
-	int					*exit_code;
 	// struct sigaction	sa;
 
 	// sa.sa_handler = &handle_signals;
@@ -41,7 +40,7 @@ int	main(int argc, char *argv[], char *env[])
 		// printf("env pointer == %p\n", data.env);
 		if (ft_strlen(line) > 0)
 			add_history(line);
-		if (parse(&line, data.env, &data.command, &data.command_amt))
+		if (parse(&line, &data))
 		{
 			printf("ERROR\n");
 			continue ;

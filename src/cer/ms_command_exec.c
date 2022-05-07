@@ -255,6 +255,7 @@ int	command_exec_loop(t_ms_data *data)
 		// 	pipe_fd = STDIN_FILENO;
 		data->i++;
 	}
-	close(pipe_fd);
+	if (pipe_fd > 2)
+		close(pipe_fd);
 	return (0);
 }
