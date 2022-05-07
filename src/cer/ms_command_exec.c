@@ -228,7 +228,6 @@ int	command_exec_loop(t_ms_data *data)
 	while (data->i < data->command_amt)
 	{
 		pipe_fd = command_exec_prep(data, data->i, pipe_fd, STDOUT_FILENO);
-		printf("%d\n", pipe_fd);
 		if (pipe_fd < 0)
 			pipe_fd = STDIN_FILENO;
 		data->i++;
