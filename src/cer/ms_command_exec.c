@@ -38,24 +38,29 @@ int	child_proccess_managing_outfds(int out_fd, int *pipe_fd)
 	return (out_fd);
 }
 
-int	child_proccess_managing_infds(int in_fd, int *pipe_fd)
+int	child_proccess_managing_infds(int in_fd, int *pipe_fd, t_ms_data *data)
 {
 	int	check;
 
-	if (in_fd == -1 || in_fd == -2)
+	if ((in_fd == -1 || in_fd == -2) && data->i > 0)
 	{
+		printf("%d\n", data->i);
 		check = dup2(pipe_fd[0], STDIN_FILENO);
 		if (check < 0)
 			return (print_error_message("dup2", NULL));
 		return (pipe_fd[0]);
 	}
-	check = dup2(in_fd, STDIN_FILENO);
-	if (check < 0)
-		return (print_error_message("dup2", NULL));
-	check = close(pipe_fd[0]);
-	if (check < 0)
-		return (print_error_message("close", NULL));
-	return (in_fd);
+	if (in_fd > 0)
+	{
+		check = dup2(in_fd, STDIN_FILENO);
+		if (check < 0)
+			return (print_error_message("dup2", NULL));
+		check = close(pipe_fd[0]);
+		if (check < 0)
+			return (print_error_message("close", NULL));
+		return (in_fd);
+	}
+	return (0);
 }
 
 void	child_process_prep(t_ms_data *data, int in_fd, int out_fd, int *pipe_fd)
@@ -63,12 +68,15 @@ void	child_process_prep(t_ms_data *data, int in_fd, int out_fd, int *pipe_fd)
 	int	in;
 	int	out;
 
-	in = child_proccess_managing_infds(in_fd, pipe_fd);
+	printf("child in fd == %d out fd == %d pipe in == %d pipe out == %d\n"  ,in_fd,  out_fd,  pipe_fd[0], pipe_fd[1]);
+	in = child_proccess_managing_infds(in_fd, pipe_fd, data);
 	if (in < 0)
 		exit(-1);
 	out = child_proccess_managing_outfds(out_fd, pipe_fd);
 	if (out < 0)
 		exit(-1);
+	printf("this is the in fd for child == %d\nthis is the out fd for child == %d\n", in , out);
+	printf("this is the command \n\n%s\n\n", data->command[data->i].cmd_flags[0]);
 	execve(data->command[data->i].cmd_flags[0],
 		data->command[data->i].cmd_flags, data->env);
 	print_error_message("execve", data->command[data->i].cmd_flags[0]);
@@ -91,6 +99,7 @@ int	fork_and_execute(t_ms_data *data, int in_fd, int out_fd, int i)
 	if (id == 0)
 		child_process_prep(data, in_fd, out_fd, pipe_fd);
 	wait(&w_status);
+	printf("Hello from after wait ()\n");
 	data->exit_codes = &w_status;
 	close(pipe_fd[1]);
 	close(in_fd);
@@ -117,7 +126,7 @@ int	execute_exeption_command(t_ms_data *data, int in_fd, int out_fd, int *pipe_f
 	int		in;
 	int		out;
 
-	in = child_proccess_managing_infds(in_fd, pipe_fd);
+	in = child_proccess_managing_infds(in_fd, pipe_fd, data);
 	if (in < 0)
 		exit(-1);
 	out = child_proccess_managing_outfds(out_fd, pipe_fd);
@@ -223,8 +232,10 @@ int	command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd)
 			data->env);
 	if (execute_path == NULL)
 		return (cleanup_command(2, in_fd, out_fd));
-	free(data->command[i].cmd_flags[0]);
+	if (data->command[i].cmd_flags[0] != execute_path)
+		free(data->command[i].cmd_flags[0]);
 	data->command[i].cmd_flags[0] = execute_path;
+	printf("execute_path == %s\n", execute_path);
 	return (fork_and_execute(data, in_fd, out_fd, i));
 }
 

@@ -45,14 +45,16 @@ char	*check_if_exec_exists_and_x_rights(char **paths_w_cmd, char *cmd)
 	int	check;
 
 	i = 0;
-	while (paths_w_cmd[i] != NULL)
+	if (paths_w_cmd)
 	{
-		check = access(paths_w_cmd[i], X_OK);
-		if (check == 0)
-			return (paths_w_cmd[i]);
-		i++;
+		while (paths_w_cmd[i] != NULL)
+		{
+			check = access(paths_w_cmd[i], X_OK);
+			if (check == 0)
+				return (paths_w_cmd[i]);
+			i++;
+		}
 	}
-	printf("kiscer_ms: %s: command not found\n", cmd);
 	return (NULL);
 }
 
@@ -82,11 +84,33 @@ char	*find_executable_path(char	*cmd, char **env)
 
 	if (cmd == NULL)
 		return (NULL);
+	printf("access == %d\n", access(cmd, X_OK));
+	// return NULL;
 	if (access(cmd, X_OK) == 0)
+	{
+		printf("HALLO\n");
 		return (cmd);
+	}
+		printf("HALLO1\n");
 	path = get_path_from_env(env);
+		printf("HALLO2\n");
 	paths_with_cmd = join_paths_with_cmd(path, cmd);
-	path = check_if_exec_exists_and_x_rights(paths_with_cmd, cmd);
-	out = free__path_arrays(path, paths_with_cmd);
+		printf("HALLO3\n");
+	if (paths_with_cmd)
+	{
+
+	
+		path = check_if_exec_exists_and_x_rights(paths_with_cmd, cmd);
+			printf("HALLO4\n");
+		out = free__path_arrays(path, paths_with_cmd);
+			printf("HALLO5\n");
+		if (out == NULL)
+			printf("kiscer_ms: %s: command not found\n", cmd);
+	}
+	else
+	{
+		printf("kiscer_ms: %s: command not found\n", cmd);
+		return (NULL);
+	}
 	return (out);
 }

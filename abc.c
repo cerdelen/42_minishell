@@ -5,8 +5,8 @@ int main(int argc, char **argv, char **env)
 {
 	char *arr[2];
 
-	arr[0]= "./minishell";
+	arr[0]= "/bin/ls";
 	arr[1]=	NULL;
-	execve("./minishell", arr, env);
+	execve(arr[0], arr, env);
 	return (0);
 }
