@@ -93,13 +93,16 @@ int	fork_and_execute(t_ms_data *data, int in_fd, int out_fd, int i)
 
 	if (pipe(pipe_fd) == -1)
 		return (print_error_message("pipe", NULL));
-	id = fork();
-	if (id == -1)
+	data->p_id = fork();
+	if (data->p_id == -1)
 		return (print_error_message("fork", NULL));
-	if (id == 0)
+	if (data->p_id == 0)
 		child_process_prep(data, in_fd, out_fd, pipe_fd);
-	wait(&w_status);
+	waitpid(data->p_id, &w_status, 0);
+	printf("w_status == %d\n", w_status);
 	data->exit_codes = w_status;
+	if (w_status > 255)
+		data->exit_codes = w_status / 256;
 	close(pipe_fd[1]);
 	if (in_fd > 2)
 		close(in_fd);
@@ -176,13 +179,16 @@ int	fork_for_exeption_command(t_ms_data *data, int in_fd, int out_fd)
 	}
 	if (pipe(pipe_fd) == -1)
 		return (print_error_message("pipe", NULL));
-	id = fork();
-	if (id == -1)
+	data->p_id = fork();
+	if (data->p_id == -1)
 		return (print_error_message("fork", NULL));
-	if (id == 0)
+	if (data->p_id == 0)
 		exit(execute_exeption_command(data, in_fd, out_fd, pipe_fd));
-	wait(&w_status);
+	waitpid(data->p_id, &w_status, 0);
+	printf("w_status == %d\n", w_status);
 	data->exit_codes = w_status;
+	if (w_status > 255)
+		data->exit_codes = w_status / 256;
 	close(pipe_fd[1]);
 	close(in_fd);
 	if (out_fd != STDOUT_FILENO)
