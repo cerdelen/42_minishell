@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:34:24 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/27 12:27:32 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/07 14:20:10 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ bool	char_available(char *string, int i, int status)
 		return (false);
 	else if (status == NONE_OPEN && string[i + 1] && string[i + 1] == ' ' )
 		return (false);
-	else if ((status == NONE_OPEN) && string[i + 1] && string[i + 1] == '?')
-		return (false);
-	else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == '?')
-		return (false);
-	else if (status == S_OPEN_SECOND && string[i + 1] && string[i + 1] == '?')
-		return (false);
+	// else if ((status == NONE_OPEN) && string[i + 1] && string[i + 1] == '?')
+	// 	return (false);
+	// else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == '?')
+	// 	return (false);
+	// else if (status == S_OPEN_SECOND && string[i + 1] && string[i + 1] == '?')
+	// 	return (false);
 	else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == '\"')
 		return (false);
 	else if (status == D_OPEN_ONLY && string[i + 1] && string[i + 1] == ' ')
@@ -64,11 +64,11 @@ void	get_start_idx(char *string, int i, int *start_idx, int status)
 {
 	if (string[i] == '$')
 	{
-		if (string[i + 1] && string[i + 1] == '?')
-		{
-			*start_idx = 0;
-		}
-		else if (string[i + 1] && !ft_isalnum(string[i + 1]))
+		// if (string[i + 1] && string[i + 1] == '?')
+		// {
+		// 	*start_idx = 0;
+		// }
+		if (string[i + 1] && (!ft_isalnum(string[i + 1]) && string[i + 1] != '?'))
 		{
 			*start_idx = 0;
 		}
@@ -98,7 +98,7 @@ int	get_indices(char *str, int *start_idx, int *end_idx)
 		if (*start_idx)
 		{
 			i += 1;
-			while (str[i] && ft_isalnum(str[i]))
+			while (str[i] && (ft_isalnum(str[i]) || str[i] == '?'))
 				i++;
 			*end_idx = i - 1;
 		}

@@ -99,8 +99,7 @@ int	fork_and_execute(t_ms_data *data, int in_fd, int out_fd, int i)
 	if (id == 0)
 		child_process_prep(data, in_fd, out_fd, pipe_fd);
 	wait(&w_status);
-	printf("Hello from after wait ()\n");
-	data->exit_codes = &w_status;
+	data->exit_codes = w_status;
 	close(pipe_fd[1]);
 	close(in_fd);
 	if (out_fd != STDOUT_FILENO)
@@ -168,7 +167,7 @@ int	fork_for_exeption_command(t_ms_data *data, int in_fd, int out_fd)
 	check = non_fork_exception(data);
 	if (check > -1)
 	{
-		data->exit_codes = &check;
+		data->exit_codes = check;
 		return (0);
 	}
 	if (pipe(pipe_fd) == -1)
@@ -179,7 +178,7 @@ int	fork_for_exeption_command(t_ms_data *data, int in_fd, int out_fd)
 	if (id == 0)
 		exit(execute_exeption_command(data, in_fd, out_fd, pipe_fd));
 	wait(&w_status);
-	data->exit_codes = &w_status;
+	data->exit_codes = w_status;
 	close(pipe_fd[1]);
 	close(in_fd);
 	if (out_fd != STDOUT_FILENO)

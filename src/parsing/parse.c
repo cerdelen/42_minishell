@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:58:03 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/06 12:11:53 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/07 15:52:04 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../includes/minishell.h"
 
-int	parse(char **string, char *env[], t_cmd **cmds, int *cmd_amt)
+int	parse(char **string, t_ms_data	*data)
+// int	parse(char **string, char *env[], t_cmd **cmds, int *cmd_amt)
 {
 	int		count;
 	t_env	*envv;
 
-	*cmd_amt = 0;
+	data->command_amt = 0;
 	replace_white_spaces(string);
 	remove_blank_spaces(string);
 	if (errors(*string))
@@ -27,16 +28,11 @@ int	parse(char **string, char *env[], t_cmd **cmds, int *cmd_amt)
 	}
 	connect_singular_angular_braces(string);
 	disconnect_angular_braces(string);
-	count = count_strings(env);
-	envv = env_to_str(env, count);
+	count = count_strings(data->env);
+	envv = env_to_str(data->env, count);
 	while (char_is_present('$', *string))
-		*string = expand(*string, envv, count);
+		*string = expand(*string, envv, count, data);
 	free_env_struct(envv, count);
-	// if ((*string)[0] == '\0')
-	// {
-	// 	free(*string);
-	// 	return (EXIT_FAILURE);
-	// }
-	*cmds = fill_cmds_struct(*string, cmd_amt);
+	data->command = fill_cmds_struct(*string, data);
 	return (EXIT_SUCCESS);
 }
