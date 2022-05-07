@@ -1,11 +1,18 @@
 #include "../../includes/minishell.h"
 
-int	cleanup_command(int cleanup_case, int in_fd)
+int	cleanup_command(int cleanup_case, int in_fd, int  out_fd)
 {
 	int	fd[2];
 
-	if (cleanup_case == 1)
+	if (cleanup_case == 1 && in_fd > 2)
 		close(in_fd);
+	if (cleanup_case == 2)
+	{
+		if (in_fd > 2)
+			close(in_fd);
+		if (out_fd > 2)
+			close(out_fd);
+	}
 	pipe(fd);
 	close(fd[1]);
 	return (fd[0]);
@@ -15,7 +22,7 @@ int	child_proccess_managing_outfds(int out_fd, int *pipe_fd)
 {
 	int	check;
 
-	if (out_fd == -1)
+	if (out_fd == -1 || out_fd == -2)
 	{
 		check = dup2(pipe_fd[1], STDOUT_FILENO);
 		if (check < 0)
@@ -35,7 +42,7 @@ int	child_proccess_managing_infds(int in_fd, int *pipe_fd)
 {
 	int	check;
 
-	if (in_fd == -1)
+	if (in_fd == -1 || in_fd == -2)
 	{
 		check = dup2(pipe_fd[0], STDIN_FILENO);
 		if (check < 0)
@@ -199,21 +206,23 @@ int	command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd)
 	if (data->command[i].input[0])
 		in_fd = prep_input_fd(data, i, in_fd);
 	if (in_fd < 0)
-		return (cleanup_command(0, 0));
+		return (cleanup_command(0, 0, 0));
 	if (data->command[i].input[0] == NULL && i < 1)
 		in_fd = -2;
 	if (data->command[i].output[0])
 		out_fd = prep_output_fd(data, i, STDOUT_FILENO);
 	if (out_fd < 0)
-		return (cleanup_command(1, in_fd));
+		return (cleanup_command(1, in_fd, 0));
 	if (data->command[i].output[0] == NULL && i < (data->command_amt - 1))
 		out_fd = -2;
+	if (data->command[i].cmd_flags[0] == NULL)
+		return (cleanup_command(2, in_fd, out_fd));
 	if (find_exeption_command(data->command[i].cmd_flags[0]) != NULL)
 		return (fork_for_exeption_command(data, in_fd, out_fd));
 	execute_path = find_executable_path(data->command[i].cmd_flags[0],
 			data->env);
 	if (execute_path == NULL)
-		return (cleanup_command(1, in_fd));
+		return (cleanup_command(2, in_fd, out_fd));
 	free(data->command[i].cmd_flags[0]);
 	data->command[i].cmd_flags[0] = execute_path;
 	return (fork_and_execute(data, in_fd, out_fd, i));
@@ -228,8 +237,8 @@ int	command_exec_loop(t_ms_data *data)
 	while (data->i < data->command_amt)
 	{
 		pipe_fd = command_exec_prep(data, data->i, pipe_fd, STDOUT_FILENO);
-		if (pipe_fd < 0)
-			pipe_fd = STDIN_FILENO;
+		// if (pipe_fd < 0)
+		// 	pipe_fd = STDIN_FILENO;
 		data->i++;
 	}
 	return (0);

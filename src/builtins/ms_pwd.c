@@ -5,7 +5,6 @@ int	ms_pwd(void)
 	char	*completepath;
 	int		i;
 
-	printf("unseres pwd\n");
 	i = 10;
 	completepath = malloc(i * sizeof(char));
 	getcwd(completepath, i);

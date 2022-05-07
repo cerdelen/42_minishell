@@ -30,7 +30,7 @@ int	prep_input_fd(t_ms_data *data, int i, int in_fd)
 			heredoc_prep(tmp, false);
 		if (in_fd < 0)
 		{
-			print_error_message("tmp", NULL);
+			print_error_message(tmp, NULL);
 			free(tmp);
 			return (in_fd);
 		}
