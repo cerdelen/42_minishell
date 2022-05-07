@@ -19,7 +19,7 @@ int	prep_input_fd(t_ms_data *data, int i, int in_fd)
 	char	*tmp;
 
 	counter = 0;
-	if (in_fd != STDIN_FILENO)
+	if (in_fd != STDIN_FILENO && in_fd > 0)
 		close(in_fd);
 	while (data->command[i].input[counter + 1])
 	{

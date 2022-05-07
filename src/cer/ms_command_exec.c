@@ -1,20 +1,14 @@
 #include "../../includes/minishell.h"
 
-// int	ms_cd(t_ms_data *data)
-// {
-
-// }
-
-// int	ms_pwd(t_ms_data *data)
-// {
-
-// }
-
 int	cleanup_command(int cleanup_case, int in_fd)
 {
+	int	fd[2];
+
 	if (cleanup_case == 1)
 		close(in_fd);
-	return (-1);
+	pipe(fd);
+	close(fd[1]);
+	return (fd[0]);
 }
 
 int	child_proccess_managing_outfds(int out_fd, int *pipe_fd)
@@ -207,13 +201,13 @@ int	command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd)
 	if (in_fd < 0)
 		return (cleanup_command(0, 0));
 	if (data->command[i].input[0] == NULL && i < 1)
-		in_fd = -1;
+		in_fd = -2;
 	if (data->command[i].output[0])
 		out_fd = prep_output_fd(data, i, STDOUT_FILENO);
 	if (out_fd < 0)
 		return (cleanup_command(1, in_fd));
 	if (data->command[i].output[0] == NULL && i < (data->command_amt - 1))
-		out_fd = -1;
+		out_fd = -2;
 	if (find_exeption_command(data->command[i].cmd_flags[0]) != NULL)
 		return (fork_for_exeption_command(data, in_fd, out_fd));
 	execute_path = find_executable_path(data->command[i].cmd_flags[0],
@@ -234,6 +228,7 @@ int	command_exec_loop(t_ms_data *data)
 	while (data->i < data->command_amt)
 	{
 		pipe_fd = command_exec_prep(data, data->i, pipe_fd, STDOUT_FILENO);
+		printf("%d\n", pipe_fd);
 		if (pipe_fd < 0)
 			pipe_fd = STDIN_FILENO;
 		data->i++;
