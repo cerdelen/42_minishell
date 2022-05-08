@@ -17,13 +17,14 @@ int		print_error_message(char *error_arg1, char *error_arg2);
 int		open_and_check_access(char *path, int access_flag,
 			bool append, bool create);
 char	*find_executable_path(char	*cmd, char **env, t_ms_data *data);
-int		heredoc_prep(char *limiter, bool fake);
+int		heredoc_prep(char *limiter, bool last, t_ms_data *data);
 int		prep_input_fd(t_ms_data *data, int i, int in_fd);
 int		prep_output_fd(t_ms_data *data, int i, int out_fd);
 int		command_exec_loop(t_ms_data *data);
 int		print_error_message_builtin(char *error_arg1, char *error_arg2,
 			char *error_arg3);
-int		print_error_message_export(char *error_arg1, char *error_arg2, char *error_arg3);
-
-
+int		print_error_message_export(char *error_arg1, char *error_arg2,
+			char *error_arg3);
+char	*get_path_from_env(char **env);
+char	*free__path_arrays(char *path, char **arr);
 #endif

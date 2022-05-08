@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ms_here_doc.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/08 14:04:46 by cerdelen          #+#    #+#             */
+/*   Updated: 2022/05/08 14:23:14 by cerdelen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	here_doc_child_proccess(char *limiter, int *fd)
@@ -68,13 +80,13 @@ void	ms_fake_heredoc(char *limiter)
 	}
 }
 
-int	heredoc_prep(char *limiter, bool last)
+int	heredoc_prep(char *limiter, bool last, t_ms_data *data)
 {
 	int	fd;
 
-	if (last == true)
-		fd = ms_true_heredoc(limiter);
-	else
+	if (last == false)
 		ms_fake_heredoc(limiter);
+	fd = ms_true_heredoc(limiter);
+	data->exit_codes = 0;
 	return (fd);
 }

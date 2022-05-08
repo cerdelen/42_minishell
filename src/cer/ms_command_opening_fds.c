@@ -9,7 +9,7 @@ int	prep_input_fd_util(t_ms_data *data, int i, int counter)
 	if (data->command[i].input[counter][1] == ' ')
 		in_fd = open_and_check_access(tmp, READS_ONLY, false, false);
 	else
-		in_fd = heredoc_prep(tmp, true);
+		in_fd = heredoc_prep(tmp, true, data);
 	return (in_fd);
 }
 
@@ -27,7 +27,7 @@ int	prep_input_fd(t_ms_data *data, int i, int in_fd)
 		if (data->command[i].input[counter][1] == ' ')
 			in_fd = access(tmp, R_OK);
 		else
-			heredoc_prep(tmp, false);
+			heredoc_prep(tmp, false, data);
 		if (in_fd < 0)
 		{
 			print_error_message(tmp, NULL);
