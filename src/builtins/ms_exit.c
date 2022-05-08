@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 13:40:52 by cerdelen          #+#    #+#             */
-/*   Updated: 2022/05/08 15:14:48 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 16:15:33 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ms_exit(t_ms_data *data)
 		i = ft_atoi(data->command[data->i].cmd_flags[1]);
 	else
 		i = -1;
-	free_cmd_struct_arr(data->command, data->command_amt);
+	free_main_struct(data);
 	if (i > 0)
 		exit(i);
 	exit(1);
