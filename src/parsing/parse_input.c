@@ -6,13 +6,13 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 17:37:54 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 18:05:06 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	init_el_am(char **elements, t_n_el *el_amount)
+static void	init_el_am(char **elements, t_n_el *el_amount)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ void	init_el_am(char **elements, t_n_el *el_amount)
 	}
 }
 
-void	init_cmd_struct(t_cmd *cmd, t_n_el *el_amount, char **arr)
+static void	init_cmd_struct(t_cmd *cmd, t_n_el *el_amount, char **arr)
 {
 	init_el_am(arr, el_amount);
 	cmd->cmd_flags = ft_calloc(el_amount->n_cmd_flags + 1, sizeof(char *));
@@ -41,7 +41,7 @@ void	init_cmd_struct(t_cmd *cmd, t_n_el *el_amount, char **arr)
 	cmd->output[el_amount->n_red_out] = NULL;
 }
 
-void	distribute_strings(char **elements, t_n_el n_el, t_cmd *cmd)
+static void	distribute_strings(char **elements, t_n_el n_el, t_cmd *cmd)
 {
 	int	i;
 
@@ -90,9 +90,7 @@ t_cmd	*fill_cmds_struct(char *string, t_ms_data *data)
 	t_cmd	*compl_cmds;
 
 	if (string[0] == '\0')
-	{
 		ft_bzero(&compl_cmds, sizeof(t_cmd));
-	}
 	else
 	{
 		arr = modified_split(string, '|');

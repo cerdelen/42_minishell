@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:34:24 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 14:47:30 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 17:49:02 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-bool	char_available(char *string, int i, int status)
+static bool	char_available(char *string, int i, int status)
 {
 	if (status == S_OPEN_ONLY || status == D_OPEN_SECOND)
 		return (false);
@@ -54,7 +54,7 @@ bool	char_is_present(char c, char *string)
 	return (false);
 }
 
-void	get_start_idx(char *string, int i, int *start_idx, int status)
+static void	get_start_idx(char *string, int i, int *start_idx, int status)
 {
 	if (string[i] == '$')
 	{
@@ -72,7 +72,7 @@ void	get_start_idx(char *string, int i, int *start_idx, int status)
 	}
 }
 
-void	get_end_idx(char *str, int i, int *end_idx)
+static void	get_end_idx(char *str, int i, int *end_idx)
 {
 	i += 1;
 	while (str[i] && (ft_isalnum(str[i]) || str[i] == '?'))

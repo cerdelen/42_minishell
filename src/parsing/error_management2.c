@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_management2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:18:52 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 14:48:19 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 17:41:59 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ bool	multiple_redirection(char *string, char c)
 }
 
 //returns -1 for error
-int	check_angular_braces(char *string)
+static int	check_angular_braces(char *string)
 {
 	int	i;
 

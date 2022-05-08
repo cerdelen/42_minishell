@@ -6,19 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:49:46 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/24 09:28:08 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 18:06:07 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
-
-// void	remove_quotes(char **string)
-// {
-// 	if ((*string)[0] == '\'')
-// 		remove_single_quotes(string + 1, '\'', '"');
-// 	else if ((*string)[0] == '"')
-// 		remove_double_quotes(string, '"', '\'');
-// }
 
 void	remove_quotes(char **string)
 {

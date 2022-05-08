@@ -6,13 +6,13 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:09:37 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/24 09:27:49 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 17:40:25 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-int	word_amount(const char *string, char c)
+static int	word_amount(const char *string, char c)
 {
 	int		idx;
 	int		w_count;
@@ -36,7 +36,7 @@ int	word_amount(const char *string, char c)
 	return (w_count);
 }
 
-char	*init_string(char const *s, char c)
+static char	*init_string(char const *s, char c)
 {
 	int		len;
 	char	*str;

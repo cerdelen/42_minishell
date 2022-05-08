@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 14:45:02 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 18:07:41 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_env	*env_to_str(char **env, int j)
 	return (envv);
 }
 
-char	*reassamble_string(char *string, char *add_str, int len_s1)
+static char	*reassamble_string(char *string, char *add_str, int len_s1)
 {
 	char	**arr;
 	int		len_og;
@@ -61,7 +61,7 @@ char	*reassamble_string(char *string, char *add_str, int len_s1)
 	return (string);
 }
 
-char	*remove_part_string(char *str, char*sub, int start_idx, int finish_idx)
+static char	*rm_part_str(char *str, char*sub, int start_idx, int finish_idx)
 {
 	int		str_len;
 	int		sub_len;
@@ -86,7 +86,7 @@ char	*remove_part_string(char *str, char*sub, int start_idx, int finish_idx)
 
 /* First argument is a string, second is array of my struct.
 If the string is found in the array, it is returned. Else \0 is returned. */
-char	*find_match(char *string, t_env *arr, int len, int arr_size)
+static char	*find_match(char *string, t_env *arr, int len, int arr_size)
 {
 	int	i;
 
@@ -125,7 +125,7 @@ char	*expand(char *string, t_env *envv, int count, t_ms_data *data)
 		value = ft_itoa(data->exit_codes);
 	else
 		value = find_match(variable, envv, start_idx + end_idx, count);
-	string = remove_part_string(string, variable, start_idx - 1, end_idx);
+	string = rm_part_str(string, variable, start_idx - 1, end_idx);
 	string = reassamble_string(string, value, start_idx);
 	free(value);
 	free(variable);
