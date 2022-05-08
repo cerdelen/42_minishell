@@ -6,14 +6,13 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:58:03 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/07 15:52:04 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 19:46:47 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 int	parse(char **string, t_ms_data	*data)
-// int	parse(char **string, char *env[], t_cmd **cmds, int *cmd_amt)
 {
 	int		count;
 	t_env	*envv;
