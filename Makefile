@@ -6,7 +6,7 @@
 #    By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 09:59:43 by kmilchev          #+#    #+#              #
-#    Updated: 2022/05/08 19:40:25 by cerdelen         ###   ########.fr        #
+#    Updated: 2022/05/08 19:55:15 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,8 +66,10 @@ $(NAME): $(LIB_PATH)/$(LIB)
 
 $(LIB_PATH)/$(LIB):
 	@$(MAKE) -C $(LIB_PATH)
-	@$(MAKE) clean -C $(LIB_PATH)
 
+clean:
+	@$(MAKE) clean -C $(LIB_PATH)
+	
 fclean:
 	@$(MAKE) fclean -C $(LIB_PATH)
 	@rm -f $(NAME) $(LIB_PATH)/$(LIB)
