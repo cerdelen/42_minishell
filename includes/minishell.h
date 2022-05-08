@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/08 15:39:15 by cerdelen          #+#    #+#             */
+/*   Updated: 2022/05/08 15:39:16 by cerdelen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 
 # define MINISHELL_H
@@ -21,7 +33,9 @@
 # include "builtins.h"
 # include "commands_and_exec.h"
 # include "signals.h"
-typedef struct s_complex_command t_cmd;
+
+typedef struct s_complex_command	t_cmd;
+
 typedef struct s_ms_data
 {
 	char				**env;
@@ -32,7 +46,4 @@ typedef struct s_ms_data
 	int					i;
 	struct sigaction	sa_int;
 }	t_ms_data;
-
-
-
 #endif

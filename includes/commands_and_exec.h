@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   commands_and_exec.h                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/08 15:38:03 by cerdelen          #+#    #+#             */
+/*   Updated: 2022/05/08 15:38:04 by cerdelen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef COMMANDS_AND_EXEC_H
 
 # define COMMANDS_AND_EXEC_H
@@ -6,8 +18,8 @@
 # define WRITES_ONLY 2
 # define READS_AND_WRITES 3
 
-typedef struct s_complex_command t_cmd;
-typedef struct s_ms_data t_ms_data;
+typedef struct s_complex_command	t_cmd;
+typedef struct s_ms_data			t_ms_data;
 
 char	*ft_tripple_strjoin(char *s1, char *s2, char *s3);
 void	close_descriptors(int n_fds, ...);
@@ -30,4 +42,18 @@ int		print_error_message_export(char *error_arg1, char *error_arg2,
 			char *error_arg3);
 char	*get_path_from_env(char **env);
 char	*free__path_arrays(char *path, char **arr);
+int		cleanup_command(int cleanup_case, int in_fd, int out_fd);
+char	*ms_find_home(char **env);
+int		execute_exeption_command(t_ms_data *data, int in_fd, int out_fd,
+			int *pipe_fd );
+int		non_fork_exception(t_ms_data *data);
+int		fork_for_exeption_command(t_ms_data *data, int in_fd, int out_fd);
+char	*find_exeption_command(char *cmd);
+int		child_proccess_managing_outfds(int out_fd, int *pipe_fd);
+int		child_proccess_managing_infds(int in_fd, int *pipe_fd, t_ms_data *data);
+void	child_process_prep(t_ms_data *data, int in_fd, int out_fd,
+			int *pipe_fd);
+int		fork_and_execute(t_ms_data *data, int in_fd, int out_fd);
+int		command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd);
+int		command_exec_loop(t_ms_data *data);
 #endif

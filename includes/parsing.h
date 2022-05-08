@@ -6,7 +6,7 @@
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 14:47:23 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 15:39:34 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <stdlib.h>
 # include "libft.h"
 
-typedef struct s_complex_command t_cmd;
-typedef struct s_ms_data t_ms_data;
+typedef struct s_complex_command	t_cmd;
+typedef struct s_ms_data			t_ms_data;
 typedef struct s_complex_command
 {
 	char	**input;
@@ -117,7 +117,6 @@ bool	double_pipe(char *string);
 bool	multiple_redirection(char *string, char c);
 bool	wrong_angular_braces(char *string);
 bool	empty_pipes(char *string);
-
 
 //expand_env
 t_env	*env_to_str(char **env, int j);
