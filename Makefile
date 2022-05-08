@@ -6,7 +6,7 @@
 #    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 09:59:43 by kmilchev          #+#    #+#              #
-#    Updated: 2022/05/08 16:08:40 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/05/08 18:09:19 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC_PARSER =	src/parsing/parse_input.c \
 				src/parsing/modified_split.c \
 				src/parsing/error_management.c \
 				src/parsing/error_management2.c \
-				src/parsing/remove_spaces.c \
+				src/parsing/manipulate_string.c \
 				src/parsing/expand_env.c \
 				src/parsing/expand_env_utils.c \
 				src/parsing/print_utils.c \

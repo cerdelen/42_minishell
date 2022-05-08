@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 15:50:34 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 18:08:47 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,22 @@ enum {
 	D_OPEN_ONLY = 202,
 };
 
-// parse.c 
-// int		parse(char **string, char *env[], t_cmd **cmds, int *cmd_amt);
-int		parse(char **string, t_ms_data	*data);
+//error_management
+int		errors(char *string);
 
-//modified_split
-char	**modified_split(char const *s, char c);
+//error_management2
+bool	double_pipe(char *string);
+bool	multiple_redirection(char *string, char c);
+bool	wrong_angular_braces(char *string);
+bool	empty_pipes(char *string);
 
-//parse_input
-t_cmd	*fill_cmds_struct(char *string, t_ms_data	*data);
+//expand_env_utils
+bool	char_is_present(char c, char *string);
+int		get_indices(char *string, int *start_idx, int *end_idx);
 
-//utils
-int		count_chars(char *str, char c);
-int		count_double_chars(char *str, char c);
-int		count_strings(char **arr);
-char	**env_copy(char **env);
+//expand_env
+t_env	*env_to_str(char **env, int j);
+char	*expand(char *string, t_env *envv, int count, t_ms_data *data);
 
 //free_utils
 void	free_cmd_struct(t_cmd cmd);
@@ -87,11 +88,32 @@ void	free_env_struct(t_env *envv, int i);
 void	free_2d_array(char **arr);
 void	free_main_struct(t_ms_data *data);
 
+//manipulate_string
+void	remove_blank_spaces(char **string);
+void	replace_white_spaces(char **string);
+void	connect_singular_angular_braces(char **string);
+void	disconnect_angular_braces(char **string);
+
+//modified_split
+char	**modified_split(char const *s, char c);
+
+//parse_input
+t_cmd	*fill_cmds_struct(char *string, t_ms_data	*data);
+
+// parse.c 
+int		parse(char **string, t_ms_data	*data);
+
 //print_utils
 void	print_cmd_struct(t_cmd cmd);
 void	print_cmd_struct_arr(t_cmd *arr, int command_amt);
 void	print_env_struct(t_env *envv, int i);
 void	print_2d_array(char **arr);
+
+//utils
+int		count_chars(char *str, char c);
+int		count_double_chars(char *str, char c);
+int		count_strings(char **arr);
+char	**env_copy(char **env);
 
 //quotes_management
 bool	all_quotes_are_closed(char *str);
@@ -104,31 +126,5 @@ int		double_quotes_open(int status);
 void	remove_single_quotes(char **string, char rm, char keep);
 void	remove_double_quotes(char **string, char rm, char keep);
 void	remove_quotes(char **string);
-
-//remove_spaces
-void	remove_blank_spaces(char **string);
-void	replace_white_spaces(char **string);
-void	connect_singular_angular_braces(char **string);
-void	disconnect_angular_braces(char **string);
-
-//error_management
-int		errors(char *string);
-
-//error_management2
-bool	double_pipe(char *string);
-bool	multiple_redirection(char *string, char c);
-bool	wrong_angular_braces(char *string);
-bool	empty_pipes(char *string);
-
-//expand_env
-t_env	*env_to_str(char **env, int j);
-char	*reassamble_string(char *string, char *add_str, int len_s1);
-char	*remove_part_string(char *str, char*sub, int str_idx, int end_idx);
-char	*find_match(char *string, t_env *arr, int len, int arr_size);
-char	*expand(char *string, t_env *envv, int count, t_ms_data *data);
-
-//expand_env_utils
-bool	char_is_present(char c, char *string);
-int		get_indices(char *string, int *start_idx, int *end_idx);
 
 #endif
