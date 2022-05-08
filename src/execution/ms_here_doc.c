@@ -6,87 +6,88 @@
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 14:04:46 by cerdelen          #+#    #+#             */
-/*   Updated: 2022/05/08 14:23:14 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 19:35:39 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	here_doc_child_proccess(char *limiter, int *fd)
+void	here_doc_child_proccess_true(char *limiter, int *fd)
 {
 	char	*line;
 
 	close(fd[0]);
 	if (fd[1] < 0)
-		exit(-1);
+		return ;
 	while (1)
 	{
 		line = readline(">");
 		if (!line)
-		{
-			printf("Readline Error\n");
-			exit(-1);
-		}
+			exit(0);
 		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
 		{
 			free(line);
 			exit(0);
 		}
 		write(fd[1], line, ft_strlen(line));
+		write(fd[1], "\n", 1);
 		free(line);
 	}
 }
 
-int	ms_true_heredoc(char *limiter)
-{
-	int	fd[2];
-	int	w_status;
-	int	id;
-
-	if (pipe(fd) == -1)
-		return (print_error_message("pipe", NULL));
-	id = fork();
-	if (id == -1)
-		return (print_error_message("fork", NULL));
-	if (id == 0)
-		here_doc_child_proccess(limiter, fd);
-	wait(&w_status);
-	if (w_status < 0)
-		return (print_error_message("here_doc_child",
-				"process return w_status"));
-	close(fd[1]);
-	return (fd[0]);
-}
-
-void	ms_fake_heredoc(char *limiter)
+void	here_doc_child_proccess_fake(char *limiter)
 {
 	char	*line;
 
-	printf("this is start of fake_heredoc\n");
 	while (1)
 	{
 		line = readline(">");
 		if (!line)
-		{
-			printf("Readline Error\n");
 			break ;
-		}
 		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
 		{
-			free(line);
+			if (line)
+				free(line);
+			exit (0);
 			break ;
 		}
 		free(line);
 	}
+}
+
+int	here_doc_forking(char *limiter, t_ms_data *data, bool last)
+{
+	int	fd[2];
+	int	w_status;
+
+	if (pipe(fd) == -1)
+		return (print_error_message("pipe", NULL));
+	handle_here_doc_signals_parent();
+	data->p_id = fork();
+	if (data->p_id == -1)
+		return (print_error_message("fork", NULL));
+	if (data->p_id == 0)
+	{
+		handle_here_doc_signals_child();
+		if (last == true)
+			here_doc_child_proccess_true(limiter, fd);
+		if (last == false)
+			here_doc_child_proccess_fake(limiter);
+	}
+	waitpid(data->p_id, &w_status, 0);
+	handle_sigs_interactive();
+	data->exit_codes = w_status;
+	close(fd[1]);
+	if (last == false)
+		close(fd[0]);
+	return (fd[0]);
 }
 
 int	heredoc_prep(char *limiter, bool last, t_ms_data *data)
 {
 	int	fd;
 
-	if (last == false)
-		ms_fake_heredoc(limiter);
-	fd = ms_true_heredoc(limiter);
+	fd = here_doc_forking(limiter, data, last);
 	data->exit_codes = 0;
 	return (fd);
 }

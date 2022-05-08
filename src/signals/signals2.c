@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.h                                          :+:      :+:    :+:   */
+/*   signals2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/24 13:25:44 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 19:41:28 by cerdelen         ###   ########.fr       */
+/*   Created: 2022/05/08 19:38:30 by cerdelen          #+#    #+#             */
+/*   Updated: 2022/05/08 19:38:57 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNALS_H
-# define SIGNALS_H
+#include "../../includes/minishell.h"
 
-# include <signal.h>
+void	another_one(int signal)
+{
+	if (signal == SIGINT)
+		exit(1);
+}
 
-void	handle_sigs_interactive(void);
-void	handle_child_signals(void);
-void	handle_here_doc_signals_parent(void);
-void	handle_here_doc_signals_child(void);
-void	handle_here_doc_signals(void);
-#endif
+void	handle_here_doc_signals_parent(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
+}
+
+void	handle_here_doc_signals_child(void)
+{
+	signal(SIGINT, another_one);
+	signal(SIGQUIT, SIG_IGN);
+}
