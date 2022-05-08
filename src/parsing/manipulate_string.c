@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 16:58:35 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/27 13:34:44 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 18:06:43 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	remove_blank_spaces(char **string)
 	free(temp);
 }
 
-int	ft_isspace(char c)
+static int	ft_isspace(char c)
 {
 	return ((c == ' ' || c == '\f'
 			|| c == '\r' || c == '\t' || c == '\v'));
