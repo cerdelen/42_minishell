@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 15:39:15 by cerdelen          #+#    #+#             */
-/*   Updated: 2022/05/08 15:39:16 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 15:55:33 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <sys/wait.h>
-# define WHATEVS "\e[0;35mKISCER_SHELL \e[31mv1.0\e[0m $ "
+# define PROMPT "\e[0;35mKISCER_SHELL \e[31mv1.0\e[0m $ "
 
 # include "parsing.h"
 # include "builtins.h"

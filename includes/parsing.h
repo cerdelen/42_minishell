@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 15:39:34 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 15:50:34 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,13 @@ int		count_chars(char *str, char c);
 int		count_double_chars(char *str, char c);
 int		count_strings(char **arr);
 char	**env_copy(char **env);
+
 //free_utils
 void	free_cmd_struct(t_cmd cmd);
 void	free_cmd_struct_arr(t_cmd *cmd, int command_amt);
 void	free_env_struct(t_env *envv, int i);
 void	free_2d_array(char **arr);
+void	free_main_struct(t_ms_data *data);
 
 //print_utils
 void	print_cmd_struct(t_cmd cmd);
