@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 13:40:52 by cerdelen          #+#    #+#             */
-/*   Updated: 2022/05/08 13:40:53 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 14:52:08 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ int	ms_exit(t_ms_data *data)
 		free_cmd_struct_arr(data->command, data->command_amt);
 		exit(255);
 	}
-	if (data->command[data->i].cmd_flags[2] != NULL)
-		print_error_message_builtin("exit", "too many arguments", NULL);
-	if (data->command[data->i].cmd_flags[2] != NULL)
+	if (data->command[data->i].cmd_flags[1] != NULL)
+		if (data->command[data->i].cmd_flags[2] != NULL)
+			print_error_message_builtin("exit", "too many arguments", NULL);
+	if (data->command[data->i].cmd_flags[1] != NULL)
+		if (data->command[data->i].cmd_flags[2] != NULL)
 		return (1);
 	if (data->command_amt > 1)
 		return (1);
