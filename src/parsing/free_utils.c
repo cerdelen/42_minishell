@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 10:05:09 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/24 09:27:42 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 16:00:27 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../includes/minishell.h"
 
 void	free_cmd_struct(t_cmd cmd)
 {
@@ -66,4 +66,10 @@ void	free_2d_array(char **arr)
 		free(arr);
 		arr = NULL;
 	}
+}
+
+void	free_main_struct(t_ms_data *data)
+{
+	free_2d_array(data->env);
+	free_cmd_struct_arr(data->command, data->command_amt);
 }
