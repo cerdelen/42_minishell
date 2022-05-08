@@ -6,7 +6,7 @@
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 14:23:49 by cerdelen          #+#    #+#             */
-/*   Updated: 2022/05/06 16:36:33 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 14:01:34 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char	*ft_getcwd(void)
 char	*man_path_for_cd(char *pathname)
 {
 	char	*cur_wd;
-	int		ret;
 	char	*out;
 
 	if (ft_strncmp("/", pathname, 1) == 0)

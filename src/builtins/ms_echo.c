@@ -6,7 +6,7 @@
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 16:00:30 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/05 17:33:12 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 14:01:58 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ bool	every_char_is(char c, char *str)
 int	ms_echo(char **cmd_flags)
 {
 	int		i;
-	int		j;
 	bool	new_line;
 	bool	no_skip;
 

@@ -6,7 +6,7 @@
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:18:57 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 13:51:14 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 14:01:17 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	ms_unset(t_ms_data *data)
 {
 	char	*var;
 	int		i;
-	int		j;
 	int		err_res;
 
 	i = 1;
