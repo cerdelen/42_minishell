@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+         #
+#    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 09:59:43 by kmilchev          #+#    #+#              #
-#    Updated: 2022/05/08 15:29:46 by cerdelen         ###   ########.fr        #
+#    Updated: 2022/05/08 16:08:40 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ LIB = libft.a
 
 LIB_PATH = Libft
 
-# FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra
 
 SPECIAL_FLAG =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
 
