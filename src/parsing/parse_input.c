@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/07 15:40:38 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 14:41:45 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_cmd	*fill_cmds_struct(char *string, t_ms_data *data)
 	{
 		ft_bzero(&compl_cmds, sizeof(t_cmd));
 	}
-	else 
+	else
 	{
 		arr = modified_split(string, '|');
 		data->command_amt = count_chars(string, '|') + 1;

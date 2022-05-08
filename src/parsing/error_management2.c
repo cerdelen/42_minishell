@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_management2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:18:52 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/24 09:27:32 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 14:48:19 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ bool	multiple_redirection(char *string, char c)
 		{
 			return (true);
 		}
-
 		i++;
 	}
 	reset_quotes();

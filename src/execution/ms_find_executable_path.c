@@ -1,23 +1,5 @@
 #include "../../includes/minishell.h"
 
-char	*get_path_from_env(char **env)
-{
-	int		i;
-	char	*out;
-
-	i = 0;
-	while (env[i] != NULL)
-	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-		{
-			out = ft_strjoin(env[i], "");
-			return (out);
-		}
-		i++;
-	}
-	return (NULL);
-}
-
 char	**join_paths_with_cmd(char *paths, char *cmd)
 {
 	char	**paths_with_cmd;
@@ -39,7 +21,7 @@ char	**join_paths_with_cmd(char *paths, char *cmd)
 	return (paths_with_cmd);
 }
 
-char	*check_if_exec_exists_and_x_rights(char **paths_w_cmd, char *cmd)
+char	*check_if_exec_exists_and_x_rights(char **paths_w_cmd)
 {
 	int	i;
 	int	check;
@@ -58,21 +40,18 @@ char	*check_if_exec_exists_and_x_rights(char **paths_w_cmd, char *cmd)
 	return (NULL);
 }
 
-char	*free__path_arrays(char *path, char **arr)
+char	*find_executable_path_util(char	*cmd, char **env, t_ms_data *data, char **paths_with_cmd)
 {
+	char	*path;
 	char	*out;
-	int		i;
 
-	i = 0;
-	out = NULL;
-	if (path != NULL)
-		out = ft_strjoin(path, "");
-	while (arr[i] != NULL)
+	path = check_if_exec_exists_and_x_rights(paths_with_cmd);
+	out = free__path_arrays(path, paths_with_cmd);
+	if (out == NULL)
 	{
-		free(arr[i]);
-		i++;
+		print_error_message_builtin(cmd, "command not found", NULL);
+		data->exit_codes = 127;
 	}
-	free(arr);
 	return (out);
 }
 
@@ -89,18 +68,10 @@ char	*find_executable_path(char	*cmd, char **env, t_ms_data *data)
 	path = get_path_from_env(env);
 	paths_with_cmd = join_paths_with_cmd(path, cmd);
 	if (paths_with_cmd)
-	{
-		path = check_if_exec_exists_and_x_rights(paths_with_cmd, cmd);
-		out = free__path_arrays(path, paths_with_cmd);
-		if (out == NULL)
-		{
-			printf("kiscer_ms: %s: command not found\n", cmd);
-			data->exit_codes = 127;
-		}
-	}
+		out = find_executable_path_util(cmd, env, data, paths_with_cmd);
 	else
 	{
-		printf("kiscer_ms: %s: command not found\n", cmd);
+		print_error_message_builtin(cmd, "command not found", NULL);
 		data->exit_codes = 127;
 		return (NULL);
 	}

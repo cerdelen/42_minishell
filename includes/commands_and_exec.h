@@ -6,6 +6,9 @@
 # define WRITES_ONLY 2
 # define READS_AND_WRITES 3
 
+typedef struct s_complex_command t_cmd;
+typedef struct s_ms_data t_ms_data;
+
 char	*ft_tripple_strjoin(char *s1, char *s2, char *s3);
 void	close_descriptors(int n_fds, ...);
 char	**ft_free(char **array);

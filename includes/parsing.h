@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:46:53 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/07 15:48:28 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 14:47:23 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include "libft.h"
 
+typedef struct s_complex_command t_cmd;
 typedef struct s_ms_data t_ms_data;
 typedef struct s_complex_command
 {
@@ -77,7 +78,7 @@ t_cmd	*fill_cmds_struct(char *string, t_ms_data	*data);
 int		count_chars(char *str, char c);
 int		count_double_chars(char *str, char c);
 int		count_strings(char **arr);
-
+char	**env_copy(char **env);
 //free_utils
 void	free_cmd_struct(t_cmd cmd);
 void	free_cmd_struct_arr(t_cmd *cmd, int command_amt);
@@ -128,6 +129,5 @@ char	*expand(char *string, t_env *envv, int count, t_ms_data *data);
 //expand_env_utils
 bool	char_is_present(char c, char *string);
 int		get_indices(char *string, int *start_idx, int *end_idx);
-char	**env_copy(char **env);
 
 #endif
