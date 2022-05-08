@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:34:24 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 13:35:21 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 14:03:42 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	get_start_idx(char *string, int i, int *start_idx, int status)
 		}
 	}
 }
-void	get_end_idx(char *str, int i, int *start_idx, int *end_idx)
+void	get_end_idx(char *str, int i, int *end_idx)
 {
 	i += 1;
 	while (str[i] && (ft_isalnum(str[i]) || str[i] == '?'))
@@ -112,7 +112,7 @@ int	get_indices(char *str, int *start_idx, int *end_idx)
 			status = double_quotes_open(status);
 		get_start_idx(str, i, start_idx, status);
 		if (*start_idx)
-			get_end_idx(str, i, start_idx, end_idx);
+			get_end_idx(str, i, end_idx);
 		if (*end_idx)
 			break ;
 	}
