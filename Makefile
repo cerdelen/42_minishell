@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
+#    By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 09:59:43 by kmilchev          #+#    #+#              #
-#    Updated: 2022/05/08 18:09:19 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/05/08 19:40:25 by cerdelen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRC_BUILTINS =	src/builtins/ms_export.c \
 				src/builtins/ms_exit.c \
 				src/builtins/ms_pwd.c
 				
-SRC_SIGNALS =	src/signals/signals.c
+SRC_SIGNALS =	src/signals/signals.c \
+				src/signals/signals2.c
 
 MAIN_SRC = src/main.c
 
@@ -53,7 +54,7 @@ LIB = libft.a
 
 LIB_PATH = Libft
 
-FLAGS = -Wall -Werror -Wextra
+#FLAGS = -Wall -Werror -Wextra
 
 SPECIAL_FLAG =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
 

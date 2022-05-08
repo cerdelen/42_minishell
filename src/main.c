@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 09:46:07 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 16:30:27 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 19:41:00 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	main_loop(t_ms_data *data)
 {
 	char	*line;
-	
+
 	while (1)
 	{
 		line = readline(PROMPT);
