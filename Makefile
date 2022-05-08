@@ -17,7 +17,7 @@ SRC_PARSER =	src/parsing/parse_input.c \
 				src/parsing/modified_split.c \
 				src/parsing/error_management.c \
 				src/parsing/error_management2.c \
-				src/parsing/remove_spaces.c \
+				src/parsing/manipulate_string.c \
 				src/parsing/expand_env.c \
 				src/parsing/expand_env_utils.c \
 				src/parsing/print_utils.c \
