@@ -6,7 +6,7 @@
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 09:46:07 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 12:14:23 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 13:44:14 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ static void	child_signal_handler(int signal)
 		ft_putchar_fd('\n', STDERR_FILENO);
 }
 
-
 void	handle_child_signals(void)
 {
 	signal(SIGINT, child_signal_handler);
 	signal(SIGQUIT, child_signal_handler);
 }
-
 
 int	main(int argc, char *argv[], char *env[])
 {
@@ -59,10 +57,9 @@ int	main(int argc, char *argv[], char *env[])
 	{
 		line = readline(WHATEVS);
 		if (!line)
-		{
 			write(2, "exit\n", 5);
+		if (!line)
 			break ;
-		}
 		if (line[0] == 0)
 			continue ;
 		if (ft_strlen(line) > 0)
