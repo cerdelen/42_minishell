@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:59:29 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/06 18:21:11 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 13:50:27 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,24 +119,3 @@ int	ms_export(t_ms_data *data)
 	export_util(data, 0, var_val, added);
 	return (0);
 }
-
-// int	main(int argc, char *argv[], char *env[])
-// {
-// 	char	**envv;
-// 	char	**cmd_flags;
-// 	t_ms_data d;
-// 	d.env = env_copy(env);
-// 	cmd_flags = malloc(21 * sizeof(char *));
-// 	// cmd_flags[0] = ft_strdup("635d=22");
-// 	// cmd_flags[1] = ft_strdup("USER=grzegorzbrzeczyszczykiewicz");
-// 	// cmd_flags[2] = ft_strdup("LOGNAME=wyrewolwerowanyrewolwerowiec");
-// 	// cmd_flags[3] = ft_strdup("NEW_VARIABLE1=");
-// 	// cmd_flags[4] = ft_strdup("City=chrzyszczyrzegorzycepowiatlekodoly");
-// 	cmd_flags[0] = NULL;
-// 	d.cm
-// 	// print_2d_array(envv);
-// 	ms_export(d);
-// 	// print_2d_array(envv);
-// 	free_2d_array(envv);
-// 	free_2d_array(cmd_flags);
-// }
