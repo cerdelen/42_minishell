@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ms_find_executable_path.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/08 15:05:11 by cerdelen          #+#    #+#             */
+/*   Updated: 2022/05/08 15:05:12 by cerdelen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 char	**join_paths_with_cmd(char *paths, char *cmd)
@@ -40,7 +52,8 @@ char	*check_if_exec_exists_and_x_rights(char **paths_w_cmd)
 	return (NULL);
 }
 
-char	*find_executable_path_util(char	*cmd, char **env, t_ms_data *data, char **paths_with_cmd)
+char	*find_executable_path_util(char	*cmd, char **env, t_ms_data *data,
+	char **paths_with_cmd)
 {
 	char	*path;
 	char	*out;
