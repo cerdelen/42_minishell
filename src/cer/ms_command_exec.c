@@ -44,7 +44,6 @@ int	child_proccess_managing_infds(int in_fd, int *pipe_fd, t_ms_data *data)
 
 	if ((in_fd == -1 || in_fd == -2) && data->i > 0)
 	{
-		printf("%d\n", data->i);
 		check = dup2(pipe_fd[0], STDIN_FILENO);
 		if (check < 0)
 			return (print_error_message("dup2", NULL));
@@ -148,7 +147,7 @@ int	non_fork_exception(t_ms_data *data)
 
 	cmd = data->command[data->i].cmd_flags[0];
 	if (ft_strncmp(cmd, "exit", 6) == 0)
-		ms_exit(data);
+		return (ms_exit(data));
 	if (ft_strncmp(cmd, "cd", 3) == 0)
 		return (ms_cd(data->command[data->i].cmd_flags[1],
 				ms_find_home(data->env), data));

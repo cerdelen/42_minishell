@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/08 13:41:32 by cerdelen          #+#    #+#             */
+/*   Updated: 2022/05/08 13:42:16 by cerdelen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 char	*ft_tripple_strjoin(char *s1, char *s2, char *s3)
@@ -42,11 +54,9 @@ int	print_error_message(char *error_arg1, char *error_arg2)
 	return (-1);
 }
 
-int	print_error_message_builtin(char *error_arg1, char *error_arg2, char *error_arg3)
+int	print_error_message_builtin(char *error_arg1, char *error_arg2,
+	char *error_arg3)
 {
-	char	*error_msg;
-
-	error_msg = strerror(errno);
 	write(STDERR_FILENO, "kiscer_ms", 9);
 	write(STDERR_FILENO, ": ", 2);
 	if (error_arg1 != NULL)
@@ -65,7 +75,8 @@ int	print_error_message_builtin(char *error_arg1, char *error_arg2, char *error_
 	return (-1);
 }
 
-int	print_error_message_export(char *error_arg1, char *error_arg2, char *error_arg3)
+int	print_error_message_export(char *error_arg1, char *error_arg2,
+	char *error_arg3)
 {
 	char	*error_msg;
 
