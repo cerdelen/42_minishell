@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:00:58 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 14:41:45 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 17:37:54 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../includes/parsing.h"
 #include "../../includes/minishell.h"
 
 void	init_el_am(char **elements, t_n_el *el_amount)
@@ -49,7 +48,6 @@ void	distribute_strings(char **elements, t_n_el n_el, t_cmd *cmd)
 	i = 0;
 	while ((elements[i]))
 	{
-		remove_quotes(&elements[i]);
 		if (ft_strncmp(">>", elements[i], 2) == 0)
 			cmd->output[n_el.idx_red_out++] = ft_strdup(elements[i]);
 		else if (ft_strncmp("<<", elements[i], 2) == 0)
@@ -59,7 +57,10 @@ void	distribute_strings(char **elements, t_n_el n_el, t_cmd *cmd)
 		else if ('>' == elements[i][0])
 			cmd->output[n_el.idx_red_out++] = ft_strjoin("> ", elements[i] + 1);
 		else
+		{
+			remove_quotes(&elements[i]);
 			cmd->cmd_flags[n_el.idx_cmd_flags++] = ft_strdup(elements[i]);
+		}
 		i++;
 	}
 }
