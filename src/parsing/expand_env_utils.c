@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:34:24 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/07 14:20:10 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 13:35:21 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,22 @@ void	get_start_idx(char *string, int i, int *start_idx, int status)
 		}
 	}
 }
+void	get_end_idx(char *str, int i, int *start_idx, int *end_idx)
+{
+	i += 1;
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '?'))
+	{
+		i++;
+		if (str[i - 2] == '$' && str[i - 1] == '?')
+			break ;
+		if (str[i - 1] == '?')
+		{
+			i--;
+			break ;
+		}
+	}
+	*end_idx = i - 1;
+}
 
 int	get_indices(char *str, int *start_idx, int *end_idx)
 {
@@ -96,12 +112,7 @@ int	get_indices(char *str, int *start_idx, int *end_idx)
 			status = double_quotes_open(status);
 		get_start_idx(str, i, start_idx, status);
 		if (*start_idx)
-		{
-			i += 1;
-			while (str[i] && (ft_isalnum(str[i]) || str[i] == '?'))
-				i++;
-			*end_idx = i - 1;
-		}
+			get_end_idx(str, i, start_idx, end_idx);
 		if (*end_idx)
 			break ;
 	}
