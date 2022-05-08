@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 13:40:52 by cerdelen          #+#    #+#             */
-/*   Updated: 2022/05/08 14:52:08 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 15:14:48 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,8 @@ int	str_only_numerical(char *str)
 	return (0);
 }
 
-int	ms_exit(t_ms_data *data)
+void	numerical_argument_exception(t_ms_data *data)
 {
-	int	i;
-
-	write(2, "exit\n", 5);
 	if (str_only_numerical(data->command[data->i].cmd_flags[1]))
 	{
 		print_error_message_builtin("exit",
@@ -55,12 +52,20 @@ int	ms_exit(t_ms_data *data)
 		free_cmd_struct_arr(data->command, data->command_amt);
 		exit(255);
 	}
+}
+
+int	ms_exit(t_ms_data *data)
+{
+	int	i;
+
+	write(2, "exit\n", 5);
+	numerical_argument_exception(data);
 	if (data->command[data->i].cmd_flags[1] != NULL)
 		if (data->command[data->i].cmd_flags[2] != NULL)
 			print_error_message_builtin("exit", "too many arguments", NULL);
 	if (data->command[data->i].cmd_flags[1] != NULL)
 		if (data->command[data->i].cmd_flags[2] != NULL)
-		return (1);
+			return (1);
 	if (data->command_amt > 1)
 		return (1);
 	if (data->command[data->i].cmd_flags[1] != NULL)
