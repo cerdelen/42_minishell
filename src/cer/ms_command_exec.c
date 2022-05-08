@@ -180,7 +180,6 @@ int	fork_for_exeption_command(t_ms_data *data, int in_fd, int out_fd)
 	if (data->p_id == 0)
 		exit(execute_exeption_command(data, in_fd, out_fd, pipe_fd));
 	waitpid(data->p_id, &w_status, 0);
-	printf("w_status == %d\n", w_status);
 	data->exit_codes = w_status;
 	if (w_status > 255)
 		data->exit_codes = w_status / 256;
