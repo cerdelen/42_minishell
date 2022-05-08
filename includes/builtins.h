@@ -6,7 +6,7 @@
 /*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:58:17 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/06 16:34:51 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 13:07:14 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ int		ms_export(t_ms_data *data);
 int		ms_env(char **cmd_flags, char **env);
 int		ms_cd(char *pathname, char *home, t_ms_data *data);
 int		ms_pwd(void);
+int		ms_exit(t_ms_data *data);
 #endif
