@@ -6,7 +6,7 @@
 #    By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 09:59:43 by kmilchev          #+#    #+#              #
-#    Updated: 2022/05/08 14:32:52 by cerdelen         ###   ########.fr        #
+#    Updated: 2022/05/08 15:29:46 by cerdelen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,10 @@ SRC_EXECUTOR =	src/execution/ms_command_exec.c \
 				src/execution/ms_find_executable_path_utils.c \
 				src/execution/open_access_files.c \
 				src/execution/utils.c \
+				src/execution/utils2.c \
 				src/execution/ms_here_doc.c \
+				src/execution/handling_builtins.c \
+				src/execution/forking_and_executing.c \
 
 SRC_BUILTINS =	src/builtins/ms_export.c \
 				src/builtins/ms_unset.c \
