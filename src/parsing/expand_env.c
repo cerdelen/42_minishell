@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:45:01 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 13:36:54 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 14:45:02 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	*expand(char *string, t_env *envv, int count, t_ms_data *data)
 	int		end_idx;
 	char	*variable;
 	char	*value;
-	
+
 	start_idx = 0;
 	end_idx = 0;
 	if (get_indices(string, &start_idx, &end_idx))

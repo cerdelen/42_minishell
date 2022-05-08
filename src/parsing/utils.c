@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 15:44:57 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/04/24 09:28:30 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/05/08 14:47:58 by cerdelen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,23 @@ int	count_strings(char **arr)
 	while (arr[i])
 		i++;
 	return (i);
+}
+
+char	**env_copy(char **env)
+{
+	char	**env_cp;
+	int		i;
+
+	i = 0;
+	while (env[i])
+		i++;
+	env_cp = ft_calloc(i + 3, sizeof(char *));
+	i = 0;
+	while (env[i])
+	{
+		env_cp[i] = ft_strdup(env[i]);
+		i++;
+	}
+	env_cp[i] = NULL;
+	return (env_cp);
 }

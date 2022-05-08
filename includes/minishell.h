@@ -17,6 +17,10 @@
 # include <sys/wait.h>
 # define WHATEVS "\e[0;35mKISCER_SHELL \e[31mv1.0\e[0m $ "
 
+# include "parsing.h"
+# include "builtins.h"
+# include "commands_and_exec.h"
+# include "signals.h"
 typedef struct s_complex_command t_cmd;
 typedef struct s_ms_data
 {
@@ -29,10 +33,6 @@ typedef struct s_ms_data
 	struct sigaction	sa_int;
 }	t_ms_data;
 
-# include "signals.h"
-# include "parsing.h"
-# include "builtins.h"
-# include "get_next_line.h"
-# include "commands_and_exec.h"
+
 
 #endif

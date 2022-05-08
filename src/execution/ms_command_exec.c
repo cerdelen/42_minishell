@@ -81,10 +81,9 @@ void	child_process_prep(t_ms_data *data, int in_fd, int out_fd, int *pipe_fd)
 	exit(-1);
 }
 
-int	fork_and_execute(t_ms_data *data, int in_fd, int out_fd, int i)
+int	fork_and_execute(t_ms_data *data, int in_fd, int out_fd)
 {
 	int	pipe_fd[2];
-	int	id;
 	int	w_status;
 
 	if (pipe(pipe_fd) == -1)
@@ -161,7 +160,6 @@ int	non_fork_exception(t_ms_data *data)
 int	fork_for_exeption_command(t_ms_data *data, int in_fd, int out_fd)
 {
 	int	pipe_fd[2];
-	int	id;
 	int	w_status;
 	int	check;
 
@@ -237,7 +235,7 @@ int	command_exec_prep(t_ms_data *data, int i, int in_fd, int out_fd)
 	if (data->command[i].cmd_flags[0] != execute_path)
 		free(data->command[i].cmd_flags[0]);
 	data->command[i].cmd_flags[0] = execute_path;
-	return (fork_and_execute(data, in_fd, out_fd, i));
+	return (fork_and_execute(data, in_fd, out_fd));
 }
 
 int	command_exec_loop(t_ms_data *data)
