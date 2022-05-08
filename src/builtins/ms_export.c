@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:59:29 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/05/08 13:50:27 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 16:10:46 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**add_var(char *var, char *env[])
 	return (new_arr);
 }
 
-bool	norm(t_ms_data *data, int i, char **var_val)
+bool	check_if_var_exists(t_ms_data *data, int i, char **var_val)
 {
 	int		j;
 	bool	added;
@@ -93,7 +93,7 @@ void	export_util(t_ms_data *data, int i, char **var_val, bool added)
 			free_2d_array(var_val);
 			continue ;
 		}
-		added = norm(data, i, var_val);
+		added = check_if_var_exists(data, i, var_val);
 		if (!added)
 			data->env = add_var(data->command[data->i].cmd_flags[i], data->env);
 		free_2d_array(var_val);
@@ -106,6 +106,8 @@ int	ms_export(t_ms_data *data)
 	bool	added;
 	int		i;
 
+	var_val = NULL;
+	added = false;
 	i = 0;
 	if (data->command[data->i].cmd_flags[1] == NULL)
 	{

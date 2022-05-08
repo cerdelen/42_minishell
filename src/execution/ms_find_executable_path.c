@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_find_executable_path.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerdelen <cerdelen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 15:05:11 by cerdelen          #+#    #+#             */
-/*   Updated: 2022/05/08 15:05:12 by cerdelen         ###   ########.fr       */
+/*   Updated: 2022/05/08 16:12:52 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*check_if_exec_exists_and_x_rights(char **paths_w_cmd)
 	return (NULL);
 }
 
-char	*find_executable_path_util(char	*cmd, char **env, t_ms_data *data,
+char	*find_executable_path_util(char	*cmd, t_ms_data *data,
 	char **paths_with_cmd)
 {
 	char	*path;
@@ -81,7 +81,7 @@ char	*find_executable_path(char	*cmd, char **env, t_ms_data *data)
 	path = get_path_from_env(env);
 	paths_with_cmd = join_paths_with_cmd(path, cmd);
 	if (paths_with_cmd)
-		out = find_executable_path_util(cmd, env, data, paths_with_cmd);
+		out = find_executable_path_util(cmd, data, paths_with_cmd);
 	else
 	{
 		print_error_message_builtin(cmd, "command not found", NULL);
